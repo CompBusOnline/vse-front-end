@@ -15,7 +15,7 @@
 <div class="large-4 medium-6 small-12 columns vse-item" id="vehicle_{{x.StockNumber}}" data-stocknumber="{{x.StockNumber}}" data-name="{{x.VehicleName}}" data-category="{{x.Category}}" data-status="{{x.Status}}" data-makecode="{{x.MakeCode}}" data-model="{{x.Model}}" data-colour="{{x.Colour}}" data-transmission="{{x.Transmission}}" data-fueltype="{{x.FuelType}}" data-body="{{x.Body}}" data-cylinders="{{x.Cylinders}}" data-doorcount={{x.DoorCount}} data-enginecapacity="{{x.EngineCapacity}}" data-price="{{DataPrice}}" data-year="{{x.Year}}" data-km="{{x.Kilometres}}">
     <div class="vse-full-border">  
         <div class="vse-image-container">
-            <a href="{{x.Url}}"><img alt="{{x.VehicleName}}" data-original="/files/images/{{x.StockNumber}}_1.jpg{{thumbnail}}&time={{globals.site.dateNow | date:'ffff'}}" class="lazy vse-image" src="/_System/Includes/vse2/images/vse-placeholder.jpg" /></a>
+            <a href="{{x.Url}}"><img alt="{{x.VehicleName}}" data-original="/files/images/{{x.StockNumber}}_1.jpg{{thumbnail}}&time={{globals.site.dateNow | date:'ffff'}}" class="lazy vse-image" src="/_System/Includes/vse-v2/images/vse-placeholder.jpg" /></a>
         </div>
         
         <div class="small-12 columns vse-details1-container text-right">

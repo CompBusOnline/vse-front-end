@@ -229,14 +229,14 @@
 				{% endif -%}
 				
 				{% if ctrx > 0 -%} 
-					{%include "/_System/Includes/vse2/vse-body-layout.tpl"-%}
+					{%include "/_System/Includes/vse-v2/vse-body-layout.tpl"-%}
 				{% endif -%}
 			{% endfor -%}
 {% if {{settings.enable_pagination}} == 'true' %}
-<script type="text/javascript" src="/_System/Includes/vse2/js/jPages.min.js"></script>
+<script type="text/javascript" src="/_System/Includes/vse-v2/js/jPages.min.js"></script>
 {% endif %}
-<script type="text/javascript" src="/_System/Includes/vse2/js/jquery.lazyload.min.js"></script>
-<script type="text/javascript" src="/_System/Includes/vse2/js/search_filter.js"></script>
+<script type="text/javascript" src="/_System/Includes/vse-v2/js/jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="/_System/Includes/vse-v2/js/search_filter.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         initSequencialReading();
@@ -275,7 +275,7 @@
         return function(endOfTaskCallback) {
             $('.vse-item img').each(function() {
                 if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-                    this.src = '/_System/Includes/vse2/images/vse-placeholder.jpg';
+                    this.src = '/_System/Includes/vse-v2/images/vse-placeholder.jpg';
                 }
             });
             endOfTaskCallback();
