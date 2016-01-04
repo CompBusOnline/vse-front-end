@@ -1,12 +1,18 @@
 {%comment%}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}{%endcomment%}
 {module_webapps id="30409" filter="all" template="" collection="vehicles"}
+		{% if globals.get.category == "demo,used" -%}
+			{% assign category = ""  -%}
+		{% elsif globals.get.category == "used" %}
+			{% assign category = "used"  -%}
+		{% elsif globals.get.category == "demo" %}
+			{% assign category = "demo"  -%}
+		{% endif -%}
+
 		{% assign makecode = {{globals.get.makecode | convert: "string" | json}} -%}
 		{% assign model = {{globals.get.model | convert: "string" | json}} -%}
 		{% assign colour = {{globals.get.colour | convert: "string" | json}} -%}
 		{% assign fromprice = {{globals.get.fromprice | convert: "string" | json}} -%}
 		{% assign toprice = {{globals.get.toprice | convert: "string" | json}} -%}
-		{% assign fromyear = {{globals.get.fromyear | convert: "string" | json}} -%}
-		{% assign toyear = {{globals.get.toyear | convert: "string" | json}} -%}
 		{% assign transmission = {{globals.get.transmission | convert: "string" | json}} -%}
 		{% assign fueltype = {{globals.get.fueltype | convert: "string" | json}} -%}
 		{% assign body = {{globals.get.body | convert: "string" | json}} -%}
@@ -18,6 +24,7 @@
 		{% assign enginecapacity = {{globals.get.enginecapacity | convert: "string" | json}} -%}
 		{% assign stocknumber = {{globals.get.stocknumber | convert: "string" | json}} -%}
 		{% assign sortby = {{globals.get.sortby | convert: "string" | json}} -%}
+		{% assign year = {{globals.get.year | convert: "string" | json}} -%}
 		
 		{% if category == "null" -%} {% assign category = "n/a" -%} {% endif -%}
 		{% if status == "null" -%} {% assign status = "n/a" -%} {% endif -%}
@@ -26,8 +33,6 @@
 		{% if colour == "null" -%} {% assign colour = "n/a" -%} {% endif -%}
 		{% if fromprice == "null" -%} {% assign fromprice = "n/a" -%} {% endif -%}
 		{% if toprice == "null" -%} {% assign toprice = "n/a" -%} {% endif -%}
-		{% if fromyear == "null" -%} {% assign fromyear = "n/a" -%} {% endif -%}
-		{% if toyear == "null" -%} {% assign toyear = "n/a" -%} {% endif -%}
 		{% if transmission == "null" -%} {% assign transmission = "n/a" -%} {% endif -%}
 		{% if fueltype == "null" -%} {% assign fueltype = "n/a" -%} {% endif -%}
 		{% if body == "null" -%} {% assign body = "n/a" -%} {% endif -%}
@@ -38,6 +43,7 @@
 		{% if enginecapacity == "null" -%} {% assign enginecapacity = "n/a" -%} {% endif -%}
 		{% if stocknumber == "null" -%} {% assign stocknumber = "n/a" -%} {% endif -%}
 		{% if sortby == "null" -%} {% assign sortby = "n/a" -%} {% endif -%}
+		{% if year == "null" -%} {% assign year = "n/a" -%} {% endif -%}
 		  
 		{% if category == "" -%} {% assign category = "n/a" -%}{% endif -%}
 		{% if status == "" -%} {% assign status = "n/a" -%}{% endif -%}
@@ -46,8 +52,6 @@
 		{% if colour == "" -%} {% assign colour = "n/a" -%} {% endif -%}
 		{% if fromprice == "" -%} {% assign fromprice = "n/a" -%} {% endif -%}
 		{% if toprice == "" -%} {% assign toprice = "n/a" -%} {% endif -%}
-		{% if fromyear == "" -%} {% assign fromyear = "n/a" -%} {% endif -%}
-		{% if toyear == "" -%} {% assign toyear = "n/a" -%} {% endif -%} 
 		{% if transmission == "" -%} {% assign transmission = "n/a" -%} {% endif -%}
 		{% if fueltype == "" -%} {% assign fueltype = "n/a" -%} {% endif -%}
 		{% if body == "" -%} {% assign body = "n/a" -%} {% endif -%}
@@ -58,6 +62,7 @@
 		{% if enginecapacity == "" -%} {% assign enginecapacity = "n/a" -%} {% endif -%}
 		{% if stocknumber == "" -%} {% assign stocknumber = "n/a" -%} {% endif -%}
 		{% if sortby == "" -%} {% assign sortby = "n/a" -%}{% endif -%}
+		{% if year == "" -%} {% assign year = "n/a" -%}{% endif -%}
 		
 		
 		{% assign xprice = {{x.Price}} -%}
@@ -76,21 +81,6 @@
 			{% assign numtoprice = {{globals.get.toprice | convert: "number" | json}} -%}
 		{% endif -%}
 		
-		{% assign xyear = {{x.Year}} -%}
-		{% assign numfromyear = -1 -%}
-		{% assign numtoyear = -1 -%}
-		
-		{% if fromyear == "n/a" -%} 
-			{% assign numfromyear = 0 -%}
-		{% else -%}
-			{% assign numfromyear = {{globals.get.fromyear | convert: "number" | json}} -%}
-		{% endif -%}
-		
-		{% if toyear == "n/a" -%} 
-			{% assign numtoyear = 9999999 -%}
-		{% else -%} 
-			{% assign numtoyear = {{globals.get.toyear | convert: "number" | json}} -%}
-		{% endif -%}
 		
 		{% assign xkilometres = {{x.Kilometres}} -%}
 		{% assign numfromkm = -1 -%}
@@ -119,6 +109,7 @@
 		{% comment -%} ENGINE CAPACITY {% endcomment -%}
 		
 		<script type="text/javascript">
+            var global_category = "{{globals.get.category}}";
 			var global_stocknumber = "{{globals.get.stocknumber}}";
 			var global_makecode = "{{globals.get.makecode}}";
 			var global_model = "{{globals.get.model}}";
@@ -133,23 +124,22 @@
 			var global_toprice = {{numtoprice}};
 			var global_fromkm = {{numfromkm}};
 			var global_tokm = {{numtokm}};
-			var global_fromyear = {{numfromyear}};
-			var global_toyear = {{numtoyear}}; 
+			var global_year = "{{globals.get.year}}";
 			var global_sortby = "{{globals.get.sortby}}";
 			
+            var iscategory = $.trim(global_category)==""?false:true;
 			var ismakecode = $.trim(global_makecode)==""?false:true;
 			var ismodel = $.trim(global_model)==""?false:true;
 			var iscolour = $.trim(global_colour) ==""?false:true;
 			var istransmission = $.trim(global_transmission)==""?false:true;
 			var isfueltype = $.trim(global_fuel)==""?false:true;
-			var isfromyear = $.trim(global_fromyear) == ""?false:true;
-			var istoyear = $.trim(global_toyear) == ""?false:true;
 			var isbody = $.trim(global_body)==""?false:true;
 			var iscylinders = $.trim(global_cylinders)==""?false:true;
 			var isdoorcount = $.trim(global_doorcount)==""?false:true;
 			var isenginecapacity = $.trim(global_enginecapacity)==""?false:true;
 			var issortby = $.trim(global_sortby)==""?false:true; 
 			var isstocknumber = $.trim(global_stocknumber)==""?false:true; 
+			var isyear = $.trim(global_year)==""?false:true;
 			var issortby = $.trim(global_sortby)==""?false:true; 
 		</script>
 
@@ -220,7 +210,7 @@
 				{% assign strstocknumber = {{xstocknumber|convert:"string"|json}} -%}
 				{% if ctrx == 1 -%}
 					{% if ystocknumber != "n/a" -%}
-						{% if stocknumber contains x.StockNumber -%}
+						{% if stocknumber contains xstocknumber -%}
 							{% assign ctrx = 1 -%}  
 						{% else -%} 
 							{% assign ctrx = 0 -%}
@@ -246,7 +236,7 @@
     });
     
     function initSequencialReading() {
-        //console.log('initSequencialReading...');
+        console.log('initSequencialReading...');
         var tasks = [];
         tasks.push(initFilterSearch('.vse-item'));
         tasks.push(initSorting());
@@ -264,7 +254,7 @@
     }, false);
     
     function initFilterSearch(_listitem) {
-        //console.log("Initialising filters...");
+        console.log("Initialising filters...");
         return function(endOfTaskCallback) {
             filterSearch(_listitem);
             endOfTaskCallback();
@@ -306,7 +296,7 @@
     }
     
     function initOtherStuff() {
-        //console.log("Initialising other stuff...");
+        console.log("Initialising other stuff...");
         // add comma
         $.fn.digits = function() {
             return this.each(function() {
@@ -369,10 +359,10 @@
     }
     
     function initPagination() {
-        //console.log("Initialising pagination...");
+        console.log("Initialising pagination...");
         $("div.holder").jPages({
             containerID: "vehicles",
-            perPage: 2,
+            perPage: 24,
             previous: "",
             next: "",
             minHeight: false
