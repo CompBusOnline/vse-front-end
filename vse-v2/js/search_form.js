@@ -9,16 +9,6 @@ function initMakeCodeChange() {
 $('#reset').click(function() {
     location.replace(location.pathname);
 });
-$('input[type="checkbox"][name="category[]"]').on('change', function() {
-    var getArrVal = $('input[type="checkbox"][name="category[]"]:checked').map(function() {
-        return this.value;
-    }).toArray();
-    if (!getArrVal.length) {
-        $(this).prop("checked", true);
-        sweetAlert("Oopss..", "You must tick at least one value", "warning");
-        return false;
-    };
-});
 
 function initPrices() {
 	var price = new Array();
@@ -71,11 +61,12 @@ function initSearchButton(page_url) {
 		var body = $.trim($('#body').val());
 		var stocknumber = $.trim($('#stocknumber').val());
         
-        //console.log(category);
+        console.log(category);
 	
 		var x = page_url; 
 	 
 		if(stocknumber.length != 0) {
+            if(category.length > 0) { x += "category=" + category + "&"; }
 			if(stocknumber.length != 0) { x += "stocknumber=" + stocknumber + "&" }
 		} else {
             if(category.length > 0) { x += "category=" + category + "&"; }
@@ -372,6 +363,7 @@ function reinitialiseCategory() {
 				$(this).attr('checked','true');
 			}
 		}
+         
 	  });
 	  
 }
@@ -481,10 +473,10 @@ function reinitialiseStockNumbers() {
 
 function isAdvanceSearch() {
 	var ans = false;
-	if(isyear || istransmission || isfueltype || isbody || isstocknumber || isdoorcount || isenginecapacity) {
+	if(isyear || istransmission || isfueltype || isbody || isstocknumber) {
 		ans = true;
-		$('#sidebar-wrapper .advanced-search').attr('style','display: block;');
-		$('#sidebar-wrapper .show-more').html("Basic Search");
+		$('#sidebar-wrapper .vse-advanced-search').attr('style','display: block;');
+		$('#sidebar-wrapper .vse-show-more').html("Basic Search");
 	}
 	return ans;
 }
