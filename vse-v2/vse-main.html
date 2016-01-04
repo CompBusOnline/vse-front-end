@@ -236,13 +236,13 @@
     });
     
     function initSequencialReading() {
-        console.log('initSequencialReading...');
+        //console.log('initSequencialReading...');
         var tasks = [];
         tasks.push(initFilterSearch('.vse-item'));
         tasks.push(initSorting());
         tasks.push(initLazyLoad());
         new TaskList(tasks, function() {
-            console.log("Sequencial reading complete!");
+            //console.log("Sequencial reading complete!");
             $('.vse-loader').hide();
             $('#vehicles').fadeIn("slow");
         }).doTasks();
@@ -254,7 +254,7 @@
     }, false);
     
     function initFilterSearch(_listitem) {
-        console.log("Initialising filters...");
+        //console.log("Initialising filters...");
         return function(endOfTaskCallback) {
             filterSearch(_listitem);
             endOfTaskCallback();
@@ -273,7 +273,7 @@
     }
     
     function initLazyLoad() {
-        console.log("Initialising lazy load...");
+        //console.log("Initialising lazy load...");
         return function(endOfTaskCallback) {
             $(".vse-image").lazyload({
                 effect: "fadeIn",
@@ -284,7 +284,7 @@
     }
     
     function initPaginationAndSorting() {
-        console.log("Initialising onload pagination and sorting...");
+        //console.log("Initialising onload pagination and sorting...");
         return function(endOfTaskCallback) {
             $('.vse-item').sort(function(a, b) {
                 return $(b).data('price') - $(a).data('price');
@@ -359,7 +359,7 @@
     }
     
     function initPagination() {
-        console.log("Initialising pagination...");
+        //console.log("Initialising pagination...");
         $("div.holder").jPages({
             containerID: "vehicles",
             perPage: 24,
