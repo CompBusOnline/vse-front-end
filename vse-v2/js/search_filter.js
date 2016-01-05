@@ -137,11 +137,12 @@ function filterSearch(_listitem) {
     if (item_count <= 20){$('.holder').hide();}else{$('.holder').show();}
 	
 	if(issortby) {
-		$("#sortingdata option[value='" + global_sortby + "']").attr('selected', 'selected');
+		$(".sortingdata option[value='" + global_sortby + "']").attr('selected', 'selected');
+        $("input[name='sortingdata']").val(global_sortby);
 		
 		switch (global_sortby) {
 			case 'pricelh': {
-				$('.instock-cars').sort(function(a, b) {
+				$('.vse-item').sort(function(a, b) {
 					return $(a).data('price') - $(b).data('price');
 				}).each(function(_, container) {
 					$(container).parent().append(container);
@@ -150,7 +151,7 @@ function filterSearch(_listitem) {
 			}
 				
 			case 'pricehl': {
-				$('.instock-cars').sort(function(a, b) {
+				$('.vse-item').sort(function(a, b) {
 					return $(b).data('price') - $(a).data('price');
 				}).each(function(_, container) {
 					$(container).parent().append(container);
@@ -158,16 +159,16 @@ function filterSearch(_listitem) {
 				break;
 			}
 			   case 'yrl': {
-				   $('.instock-cars').sort(function (a, b) {
-						return $(a).data('price') - $(b).data('price');
+				   $('.vse-item').sort(function (a, b) {
+						return $(a).data('year') - $(b).data('year');
 						}).each(function (_, container) {
 							 $(container).parent().append(container);
 					});
 					break; 
 			  }
 			  case 'yrh': {
-				  $('.instock-cars').sort(function (a, b) {
-					return $(b).data('price') - $(a).data('price');
+				  $('.vse-item').sort(function (a, b) {
+					return $(b).data('year') - $(a).data('year');
 					}).each(function (_, container) {
 						 $(container).parent().append(container);
 				});
@@ -175,6 +176,8 @@ function filterSearch(_listitem) {
 			  }
 			  default: { break; }
 		}	
+        
+                console.log(global_sortby);
 	}
 	
 	isAdvanceSearch();
