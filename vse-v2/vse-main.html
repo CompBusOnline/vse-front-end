@@ -1,5 +1,6 @@
 {%comment%}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}{%endcomment%}
 {module_webapps id="30409" filter="all" template="" collection="vehicles"}
+		{% assign status = "In Stock" -%}
 		{% if globals.get.category == "demo,used" -%}
 			{% assign category = ""  -%}
 		{% elsif globals.get.category == "used" %}
@@ -159,9 +160,7 @@
 					{% endif -%}
 				{% endif -%}
 				
-				{% if cx > 0 -%} 
-					{%include "/_System/Includes/vse-v2/vse-body-layout.tpl"-%}
-				{% endif -%}
+				{% if cx > 0 -%}{%include "/_System/Includes/vse-v2/vse-body-layout.tpl"%}{% endif -%}
 			{% endfor -%}
 {% if {{settings.enable_pagination}} == 'true' %}
 <script type="text/javascript" src="/_System/Includes/vse-v2/js/jPages.min.js"></script>
@@ -300,7 +299,8 @@
             }
         }
     }
-    
-    /****** custom scripts below ***********/   
+    /****** custom scripts below ***********/
     
 </script>
+
+{% include "/_System/Includes/vse-v2/others/get-weekly-price.html" -%}
