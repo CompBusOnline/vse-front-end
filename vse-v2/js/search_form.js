@@ -10,6 +10,34 @@ $('#reset').click(function() {
     location.replace(location.pathname);
 });
 
+$('.vse-show-more').on('click', function(e) {
+    var txt = $(this).text();
+    if (txt == 'Advanced Search') {
+        $('.vse-advanced-search').slideDown('slow');
+        $(this).text('Basic Search');
+        e.preventDefault();
+    } else {
+        $('.vse-advanced-search').slideUp('slow');
+        $(this).text('Advanced Search');
+        $('html, body').animate({
+            scrollTop: $('#search_form').offset().top
+        }, 'slow');
+        e.preventDefault();
+    }    
+});
+
+$('input[type="checkbox"][name="category[]"]').on('change', function() {
+    var getArrVal = $('input[type="checkbox"][name="category[]"]:checked').map(function() {
+        return this.value;
+    }).toArray();
+    if (!getArrVal.length) {
+        $(this).prop("checked", true);
+        sweetAlert("Oops..", "You must tick at least one value", "warning");
+        return false;
+    };
+    
+});
+
 function initPrices() {
 	var price = new Array();
 	     
@@ -20,10 +48,9 @@ function initPrices() {
 	var arr_len2 = price.length;
 	
 	$('select[name="FromPrice"]').on('change', function() {
-		$('select[name="ToPrice"]').empty();
-		$('select[name="ToPrice"]').append('');
-		var selected2 = $(this).val(),
-			index2 = price.indexOf(selected2),
+		$('select[name="ToPrice"]').empty().append('');
+		var sel = $(this).val(),
+			index2 = price.indexOf(sel),
 			last_option2 = $(this).find('option:last-child').val(),
 			last_option2_txt = $(this).find('option:last-child').text();
 		
@@ -34,7 +61,7 @@ function initPrices() {
 			$('select[name="ToPrice"]').append('<option value="' + item_val + '">' + item2 + '</option>');
 		}
 		
-		if (selected2 == last_option2) {
+		if (sel == last_option2) {
 			$('select[name="ToPrice"]').append('<option value="' + last_option2 + '">' + last_option2_txt + '</option>');
 		}
 		
@@ -50,18 +77,18 @@ function initSearchButton(page_url) {
         	category.push($(this).val());
         });      
         
-		var makecode = $.trim($('#makecode').val()).toLowerCase();
-		var model = $.trim($('#Model').val()).toLowerCase();
-		var colour = $.trim($('#Colour').val());
-		var fromprice = $.trim($('#FromPrice').val());
-		var toprice = $.trim($("#ToPrice").val());
-		var year = $.trim($("#Year").val());
-		var transmission = $.trim($('#Transmission').val());
-		var fuel = $.trim($('#fuel').val());
-		var body = $.trim($('#body').val());
-		var stocknumber = $.trim($('#stocknumber').val());
+		var makecode = $.trim($('#makecode').val()),
+            model = $.trim($('#Model').val()),
+            colour = $.trim($('#Colour').val()),
+            fromprice = $.trim($('#FromPrice').val()),
+            toprice = $.trim($("#ToPrice").val()),
+            year = $.trim($("#Year").val()),
+            transmission = $.trim($('#Transmission').val()),
+            fuel = $.trim($('#fuel').val()),
+            body = $.trim($('#body').val()),
+            stocknumber = $.trim($('#stocknumber').val());
         
-        console.log(category);
+        //console.log(category);
 	
 		var x = page_url; 
 	 
@@ -84,65 +111,18 @@ function initSearchButton(page_url) {
 			x+= "sortby=" + $('.sortingdata').val() + "&";
 		}
         
-        
-        //console.log(global_loc);
         window.location = global_loc + x.substring(x.length-1,0);
         
 	});
 }
 
-function capitalizeFirstLetter(string) {
-	return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
-function initSortData() {
-	$('.onload').hide();
-	    
-	    $('select[name="sortingdata"]').on('change', function(){
-	        var sel = $(this).find('option:selected').val();
-	        $('input[name="sortingdata"]').val(sel);
-	    });
-	        
-	    
-	    $('.vse-show-more').on('click', function(e) {
-	        var txt = $(this).text();
-	        if (txt == 'Advanced Search') {	            
-	            
-	             $('.vse-advanced-search').slideDown('slow');
-	             $(this).text('Basic Search');
-	             e.preventDefault();
-	        } else {
-	            $('.vse-advanced-search').slideUp('slow');
-	            $(this).text('Advanced Search');
-	            $('html, body').animate({
-	                scrollTop: $('#search_form').offset().top
-	            }, 'slow');
-	            e.preventDefault();
-	        }
-	        
-	    });
-	    
-	$('#reset').on('click', function(){
-        if(is_nottablet) {$('.chosenselect option').prop('selected', false).trigger('chosen:updated'); }
-	$('form[name="search_form"]').trigger("reset");
-	});
-	
-	function scrollTo(selector) {
-	$('html, body').animate({
-	scrollTop: $(selector).offset().top
-	}, 'slow');
-	}
-	$('.holder').on('click', function() {
-	scrollTo('body');
-	});
-	
-	    $(".right-td").each(function(){
-	      var a = $(this).text().toLowerCase();
-	      $(this).text(a);
-	    }); 
-	    
-	    $(".right-td:empty").closest('tr').hide();
-	    
+
+function initSortData() {    
+    $('select[name="sortingdata"]').on('change', function(){
+        var sel = $(this).find('option:selected').val();
+        $('input[name="sortingdata"]').val(sel);
+    });    
 }
 
 function getAvailableMakes(json,model_elem,sel) {
@@ -152,7 +132,6 @@ function getAvailableMakes(json,model_elem,sel) {
 	for(b=0;b<json.items.length-1;b++) {
 		a.push(json.items[b].makecode);
 	}
-    //console.log(json.items.length)
 	var c = $.distinct(a);
 	c.sort();
 	for(d=0;d<c.length;d++) {
@@ -461,7 +440,7 @@ function reinitialiseStockNumbers() {
 	//console.log("Reinitialising stock numbers...");
 	$('#stocknumber option').each(function(){
 		var a = $.trim($(this).attr('value'));
-		var b = global_year.toLowerCase().split(",");
+		var b = global_stocknumber.toLowerCase().split(",");
 		for(c=0;c<b.length;c++) {
 			if($.trim(b[c].toLowerCase()) == a.toLowerCase()) {
 				
@@ -480,4 +459,56 @@ function isAdvanceSearch() {
 	}
 	return ans;
 }
- 
+
+$.extend({
+    distinct : function(anArray) {
+       var result = [];
+       $.each(anArray, function(i,v){
+           if ($.inArray(v, result) == -1) result.push(v);
+       });
+       return result;
+    }
+}); 
+
+$(document).ready(function(){    
+    initMakeCodeChange();
+    getAvailableMakes(global_vehicles, "#makecode", sel);
+    getAvailableModels(global_vehicles, "#Model", sel);
+    getAvailableColours(global_vehicles, "#Colour", sel);
+    getAvailableTransmission(global_vehicles, "#Transmission", sel);
+    getAvailableFuels(global_vehicles, "#fuel", sel);
+    getAvailableBodies(global_vehicles, "#body", sel);
+    getAvailableStockNumbers(global_vehicles, "#stocknumber", sel);
+    getYears(global_vehicles, "#Year", sel);
+    initPrices();
+    initSearchButton(global_thispage+"?");
+    initSortData();
+    
+    
+    $('.holder').on('click', function() {
+        scrollTo('body');
+    });
+    
+    function scrollTo(selector) {
+        $('html, body').animate({
+            scrollTop: $(selector).offset().top
+        }, 'slow');
+    }     
+    
+    if (is_nottablet) {
+        $(".chosenselect").chosen({
+            max_selected_options: 5,
+            width: "100%"
+        });
+    }
+    $('.chosen-container .chosen-results').on('touchend', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        return;
+    });
+    var cat = global_category;
+    $('input[name="category[]"]').each(function() {
+        if (cat == '') $(this).attr('checked', true);
+    });
+                  
+});
