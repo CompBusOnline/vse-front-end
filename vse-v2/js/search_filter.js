@@ -1,7 +1,5 @@
 function filterSearch(_items) {
-    //console.log(isstocknumber);
-	var icount = 0; 
-    
+	var icount = 0;     
 	$(_items).each(function() {
 		var cx = 1;
 		if(!isstocknumber) {
@@ -129,9 +127,6 @@ function filterSearch(_items) {
 		}
 		
 		$(".result-show").html("Showing " + icount + " Result(s)");
-        
-        
-        
 	});
     
     if (icount <= 20){$('.holder').hide();}else{$('.holder').show();}
@@ -176,14 +171,11 @@ function filterSearch(_items) {
 			  }
 			  default: { break; }
 		}	
-        
-                console.log(global_sortby);
 	}
 	
 	isAdvanceSearch();
 	if(ismakecode) { $('#makecode').trigger('change'); }
-    if(iscategory) { reinitialiseCategory(); }
-	
+    if(iscategory) { reinitialiseCategory(); }	
 	if(ismodel) { reinitialiseModel(); }
 	if(iscolour) { reinitialiseColour(); }
 	if(isyear) { reinitialiseYear(); }

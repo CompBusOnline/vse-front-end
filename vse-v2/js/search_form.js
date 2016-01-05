@@ -1,9 +1,7 @@
 function initMakeCodeChange() {
     $('#makecode').change(function() {
         filterCriteriaByMake(global_vehicles, $(this).val().toLowerCase());
-        if (is_nottablet) {
-            $(".chosenselect").trigger("chosen:updated");
-        }
+        if (is_nottablet){$(".chosenselect").trigger("chosen:updated");}
     });
 }
 $('#reset').click(function() {
@@ -34,8 +32,7 @@ $('input[type="checkbox"][name="category[]"]').on('change', function() {
         $(this).prop("checked", true);
         sweetAlert("Oops..", "You must tick at least one value", "warning");
         return false;
-    };
-    
+    };    
 });
 
 function initPrices() {
@@ -51,8 +48,8 @@ function initPrices() {
 		$('select[name="ToPrice"]').empty().append('');
 		var sel = $(this).val(),
 			index2 = price.indexOf(sel),
-			last_option2 = $(this).find('option:last-child').val(),
-			last_option2_txt = $(this).find('option:last-child').text();
+			last_opt2 = $(this).find('option:last-child').val(),
+			last_opt2_txt = $(this).find('option:last-child').text();
 		
 		
 		for (var i = index2 + 1; i < arr_len2; i++) {
@@ -61,8 +58,8 @@ function initPrices() {
 			$('select[name="ToPrice"]').append('<option value="' + item_val + '">' + item2 + '</option>');
 		}
 		
-		if (sel == last_option2) {
-			$('select[name="ToPrice"]').append('<option value="' + last_option2 + '">' + last_option2_txt + '</option>');
+		if (sel == last_opt2) {
+			$('select[name="ToPrice"]').append('<option value="' + last_opt2 + '">' + last_opt2_txt + '</option>');
 		}
 		
 		$('select[name="ToPrice"]').append('<option value="">Max</option>');
@@ -87,8 +84,6 @@ function initSearchButton(page_url) {
             fuel = $.trim($('#fuel').val()),
             body = $.trim($('#body').val()),
             stocknumber = $.trim($('#stocknumber').val());
-        
-        //console.log(category);
 	
 		var x = page_url; 
 	 
@@ -109,14 +104,10 @@ function initSearchButton(page_url) {
 		}
 		if($.trim($('.sortingdata').val()).length != 0) {
 			x+= "sortby=" + $('.sortingdata').val() + "&";
-		}
-        
-        window.location = global_loc + x.substring(x.length-1,0);
-        
+		}        
+        window.location = global_loc + x.substring(x.length-1,0);        
 	});
 }
-
-
 
 function initSortData() {    
     $('select[name="sortingdata"]').on('change', function(){
@@ -342,9 +333,7 @@ function reinitialiseCategory() {
 				$(this).attr('checked','true');
 			}
 		}
-         
-	  });
-	  
+	  });	  
 }
 
 
@@ -358,12 +347,8 @@ function reinitialiseModel() {
 				$(this).attr('selected','');
 			}
 		}
-	  });
-	  
-	  
+	  });	  
 	  if(is_nottablet) {$('#Model').trigger("chosen:updated");}
-	  
-	  
 }
 
 function reinitialiseTransmission() {
@@ -470,6 +455,12 @@ $.extend({
     }
 }); 
 
+function scrollTo(selector) {
+    $('html, body').animate({
+        scrollTop: $(selector).offset().top
+    }, 'slow');
+}    
+
 $(document).ready(function(){    
     initMakeCodeChange();
     getAvailableMakes(global_vehicles, "#makecode", sel);
@@ -485,15 +476,7 @@ $(document).ready(function(){
     initSortData();
     
     
-    $('.holder').on('click', function() {
-        scrollTo('body');
-    });
-    
-    function scrollTo(selector) {
-        $('html, body').animate({
-            scrollTop: $(selector).offset().top
-        }, 'slow');
-    }     
+    $('.holder').on('click', function() { scrollTo('body'); });
     
     if (is_nottablet) {
         $(".chosenselect").chosen({
@@ -506,6 +489,7 @@ $(document).ready(function(){
         event.preventDefault();
         return;
     });
+
     var cat = global_category;
     $('input[name="category[]"]').each(function() {
         if (cat == '') $(this).attr('checked', true);
