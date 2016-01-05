@@ -20,34 +20,19 @@
 		{% assign sortby = {{globals.get.sortby | convert: "string" | json}} -%}
 		{% assign year = {{globals.get.year | convert: "string" | json}} -%}
 		
-		{% if category == "null" -%} {% assign category = "n/a" -%} {% endif -%}
-		{% if status == "null" -%} {% assign status = "n/a" -%} {% endif -%}
-		{% if makecode == "null" -%} {% assign makecode = "n/a" -%} {% endif -%}
-		{% if model == "null" -%} {% assign model = "n/a" -%} {% endif -%}
-		{% if colour == "null" -%} {% assign colour = "n/a" -%} {% endif -%}
-		{% if fromprice == "null" -%} {% assign fromprice = "n/a" -%} {% endif -%}
-		{% if toprice == "null" -%} {% assign toprice = "n/a" -%} {% endif -%}
-		{% if transmission == "null" -%} {% assign transmission = "n/a" -%} {% endif -%}
-		{% if fueltype == "null" -%} {% assign fueltype = "n/a" -%} {% endif -%}
-		{% if body == "null" -%} {% assign body = "n/a" -%} {% endif -%}
-		{% if stocknumber == "null" -%} {% assign stocknumber = "n/a" -%} {% endif -%}
-		{% if sortby == "null" -%} {% assign sortby = "n/a" -%} {% endif -%}
-		{% if year == "null" -%} {% assign year = "n/a" -%} {% endif -%}
-		  
-		{% if category == "" -%} {% assign category = "n/a" -%}{% endif -%}
-		{% if status == "" -%} {% assign status = "n/a" -%}{% endif -%}
-		{% if makecode == "" -%} {% assign makecode = "n/a" -%} {% endif -%}
-		{% if model == "" -%} {% assign model = "n/a" -%} {% endif -%}
-		{% if colour == "" -%} {% assign colour = "n/a" -%} {% endif -%}
-		{% if fromprice == "" -%} {% assign fromprice = "n/a" -%} {% endif -%}
-		{% if toprice == "" -%} {% assign toprice = "n/a" -%} {% endif -%}
-		{% if transmission == "" -%} {% assign transmission = "n/a" -%} {% endif -%}
-		{% if fueltype == "" -%} {% assign fueltype = "n/a" -%} {% endif -%}
-		{% if body == "" -%} {% assign body = "n/a" -%} {% endif -%}
-		{% if stocknumber == "" -%} {% assign stocknumber = "n/a" -%} {% endif -%}
-		{% if sortby == "" -%} {% assign sortby = "n/a" -%}{% endif -%}
-		{% if year == "" -%} {% assign year = "n/a" -%}{% endif -%}
-		
+		{% if category == "null" or category == "" -%} {% assign category = "n/a" -%} {% endif -%}
+		{% if status == "null" or status == "" -%} {% assign status = "n/a" -%} {% endif -%}
+		{% if makecode == "null" or makecode == "" -%} {% assign makecode = "n/a" -%} {% endif -%}
+		{% if model == "null" or model == "" -%} {% assign model = "n/a" -%} {% endif -%}
+		{% if colour == "null" or colour == "" -%} {% assign colour = "n/a" -%} {% endif -%}
+		{% if fromprice == "null" or fromprice == "" -%} {% assign fromprice = "n/a" -%} {% endif -%}
+		{% if toprice == "null" or toprice == "" -%} {% assign toprice = "n/a" -%} {% endif -%}
+		{% if transmission == "null" or transmission == "" -%} {% assign transmission = "n/a" -%} {% endif -%}
+		{% if fueltype == "null" or fueltype == "" -%} {% assign fueltype = "n/a" -%} {% endif -%}
+		{% if body == "null" or body == "" -%} {% assign body = "n/a" -%} {% endif -%}
+		{% if stocknumber == "null" or stocknumber == "" -%} {% assign stocknumber = "n/a" -%} {% endif -%}
+		{% if sortby == "null" or sortby == "" -%} {% assign sortby = "n/a" -%} {% endif -%}
+		{% if year == "null" or year == "" -%} {% assign year = "n/a" -%} {% endif -%}
 		
 		{% assign xprice = {{x.Price}} -%}
 		{% assign numfromprice = -1 -%}
@@ -104,28 +89,28 @@
 		{% assign ctr = 0 -%}
 			
 			{% for x in vehicles.items -%}
-				{% assign ctrx = 1 -%}
+				{% assign cx = 1 -%}
 				
 				{% comment -%} CATEGORY {% endcomment -%}
 				{% assign xcategory = {{x.Category | downcase}} -%}
 				{% assign ycategory = {{category|downcase}} -%}
 				{% if ycategory != "n/a" -%}
 					{% if xcategory == ycategory -%} 
-						{% assign ctrx = 1 -%}
+						{% assign cx = 1 -%}
 					{% else -%}
-						{% assign ctrx = 0 -%}
+						{% assign cx = 0 -%}
 					{% endif -%}
 				{% endif -%}
 				
 				{%comment-%} STATUS {%endcomment-%}
 				{% assign xstatus = {{x.Status | downcase}} -%}
 				{% assign ystatus = {{status|downcase}} -%}
-				{% if ctrx == 1 -%} 
+				{% if cx == 1 -%} 
 					{% if ystatus != "n/a" -%}
 						{% if xstatus == ystatus -%} 
-							{% assign ctrx = 1 -%}
+							{% assign cx = 1 -%}
 						{% else -%}
-							{% assign ctrx = 0 -%}
+							{% assign cx = 0 -%}
 						{% endif -%}
 					{% endif -%}
 				{% endif -%}
@@ -133,7 +118,7 @@
 
 				{%comment-%} If price option from settings is enabled {%endcomment-%}
 				{% if {{settings.price_not_empty}} == 'true' -%} 
-                    {% if ctrx == 1 -%} 
+                    {% if cx == 1 -%} 
 						{% if driveawayprice > 0 -%}
 							{% assign priceval = {{x.DriveAwayPrice}} -%}
 						{% else %}
@@ -141,20 +126,20 @@
 						{% endif -%}
 
                         {% if priceval > 0 -%} 
-							{% assign ctrx = 1 -%}
+							{% assign cx = 1 -%}
 						{% else -%}
-							{% assign ctrx = 0 -%}
+							{% assign cx = 0 -%}
 						{% endif -%}
                     {% endif -%}
 				{% endif -%}
 
 				{%comment-%} If photo option from settings is enabled {%endcomment-%}
 				{% if {{settings.photo_not_empty}} == 'true' -%} 
-                    {% if ctrx == 1 -%} 
+                    {% if cx == 1 -%} 
 						{% if {{x.PrimaryImage}} != '' -%} 
-							{% assign ctrx = 1 -%}
+							{% assign cx = 1 -%}
 						{% else -%}
-							{% assign ctrx = 0 -%}
+							{% assign cx = 0 -%}
 						{% endif -%}
                     {% endif -%}
 				{% endif -%}
@@ -164,17 +149,17 @@
 				{% assign xstocknumber = {{x.StockNumber|downcase}} -%}
 				{% assign ystocknumber = {{stocknumber|downcase}} -%}
 				{% assign strstocknumber = {{xstocknumber|convert:"string"|json}} -%}
-				{% if ctrx == 1 -%}
+				{% if cx == 1 -%}
 					{% if ystocknumber != "n/a" -%}
 						{% if stocknumber contains xstocknumber -%}
-							{% assign ctrx = 1 -%}  
+							{% assign cx = 1 -%}  
 						{% else -%} 
-							{% assign ctrx = 0 -%}
+							{% assign cx = 0 -%}
 						{% endif -%}
 					{% endif -%}
 				{% endif -%}
 				
-				{% if ctrx > 0 -%} 
+				{% if cx > 0 -%} 
 					{%include "/_System/Includes/vse-v2/vse-body-layout.tpl"-%}
 				{% endif -%}
 			{% endfor -%}
@@ -202,7 +187,6 @@
             $('.vse-loader').hide();
             $('#vehicles').fadeIn("slow");
         }).doTasks();
-        removeEmpty();
     }
     
     window.addEventListener("orientationchange", function() {
@@ -217,35 +201,12 @@
         }
     }
     
-    function initStockImage() {
-        return function(endOfTaskCallback) {
-            $('.vse-item img').each(function() {
-                if (!this.complete || typeof this.naturalWidth == "undefined" || this.naturalWidth == 0) {
-                    this.src = '/_System/Includes/vse-v2/images/vse-placeholder.jpg';
-                }
-            });
-            endOfTaskCallback();
-        }
-    }
-    
     function initLazyLoad() {
         //console.log("Initialising lazy load...");
         return function(endOfTaskCallback) {
             $(".vse-image").lazyload({
                 effect: "fadeIn",
                 skip_invisible: false
-            });
-            endOfTaskCallback();
-        }
-    }
-    
-    function initPaginationAndSorting() {
-        //console.log("Initialising onload pagination and sorting...");
-        return function(endOfTaskCallback) {
-            $('.vse-item').sort(function(a, b) {
-                return $(b).data('price') - $(a).data('price');
-            }).each(function(_, container) {
-                $(container).parent().append(container);
             });
             endOfTaskCallback();
         }
@@ -340,11 +301,6 @@
         }
     }
     
-    /****** custom scripts ***********/   
+    /****** custom scripts below ***********/   
     
-    function removeEmpty() {
-        $('ul.specs').each(function() {
-            $(this).find('li div:empty').closest('li').remove();
-        });
-    }
 </script>

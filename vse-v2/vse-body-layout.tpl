@@ -1,12 +1,12 @@
 {% capture ctr -%}{{ctr | plus: 1}}{% endcapture -%}
 {% if globals.visitor.deviceClass == "tablet" -%}
-	{% assign thumbnail = "?Action=thumbnail&Width=200" -%}
+    {% assign thumbnail = "?Action=thumbnail&Width=200" -%}
 {% elsif globals.visitor.deviceClass == "phone" -%}
-	{% assign thumbnail = "?Action=thumbnail&Width=180" -%}
+    {% assign thumbnail = "?Action=thumbnail&Width=180" -%}
 {% elsif globals.visitor.deviceClass == "desktop" -%}
-	{% assign thumbnail = "?Action=thumbnail&Width=272" -%}
+    {% assign thumbnail = "?Action=thumbnail&Width=272" -%}
 {% else -%}
-	{% assign thumbnail = "" -%}
+    {% assign thumbnail = "" -%}
 {% endif -%}    
 
 <script>var dimensions = {platform:'website', category:'{{x.Category}}', action:'impression', stocknumber:'{{x.StockNumber}}'};</script>
@@ -28,14 +28,15 @@
         <div class="small-12 columns vse-details2-container text-right">
             <h4 class="vse-price">
                 {% if {{DataPrice}} != '0' %}
-                	${{DataPrice}}
+                    ${{DataPrice}}
                 {% else %}
-                	POA
+                    POA
                 {% endif %}
             </h4> 
             {% if {{x.Highlight}} != ''%}<div class="vse-highlight"><i class="fa fa-star yellow"></i> {{x.Highlight}}</div>{% endif %}
             
             <div class="vse-other-details">
+                {% if x.Transmission != ''%}
                 <div class="row">
                     <div class="large-7 medium-7 small-6 columns vse-datalabel vse-bold">
                         &gt; Transmission:
@@ -44,6 +45,8 @@
                         {{x.Transmission}}
                     </div>
                 </div>
+                {% endif- %}
+                {% if x.FuelType != ''%}
                 <div class="row">
                     <div class="large-7 medium-7 small-6 columns vse-datalabel vse-bold">
                         &gt; Fuel:
@@ -52,6 +55,8 @@
                         {{x.FuelType}}
                     </div>
                 </div>
+                {% endif- %}
+                {% if x.Kilometres != ''%}
                 <div class="row">
                     <div class="large-7 medium-7 small-6 columns vse-datalabel vse-bold">
                         &gt; Odometer:
@@ -60,6 +65,8 @@
                         {{x.Kilometres}} km
                     </div>
                 </div>
+                {% endif- %}
+                {% if x.StockNumber != ''%}
                 <div class="row">
                     <div class="large-7 medium-7 small-6 columns vse-datalabel vse-bold">
                         &gt; Stock Number:
@@ -68,8 +75,8 @@
                         {{x.StockNumber}}
                     </div>
                 </div>
-            </div>
-            
+                {% endif- %}
+            </div>            
         </div>
         <div class="clearfix"></div>              
         <div class="small-12 vse-button-container text-center">
