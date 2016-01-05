@@ -1,8 +1,8 @@
 @charset "utf-8";
 /* CSS Document */
 h2.vse-header{
-  font-size:24px;   
-  margin-top:0;
+	font-size:24px;   
+	margin-top:0;
 }
 
 /* Base for label styling */
@@ -104,7 +104,7 @@ input[type="checkbox"]+label, input[type="radio"]+label, .chosen-container {
     text-transform: capitalize;
 }
 #stocknumber_chosen .chosen-results li, #stocknumber_chosen .chosen-choices li.search-choice span, #search_form select.vse-stocknumber{
-  text-transform:uppercase;   
+ 	text-transform:uppercase;   
 }
 
 
@@ -112,22 +112,22 @@ input[type="checkbox"]+label, input[type="radio"]+label, .chosen-container {
 ** Vehicle Listing
 *********/
 .vse-item{
-  margin-bottom:30px;   
+	margin-bottom:30px;   
 }
 .vse-full-border{
-  border: 1px solid #eee;   
+	border: 1px solid #eee;   
 }
 .vse-image-container a{display:block;}
 .vse-image{margin-bottom:10px;}
 .vse-button-container{}
 a.vse-button1{
-  display:block;
+	display:block;
     padding:0.5rem;
     background-color: #2ba6cb;
     color:#FFF;
 }
 a.vse-button1:hover, a.vse-button1:focus{
-  color:#FFF;   
+	color:#FFF;   
     background-color: #2285a2;
 }
 .vse-details1-container{
@@ -142,17 +142,20 @@ a.vse-button1:hover, a.vse-button1:focus{
 }
 .vse-item hr{border-color:#eee;}
 .vse-details2-container{
-    min-height:210px; 
+    min-height:210px;	
     margin-bottom:20px;
 }
 .vse-other-details{
-  font-size:12px; 
+	font-size:12px; 
 }
 .vse-bold{font-weight:bold;}
 .fa-star.yellow{color: #f7bc1d;}
 .vse-highlight {
     margin-bottom: 10px;
     font-size:14px;
+}
+.vse-details2-container.wp-enable{
+	min-height: 265px;
 }
 
 /********
