@@ -1,0 +1,29 @@
+{module_json,json="/_System/apps/cbo-wvw-vehicle-search-engine/_config/vse.json" collection="settings"}
+{% if {{settings.enable_weeklypayment}} == 'true'-%}
+<script type="text/javascript">
+    $(document).ready(function(){
+       //get weekly price
+        $('#vehicles .vse-item').each(function(){
+            var price = $(this).find('.vse-price').text().replace(/\$|,/g,'');
+            price = parseInt(price);
+            var selector = $(this).find('.weekly-price');
+            calculatePayment(price, selector)
+        }); 
+    });
+    
+    function calculatePayment(price, selector) {
+        var princ = price - (price/{{settings.deposit}}) + 0 - 0;
+        var intRate = {{settings.interestrate}}/1200;
+        var months = {{settings.loanterms}};
+        var residual = {{settings.residualpayment}};
+        var fv = -(princ*residual/100);
+        fv = parseFloat(fv);
+        princ = parseFloat(princ);
+        
+        x = Math.pow(1 + intRate,(1*months));
+        var pmttemp = (Math.floor(((intRate * (fv + x * princ))/(-1 + x))*100)/100);
+        pmttemp = pmttemp/4;
+        $(selector).html('$' + pmttemp.toFixed(2) + '*'); 
+    }
+</script>
+{%endif-%}
