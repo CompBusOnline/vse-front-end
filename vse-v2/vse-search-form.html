@@ -138,17 +138,9 @@
 <script type="text/javascript">
     {module_webapps collection="vehicles" template="" id="30409" filter="all" sortType="date"}
     {% assign thispage = this.globals.get.ID -%}
-    var global_loc = '';
-    var is_nottablet = "{{globals.visitor.deviceClass}}" == "desktop" ? true : false;
-            
-    {%comment-%}
-    {% if thispage == "/demo-vehicles.html" -%} 
-    	{% assign cat = "demo" -%}
-    {% else -%} 
-    	{% assign cat = "used" -%} 
-    {% endif -%}
-    {% if x.Category == cat -%}{% endif -%}
-    {%endcomment-%}
+    var global_thispage = "{{this.globals.get.ID}}",
+        global_loc = '',
+        is_nottablet = "{{globals.visitor.deviceClass}}" == "desktop" ? true : false;
     
      var global_vehicles = {
          "items": [{% for x in vehicles.items -%}{% if x.Status == 'In Stock' -%}  {
@@ -166,52 +158,5 @@
                    },  {% endif -%}{% endfor -%}]
      };  
     
-    
-    $('input[type="checkbox"][name="category[]"]').on('change', function() {
-        var getArrVal = $('input[type="checkbox"][name="category[]"]:checked').map(function() {
-            return this.value;
-        }).toArray();
-        if (!getArrVal.length) {
-            $(this).prop("checked", true);
-            sweetAlert("Oops..", "You must tick at least one value", "warning");
-            return false;
-        };
-        //console.log(getArrVal);
- 
-    });
-    
-    
     var sel = {% if globals.visitor.deviceClass == "phone" %}"selected"{% else -%}""{% endif -%}; 
-    
-    $(document).ready(function() {  
-        initMakeCodeChange();
-        getAvailableMakes(global_vehicles, "#makecode", sel);
-        getAvailableModels(global_vehicles, "#Model", sel);
-        getAvailableColours(global_vehicles, "#Colour", sel);
-        getAvailableTransmission(global_vehicles, "#Transmission", sel);
-        getAvailableFuels(global_vehicles, "#fuel", sel);
-        getAvailableBodies(global_vehicles, "#body", sel);
-        getAvailableStockNumbers(global_vehicles, "#stocknumber", sel);
-        getYears(global_vehicles, "#Year", sel);
-        initPrices();
-        initSearchButton("{{thispage}}?");
-        initSortData();
-        if (is_nottablet) {
-            $(".chosenselect").chosen({
-                max_selected_options: 5,
-                width: "100%"
-            });
-        }
-        $('.chosen-container .chosen-results').on('touchend', function(event) {
-            event.stopPropagation();
-            event.preventDefault();
-            return;
-        });
-        var cat = "{{globals.get.category}}";
-        $('input[name="category[]"]').each(function() {
-            if (cat == '') {
-                //$(this).attr('checked', true);
-            }
-        });
-    });
 </script>
