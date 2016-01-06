@@ -1,13 +1,13 @@
-{% if globals.visitor.deviceClass == "tablet" -%}{% assign thumbnail = "?Action=thumbnail&Width=200" -%}
-{% elsif globals.visitor.deviceClass == "phone" -%}{% assign thumbnail = "?Action=thumbnail&Width=180" -%}
-{% elsif globals.visitor.deviceClass == "desktop" -%}{% assign thumbnail = "?Action=thumbnail&Width=272" -%}
-{% else -%}{% assign thumbnail = "" -%}{% endif -%}{module_json,json="/_System/apps/cbo-wvw-vehicle-search-engine/_config/vse.json" collection="settings"}
+{% if globals.visitor.deviceClass == "tablet" -%}{% assign thumbnail = "?Action=thumbnail&Width=272&Height=181&algorithm=fill_proportional" -%}
+{% elsif globals.visitor.deviceClass == "phone" -%}{% assign thumbnail = "?Action=thumbnail&Width=300" -%}
+{% elsif globals.visitor.deviceClass == "desktop" -%}{% assign thumbnail = "?Action=thumbnail&Width=280" -%}
+{% else -%}{% assign thumbnail = "" -%}{% endif -%}{module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
 <script>var dimensions = {platform:'website', category:'{{x.Category}}', action:'impression', stocknumber:'{{x.StockNumber}}'};</script>
 {% assign DataPrice = 0 -%}{% if x.DriveAwayPrice != 0 -%}{% assign DataPrice = x.DriveAwayPrice -%}{% else -%}{% assign DataPrice = x.Price -%}{% endif -%}
 <div class="large-4 medium-6 small-12 columns vse-item" id="vehicle_{{x.StockNumber}}" data-stocknumber="{{x.StockNumber}}" data-name="{{x.VehicleName|downcase}}" data-category="{{x.Category|downcase}}" data-status="{{x.Status|downcase}}" data-makecode="{{x.MakeCode|downcase}}" data-model="{{x.Model|downcase}}" data-colour="{{x.Colour|downcase}}" data-transmission="{{x.Transmission|downcase}}" data-fueltype="{{x.FuelType|downcase}}" data-body="{{x.Body|downcase}}" data-price="{{DataPrice}}" data-year="{{x.Year}}">
     <div class="vse-full-border">  
         <div class="vse-image-container">
-            <a href="{{x.Url}}"><img alt="{{x.VehicleName}}" data-original="/files/images/{{x.StockNumber}}_1.jpg{{thumbnail}}&time={{globals.site.dateNow | date:'ffff'}}" class="lazy vse-image" src="/_System/Includes/vse-v2/images/vse-placeholder.jpg" /></a>
+            <a href="{{x.Url}}"><img alt="{{x.VehicleName}}" data-original="/files/images/{{x.StockNumber}}-1.jpg{{thumbnail}}&time={{globals.site.dateNow | date:'ffff'}}" class="lazy vse-image" src="/_System/Includes/vse-v2/images/vse-placeholder.jpg{{thumbnail}}" /></a>
         </div>        
         <div class="small-12 columns vse-details1-container text-right">
             <h4 class="vse-vehiclename">{{x.Year}} {{x.VehicleName}}</h4>            
