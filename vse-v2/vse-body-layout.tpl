@@ -1,6 +1,6 @@
 {% if globals.visitor.deviceClass == "tablet" -%}{% assign thumbnail = "?Action=thumbnail&Width=272&Height=181&algorithm=fill_proportional" -%}
 {% elsif globals.visitor.deviceClass == "phone" -%}{% assign thumbnail = "?Action=thumbnail&Width=300" -%}
-{% elsif globals.visitor.deviceClass == "desktop" -%}{% assign thumbnail = "?Action=thumbnail&Width=280" -%}
+{% elsif globals.visitor.deviceClass == "desktop" -%}{% assign thumbnail = "?Action=thumbnail&Width=267&Height=180&algorithm=fill_proportional" -%}
 {% else -%}{% assign thumbnail = "" -%}{% endif -%}{module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
 <script>var dimensions = {platform:'website', category:'{{x.Category}}', action:'impression', stocknumber:'{{x.StockNumber}}'};</script>
 {% assign DataPrice = 0 -%}{% if x.DriveAwayPrice != 0 -%}{% assign DataPrice = x.DriveAwayPrice -%}{% else -%}{% assign DataPrice = x.Price -%}{% endif -%}
