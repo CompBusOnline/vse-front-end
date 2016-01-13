@@ -16,7 +16,7 @@
         <div class="clearfix"></div><hr/>        
         <div class="small-12 columns vse-details2-container text-right{% if {{settings.enable_weeklypayment}} == 'true' and {{DataPrice}} != '0' %} wp-enable{%endif-%}">
             <h4 class="vse-price">{% if {{DataPrice}} != '0' %}${{DataPrice}}{% else %}POA{% endif %}</h4> 
-            {% if {{settings.enable_weeklypayment}} == 'true' and {{DataPrice}} != '0' %}<div><span>Weekly Payments of </span><h5 class="weekly-price"></h5></div>{% endif %}
+            {% if {{settings.enable_weeklypayment}} == 'true' and {{DataPrice}} != '0' %}<div><span>Weekly Payments of </span><h5 class="vse-weekly-price">0</h5></div>{% endif %}
             {% if {{x.Highlight}} != ''%}<div class="vse-highlight"><i class="fa fa-star yellow"></i> {{x.Highlight}}</div>{% endif %}
             <div class="vse-other-details">
                 {% if x.Transmission != ''%}<div class="row">

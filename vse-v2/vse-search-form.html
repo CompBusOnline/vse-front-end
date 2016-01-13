@@ -128,7 +128,7 @@
     </div>
     <div class="row vse-button-wrapper">
         <div class="large-12 columns">
-            <button id="btnSearchForm" type="button" class="button radius expand-btn text-center">Search Now</button>
+            <button id="vse-search-btn" type="button" class="button radius expand-btn text-center">Search Now</button>
         </div>
     </div>
 </form>
@@ -136,10 +136,11 @@
 <script type="text/javascript" src="/_System/Includes/vse-v2/js/search_form.js"></script>
 <script type="text/javascript" src="/_System/Includes/vse-v2/js/chosen.jquery.min.js"></script>
 <script type="text/javascript">
+    {%comment%}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}{%endcomment%}
     {module_webapps collection="vehicles" template="" id="30409" filter="all" sortType="date"}
     {% assign thispage = this.globals.get.ID -%}
     var global_thispage = "{{this.globals.get.ID}}",
-    	global_loc = '',
+        global_loc = '',
         is_nottablet = "{{globals.visitor.deviceClass}}" == "desktop" ? true : false;
     
      var global_vehicles = {
