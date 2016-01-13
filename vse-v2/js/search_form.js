@@ -67,7 +67,7 @@ function initPrices() {
 }
  
 function initSearchButton(page_url) {
-	$("#btnSearchForm").on("click", function(e) {
+	$("#vse-search-btn").on("click", function(e) {
 	    e.preventDefault();
         var category = [];
         $('input[name="category[]"]:checked').each(function(){
