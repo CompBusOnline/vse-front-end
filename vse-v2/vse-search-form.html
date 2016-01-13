@@ -144,7 +144,7 @@
         is_nottablet = "{{globals.visitor.deviceClass}}" == "desktop" ? true : false;
     
      var global_vehicles = {
-         "items": [{% for x in vehicles.items -%}{% if x.Status == 'In Stock' -%}  {
+         "items": [{% for x in vehicles.items -%}{% if x.Status == '1' -%}  {
                    "stocknumber": "{{x.StockNumber|downcase}}",
                    "vehiclename": "{{x.VehicleName|downcase}}",
                    "makecode": "{{x.MakeCode|downcase}}",

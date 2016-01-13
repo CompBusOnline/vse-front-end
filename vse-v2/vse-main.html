@@ -1,6 +1,6 @@
 {%comment%}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}{%endcomment%}
 {module_webapps id="30409" filter="all" template="" collection="vehicles"}
-		{% assign status = "In Stock" -%}
+		{% assign status = "1" -%}
 		{% if globals.get.category == "demo,used" -%}
 			{% assign category = ""  -%}
 		{% elsif globals.get.category == "used" %}
