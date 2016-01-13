@@ -120,7 +120,7 @@
 				{%comment-%} If price option from settings is enabled {%endcomment-%}
 				{% if {{settings.price_not_empty}} == 'true' -%} 
                     {% if cx == 1 -%} 
-						{% if driveawayprice > 0 -%}
+						{% if {{x.DriveAwayPrice}} > 0 -%}
 							{% assign priceval = {{x.DriveAwayPrice}} -%}
 						{% else %}
 							{% assign priceval = {{x.Price}} -%}
@@ -135,9 +135,9 @@
 				{% endif -%}
 
 				{%comment-%} If photo option from settings is enabled {%endcomment-%}
-				{% if {{settings.photo_not_empty}} == 'true' -%} 
+				{% if {{settings.photo_not_empty}} == 'true' -%}
                     {% if cx == 1 -%} 
-						{% if {{x.PrimaryImage}} != '' -%} 
+						{% if {{x.Photos}} != '' -%} 
 							{% assign cx = 1 -%}
 						{% else -%}
 							{% assign cx = 0 -%}
