@@ -1,4 +1,4 @@
-{module_json,json="/_System/apps/cbo-wvw-vehicle-search-engine/_config/vse.json" collection="settings"}
+{module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
 {% if {{settings.enable_weeklypayment}} == 'true'-%}
 <script type="text/javascript">
     $(document).ready(function(){
@@ -6,7 +6,7 @@
         $('#vehicles .vse-item').each(function(){
             var price = $(this).find('.vse-price').text().replace(/\$|,/g,'');
             price = parseInt(price);
-            var selector = $(this).find('.weekly-price');
+            var selector = $(this).find('.vse-weekly-price');
             calculatePayment(price, selector)
         }); 
     });
