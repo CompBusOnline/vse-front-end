@@ -289,14 +289,26 @@
         $("select.vehicles_per_page").change(function() {
             /* get new nº of items per page */
             var newPerPage = parseInt($(this).val());
+            var cnt = $('.vse-item').length;
             /* destroy jPages and initiate plugin again */
-            $("div.holder").jPages("destroy").jPages({
-                containerID: "vehicles",
-                perPage: newPerPage,
-                previous: "",
-                next: "",
-                minHeight: false
-            });
+            
+            if (newPerPage == -1){
+                $("div.holder").jPages("destroy").jPages({
+                    containerID: "vehicles",
+                    perPage: cnt,
+                    previous: "",
+                    next: "",
+                    minHeight: false
+                });console.log('test');
+            }else{
+                $("div.holder").jPages("destroy").jPages({
+                    containerID: "vehicles",
+                    perPage: newPerPage,
+                    previous: "",
+                    next: "",
+                    minHeight: false
+                });
+            }
         });
     });
     
