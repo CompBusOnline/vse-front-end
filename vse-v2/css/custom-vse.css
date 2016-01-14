@@ -1,9 +1,10 @@
 @charset "utf-8";
 /* CSS Document */
 h2.vse-header{
-	font-size:24px;   
-	margin-top:0;
+  font-size:24px;   
+  margin-top:0;
 }
+.no-padding{padding:0;}
 
 /* Base for label styling */
 
@@ -104,58 +105,49 @@ input[type="checkbox"]+label, input[type="radio"]+label, .chosen-container {
     text-transform: capitalize;
 }
 #stocknumber_chosen .chosen-results li, #stocknumber_chosen .chosen-choices li.search-choice span, #search_form select.vse-stocknumber{
- 	text-transform:uppercase;   
+  text-transform:uppercase;   
 }
 
 
 /********
 ** Vehicle Listing
 *********/
-.vse-item{
-	margin-bottom:30px;   
-}
-.vse-full-border{
-	border: 1px solid #eee;   
-}
+.vse-item.grid{width:33.333%;margin-bottom:30px;}
+.vse-item.grid .vse-image-container, .vse-item.grid .vse-main-details, .vse-item.grid .vse-specs{width:100%;}
+.vse-item.grid .vse-main-details{padding:0;}
+.vse-item.grid .vse-divider, .vse-item.grid .vse-list-divider{display:none;}
+.vse-item.grid .vse-details2-container{min-height:210px;text-align:right;margin-bottom:20px;padding:0 0.9375em;}
+.vse-item.grid .vse-full-border{border: 1px solid #eee;}
+.vse-item.grid .vse-image{margin-bottom:15px;}
+.vse-item.grid .vse-details2-container.wp-enable{min-height: 265px;}
+.vse-item.grid .vse-details1-container{min-height:97px;padding:0 0.9375em;}
+
+.vse-item .no-padding-right{padding-right:0;}
+.vse-divider{margin: 2rem 0;}
+.vse-item.columns:last-child{float:left;}
+.vse-full-border.row{margin:0;}
 .vse-image-container a{display:block;}
-.vse-image{margin-bottom:10px;width:100%;}
+.vse-image{width:100%;}
 .vse-button-container{}
 a.vse-button1{
-	display:block;
+  display:block;
     padding:0.5rem;
     background-color: #2ba6cb;
     color:#FFF;
 }
-a.vse-button1:hover, a.vse-button1:focus{
-	color:#FFF;   
-    background-color: #2285a2;
-}
-.vse-details1-container{
-    min-height:97px;
-}
-.vse-vehiclename{
-    font-size: 14px;
-}
-.vse-modeldescription{
-    font-size:11px;   
-}
+a.vse-button1:hover, a.vse-button1:focus{color:#FFF;background-color: #2285a2;}
+.vse-details1-container{padding-top:15px;}
+.vse-vehiclename{font-size: 14px;}
+.vse-modeldescription{font-size:11px;}
 .vse-item hr{border-color:#eee;}
-.vse-details2-container{
-    min-height:210px;	
-    margin-bottom:20px;
-}
-.vse-other-details{
-	font-size:12px; 
-}
+.vse-other-details{font-size:12px;}
 .vse-bold{font-weight:bold;}
 .fa-star.yellow{color: #f7bc1d;}
 .vse-highlight {
     margin-bottom: 10px;
     font-size:14px;
 }
-.vse-details2-container.wp-enable{
-	min-height: 265px;
-}
+
 
 /********
 ** Pagination
@@ -172,22 +164,30 @@ a.jp-current {
     background: #2ba6cb;
 }
 
+/********
+** Sorting options
+*********/
+.vse-view-container .list-icon i, .vse-view-container .grid-icon i{color:#ECECEC;font-size:24px;vertical-align:middle;}
+.vse-view-container .list-icon i.active, .vse-view-container .grid-icon i.active{color:#2ba6cb!important;}
 
 /********
 ** Custom Media Queries
 ********/
 @media only screen and (max-width:64em){
-    .vse-details1-container{
+    .vse-item.grid .vse-details1-container{
         min-height:82px;
     }   
+    .vse-num-results{margin-bottom:15px;}
+    .vse-item.grid{width:50%;}
 }
 @media only screen and (max-width:48em){
-    .vse-details1-container{
+    .vse-item.grid .vse-details1-container{
         min-height:97px;
     }   
 }
 @media only screen and (max-width:40em){
-    .vse-details1-container, .vse-details2-container.wp-enable{
+    .vse-item.grid .vse-details1-container, .vse-item.grid .vse-details2-container.wp-enable{
         min-height:initial;
     }   
+    .vse-item.grid{width:100%;}
 }

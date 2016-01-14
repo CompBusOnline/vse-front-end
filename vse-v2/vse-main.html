@@ -274,6 +274,7 @@
         }
     }
     
+    /* pagination */
     function initPagination() {
         //console.log("Initialising pagination...");
         $("div.holder").jPages({
@@ -283,7 +284,40 @@
             next: "",
             minHeight: false
         });
-    }
+    }    
+    $(function() {
+        $("select.vehicles_per_page").change(function() {
+            /* get new nº of items per page */
+            var newPerPage = parseInt($(this).val());
+            /* destroy jPages and initiate plugin again */
+            $("div.holder").jPages("destroy").jPages({
+                containerID: "vehicles",
+                perPage: newPerPage,
+                previous: "",
+                next: "",
+                minHeight: false
+            });
+        });
+    });
+    
+    //LIST AND GRID VIEW
+    function list_grid_view() {
+        $('.list-icon').click(function() {
+            $('.list-icon i').addClass('active');
+            $('.grid-icon i').removeClass('active');            
+            $('.vse-item').removeClass('grid');
+            $('.vse-item .vse-button-container').toggleClass('medium-12 medium-6 column right');
+        });        
+        var grid = $('.vse-item');        
+        $('.grid-icon').click(function() {
+            $('.grid-icon i').addClass('active');
+            $('.list-icon i').removeClass('active');            
+            $('.vse-item').addClass('grid');
+            $('.vse-item .vse-button-container').toggleClass('medium-6 medium-12').removeClass('column right');            
+        });
+    }    
+    list_grid_view();    
+    //LIST AND GRID VIEW END
     
     function TaskList(tasks, endOfTasksCallback) {
         this.doTasks = function() {
