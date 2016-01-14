@@ -147,6 +147,7 @@ a.vse-button1:hover, a.vse-button1:focus{color:#FFF;background-color: #2285a2;}
     margin-bottom: 10px;
     font-size:14px;
 }
+.vse-datavalue {word-break: break-word;}
 
 
 /********
