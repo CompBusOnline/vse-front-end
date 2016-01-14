@@ -171,7 +171,13 @@ function filterSearch(_items) {
 			  }
 			  default: { break; }
 		}	
-	}
+    }else{
+        $('.vse-item').sort(function(a, b) {
+            return $(b).data('price') - $(a).data('price');
+        }).each(function(_, container) {
+            $(container).parent().append(container);
+        });
+    }
 	
 	isAdvanceSearch();
 	if(ismakecode) { $('#makecode').trigger('change'); }
