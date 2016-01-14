@@ -1,4 +1,4 @@
-{% if globals.visitor.deviceClass == "tablet" -%}{% assign thumbnail = "?Action=thumbnail&Width=272&Height=181&algorithm=fill_proportional" -%}
+{% if globals.visitor.deviceClass == "tablet" -%}{% assign thumbnail = "?Action=thumbnail&Width=650&Height=443&algorithm=fill_proportional" -%}
 {% elsif globals.visitor.deviceClass == "phone" -%}{% assign thumbnail = "?Action=thumbnail&Width=300" -%}
 {% elsif globals.visitor.deviceClass == "desktop" -%}{% assign thumbnail = "?Action=thumbnail&Width=449&Height=303&algorithm=fill_proportional" -%}
 {% else -%}{% assign thumbnail = "" -%}{% endif -%}{module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}

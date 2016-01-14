@@ -180,10 +180,11 @@ a.jp-current {
     }   
     .vse-num-results{margin-bottom:15px;}
     .vse-item.grid{width:50%;}
+    .vse-item .no-padding-right{padding:0;}
 }
 @media only screen and (max-width:48em){
     .vse-item.grid .vse-details1-container{
-        min-height:97px;
+        min-height:100px;
     }   
 }
 @media only screen and (max-width:40em){
