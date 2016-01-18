@@ -11,6 +11,7 @@
         {module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
         {% assign vpp = settings.enable_vehicles_per_page %}
         {% assign vlg = settings.enable_view_list_grid %}
+        {% assign webapp_id = "30409" -%}
         <section class="row">
             <h2 class="hide">Vehicle Listing</h2>
             <!-- ========================== -->
@@ -27,12 +28,19 @@
                 <!-- ========================== -->
                 <!-- Start Sorting Section -->
                 <!-- ========================== -->
+                {% if vlg == 'true' %}
+                    {% assign resultscol = 'large-3'%}
+                    {% assign sortby = 'large-3 medium-5'%}
+                {%else%}
+                    {%assign resultscol = 'large-6'%}
+                    {% assign sortby = 'large-3 medium-6'%}
+                {%endif%}
                 <div class="row hide-for-small-only">
                     <div class="large-12 medium-12 small-12">
-                        <div class="{% if vlg == 'true' %}large-3{%else%}large-4{%endif%} {% if vpp == 'true' %}medium-12{%else%}medium-6{%endif%} small-12 columns margintop20-small vse-num-results">
+                        <div class="{{resultscol}} {% if vpp == 'true' %}medium-12{%else%}medium-6{%endif%} small-12 columns margintop20-small vse-num-results">
                             <b class="result-show">Showing All Results</b>
                         </div>
-                        <div class="{% if vlg == 'true' %}large-3 medium-5{%else%}large-4 medium-6{%endif%} small-12 columns margintop20-small">
+                        <div class="{{sortby}} small-12 columns margintop20-small">
                             <label>Sort by:
                             <select name="sortingdata" class="sortingdata" data-control-type="sort-select" data-control-name="sort" data-control-action="sort">
                                 <option value="" class="defaultset">- Select -</option>
@@ -43,7 +51,7 @@
                             </select> </label>
                         </div>
                         {% if vpp == 'true' %}
-                        <div class="large-4 medium-4 small-12 columns margintop20-small vse-vpp">
+                        <div class="large-3 medium-4 small-12 columns margintop20-small vse-vpp">
                             <label>Vehicles per page: 
                             <select name="vehicles_per_page" class="vehicles_per_page">
                                 <option value="24">24</option>
@@ -94,18 +102,7 @@
                                 <option value="-1">All</option>
                             </select>
                         </div>
-                    </div>{% endif %}
-                    {% if vlg == 'true' %}
-                    <div class="row">
-                        <div class="small-6 columns text-right">
-                            <label class="inline">View as: </label>
-                        </div>
-                        <div class="small-6 columns">
-                            <a href="javascript:void(0);" class="list-icon view-control"><i class="fa fa-list-ul"></i></a>
-                        <a href="javascript:void(0);" class="grid-icon view-control"><i class="fa fa-th active"></i></a>
-                        </div>
-                    </div>
-                    {% endif %}<br>
+                    </div>{% endif %}<br>
                 </div>                
                 
                 <!-- ========================== -->

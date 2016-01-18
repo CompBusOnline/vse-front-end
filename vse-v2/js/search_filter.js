@@ -129,7 +129,7 @@ function filterSearch(_items) {
 		$(".result-show").html("Showing " + icount + " Result(s)");
 	});
     
-    if (icount <= 20){$('.holder').hide();}else{$('.holder').show();}
+    if (icount <= 24){$('.holder').hide();}else{$('.holder').show();}
 	
 	if(issortby) {
 		$(".sortingdata option[value='" + global_sortby + "']").attr('selected', 'selected');

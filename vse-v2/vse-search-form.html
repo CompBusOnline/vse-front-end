@@ -137,7 +137,7 @@
 <script type="text/javascript" src="/_System/Includes/vse-v2/js/chosen.jquery.min.js"></script>
 <script type="text/javascript">
     {%comment%}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}{%endcomment%}
-    {module_webapps collection="vehicles" template="" id="30409" filter="all" sortType="date"}
+    {module_webapps collection="vehicles" template="" id="{{webapp_id}}" filter="all" sortType="date"}
     {% assign thispage = this.globals.get.ID -%}
     var global_thispage = "{{this.globals.get.ID}}",
         global_loc = '',

@@ -1,167 +1,167 @@
 {%comment%}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}{%endcomment%}
-{module_webapps id="30409" filter="all" template="" collection="vehicles"}
-		{% assign status = "1" -%}
-		{% if globals.get.category == "demo,used" -%}
-			{% assign category = ""  -%}
-		{% elsif globals.get.category == "used" %}
-			{% assign category = "used"  -%}
-		{% elsif globals.get.category == "demo" %}
-			{% assign category = "demo"  -%}
-		{% endif -%}
+{module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}
+        {% assign status = "1" -%}
+        {% if globals.get.category == "demo,used" -%}
+            {% assign category = ""  -%}
+        {% elsif globals.get.category == "used" %}
+            {% assign category = "used"  -%}
+        {% elsif globals.get.category == "demo" %}
+            {% assign category = "demo"  -%}
+        {% endif -%}
 
-		{% assign makecode = {{globals.get.makecode | convert: "string" | json}} -%}
-		{% assign model = {{globals.get.model | convert: "string" | json}} -%}
-		{% assign colour = {{globals.get.colour | convert: "string" | json}} -%}
-		{% assign fromprice = {{globals.get.fromprice | convert: "string" | json}} -%}
-		{% assign toprice = {{globals.get.toprice | convert: "string" | json}} -%}
-		{% assign transmission = {{globals.get.transmission | convert: "string" | json}} -%}
-		{% assign fueltype = {{globals.get.fueltype | convert: "string" | json}} -%}
-		{% assign body = {{globals.get.body | convert: "string" | json}} -%}
-		{% assign stocknumber = {{globals.get.stocknumber | convert: "string" | json}} -%}
-		{% assign sortby = {{globals.get.sortby | convert: "string" | json}} -%}
-		{% assign year = {{globals.get.year | convert: "string" | json}} -%}
-		
-		{% if category == "null" or category == "" -%} {% assign category = "n/a" -%} {% endif -%}
-		{% if status == "null" or status == "" -%} {% assign status = "n/a" -%} {% endif -%}
-		{% if makecode == "null" or makecode == "" -%} {% assign makecode = "n/a" -%} {% endif -%}
-		{% if model == "null" or model == "" -%} {% assign model = "n/a" -%} {% endif -%}
-		{% if colour == "null" or colour == "" -%} {% assign colour = "n/a" -%} {% endif -%}
-		{% if fromprice == "null" or fromprice == "" -%} {% assign fromprice = "n/a" -%} {% endif -%}
-		{% if toprice == "null" or toprice == "" -%} {% assign toprice = "n/a" -%} {% endif -%}
-		{% if transmission == "null" or transmission == "" -%} {% assign transmission = "n/a" -%} {% endif -%}
-		{% if fueltype == "null" or fueltype == "" -%} {% assign fueltype = "n/a" -%} {% endif -%}
-		{% if body == "null" or body == "" -%} {% assign body = "n/a" -%} {% endif -%}
-		{% if stocknumber == "null" or stocknumber == "" -%} {% assign stocknumber = "n/a" -%} {% endif -%}
-		{% if sortby == "null" or sortby == "" -%} {% assign sortby = "n/a" -%} {% endif -%}
-		{% if year == "null" or year == "" -%} {% assign year = "n/a" -%} {% endif -%}
-		
-		{% assign xprice = {{x.Price}} -%}
-		{% assign numfromprice = -1 -%}
-		{% assign numtoprice = -1 -%}
-		
-		{% if fromprice == "n/a" -%} 
-			{% assign numfromprice = 0 -%}
-		{% else -%}
-			{% assign numfromprice = {{globals.get.fromprice | convert: "number" | json}} -%}
-		{% endif -%}
-		
-		{% if toprice == "n/a" -%}
-			{% assign numtoprice = 9999999 -%}
-		{% else -%} 
-			{% assign numtoprice = {{globals.get.toprice | convert: "number" | json}} -%}
-		{% endif -%}
-		
-		{%comment-%} MAKECODE {%endcomment-%}
-		{%comment-%} MODEL {%endcomment-%}
-		{%comment-%} COLOUR {%endcomment-%}
-		{%comment-%} TRANSMISSION {%endcomment-%}	
-		{% comment -%} FUEL {% endcomment -%}
-		{% comment -%} BODY {% endcomment -%}
-		
-		<script type="text/javascript">
+        {% assign makecode = {{globals.get.makecode | convert: "string" | json}} -%}
+        {% assign model = {{globals.get.model | convert: "string" | json}} -%}
+        {% assign colour = {{globals.get.colour | convert: "string" | json}} -%}
+        {% assign fromprice = {{globals.get.fromprice | convert: "string" | json}} -%}
+        {% assign toprice = {{globals.get.toprice | convert: "string" | json}} -%}
+        {% assign transmission = {{globals.get.transmission | convert: "string" | json}} -%}
+        {% assign fueltype = {{globals.get.fueltype | convert: "string" | json}} -%}
+        {% assign body = {{globals.get.body | convert: "string" | json}} -%}
+        {% assign stocknumber = {{globals.get.stocknumber | convert: "string" | json}} -%}
+        {% assign sortby = {{globals.get.sortby | convert: "string" | json}} -%}
+        {% assign year = {{globals.get.year | convert: "string" | json}} -%}
+        
+        {% if category == "null" or category == "" -%} {% assign category = "n/a" -%} {% endif -%}
+        {% if status == "null" or status == "" -%} {% assign status = "n/a" -%} {% endif -%}
+        {% if makecode == "null" or makecode == "" -%} {% assign makecode = "n/a" -%} {% endif -%}
+        {% if model == "null" or model == "" -%} {% assign model = "n/a" -%} {% endif -%}
+        {% if colour == "null" or colour == "" -%} {% assign colour = "n/a" -%} {% endif -%}
+        {% if fromprice == "null" or fromprice == "" -%} {% assign fromprice = "n/a" -%} {% endif -%}
+        {% if toprice == "null" or toprice == "" -%} {% assign toprice = "n/a" -%} {% endif -%}
+        {% if transmission == "null" or transmission == "" -%} {% assign transmission = "n/a" -%} {% endif -%}
+        {% if fueltype == "null" or fueltype == "" -%} {% assign fueltype = "n/a" -%} {% endif -%}
+        {% if body == "null" or body == "" -%} {% assign body = "n/a" -%} {% endif -%}
+        {% if stocknumber == "null" or stocknumber == "" -%} {% assign stocknumber = "n/a" -%} {% endif -%}
+        {% if sortby == "null" or sortby == "" -%} {% assign sortby = "n/a" -%} {% endif -%}
+        {% if year == "null" or year == "" -%} {% assign year = "n/a" -%} {% endif -%}
+        
+        {% assign xprice = {{x.Price}} -%}
+        {% assign numfromprice = -1 -%}
+        {% assign numtoprice = -1 -%}
+        
+        {% if fromprice == "n/a" -%} 
+            {% assign numfromprice = 0 -%}
+        {% else -%}
+            {% assign numfromprice = {{globals.get.fromprice | convert: "number" | json}} -%}
+        {% endif -%}
+        
+        {% if toprice == "n/a" -%}
+            {% assign numtoprice = 9999999 -%}
+        {% else -%} 
+            {% assign numtoprice = {{globals.get.toprice | convert: "number" | json}} -%}
+        {% endif -%}
+        
+        {%comment-%} MAKECODE {%endcomment-%}
+        {%comment-%} MODEL {%endcomment-%}
+        {%comment-%} COLOUR {%endcomment-%}
+        {%comment-%} TRANSMISSION {%endcomment-%}   
+        {% comment -%} FUEL {% endcomment -%}
+        {% comment -%} BODY {% endcomment -%}
+        
+        <script type="text/javascript">
             var global_category = "{{globals.get.category}}";
-			var global_stocknumber = "{{globals.get.stocknumber}}";
-			var global_makecode = "{{globals.get.makecode}}";
-			var global_model = "{{globals.get.model}}";
-			var global_colour = "{{globals.get.colour}}";
-			var global_transmission = "{{globals.get.transmission}}";
-			var global_fuel = "{{globals.get.fueltype}}";
-			var global_body = "{{globals.get.body}}";
-			var global_fromprice = {{numfromprice}};
-			var global_toprice = {{numtoprice}};
-			var global_year = "{{globals.get.year}}";
-			var global_sortby = "{{globals.get.sortby}}";
-			
+            var global_stocknumber = "{{globals.get.stocknumber}}";
+            var global_makecode = "{{globals.get.makecode}}";
+            var global_model = "{{globals.get.model}}";
+            var global_colour = "{{globals.get.colour}}";
+            var global_transmission = "{{globals.get.transmission}}";
+            var global_fuel = "{{globals.get.fueltype}}";
+            var global_body = "{{globals.get.body}}";
+            var global_fromprice = {{numfromprice}};
+            var global_toprice = {{numtoprice}};
+            var global_year = "{{globals.get.year}}";
+            var global_sortby = "{{globals.get.sortby}}";
+            
             var iscategory = $.trim(global_category)==""?false:true;
-			var ismakecode = $.trim(global_makecode)==""?false:true;
-			var ismodel = $.trim(global_model)==""?false:true;
-			var iscolour = $.trim(global_colour) ==""?false:true;
-			var istransmission = $.trim(global_transmission)==""?false:true;
-			var isfueltype = $.trim(global_fuel)==""?false:true;
-			var isbody = $.trim(global_body)==""?false:true;
-			var issortby = $.trim(global_sortby)==""?false:true; 
-			var isstocknumber = $.trim(global_stocknumber)==""?false:true; 
-			var isyear = $.trim(global_year)==""?false:true;
-			var issortby = $.trim(global_sortby)==""?false:true; 
-		</script>
+            var ismakecode = $.trim(global_makecode)==""?false:true;
+            var ismodel = $.trim(global_model)==""?false:true;
+            var iscolour = $.trim(global_colour) ==""?false:true;
+            var istransmission = $.trim(global_transmission)==""?false:true;
+            var isfueltype = $.trim(global_fuel)==""?false:true;
+            var isbody = $.trim(global_body)==""?false:true;
+            var issortby = $.trim(global_sortby)==""?false:true; 
+            var isstocknumber = $.trim(global_stocknumber)==""?false:true; 
+            var isyear = $.trim(global_year)==""?false:true;
+            var issortby = $.trim(global_sortby)==""?false:true; 
+        </script>
 
-	{module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
-		
-		{% assign ctr = 0 -%}
-			
-			{% for x in vehicles.items -%}
-				{% assign cx = 1 -%}
-				
-				{% comment -%} CATEGORY {% endcomment -%}
-				{% assign xcategory = {{x.Category | downcase}} -%}
-				{% assign ycategory = {{category|downcase}} -%}
-				{% if ycategory != "n/a" -%}
-					{% if xcategory == ycategory -%} 
-						{% assign cx = 1 -%}
-					{% else -%}
-						{% assign cx = 0 -%}
-					{% endif -%}
-				{% endif -%}
-				
-				{%comment-%} STATUS {%endcomment-%}
-				{% assign xstatus = {{x.Status | downcase}} -%}
-				{% assign ystatus = {{status|downcase}} -%}
-				{% if cx == 1 -%} 
-					{% if ystatus != "n/a" -%}
-						{% if xstatus == ystatus -%} 
-							{% assign cx = 1 -%}
-						{% else -%}
-							{% assign cx = 0 -%}
-						{% endif -%}
-					{% endif -%}
-				{% endif -%}
+    {module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
+        
+        {% assign ctr = 0 -%}
+            
+            {% for x in vehicles.items -%}
+                {% assign cx = 1 -%}
+                
+                {% comment -%} CATEGORY {% endcomment -%}
+                {% assign xcategory = {{x.Category | downcase}} -%}
+                {% assign ycategory = {{category|downcase}} -%}
+                {% if ycategory != "n/a" -%}
+                    {% if xcategory == ycategory -%} 
+                        {% assign cx = 1 -%}
+                    {% else -%}
+                        {% assign cx = 0 -%}
+                    {% endif -%}
+                {% endif -%}
+                
+                {%comment-%} STATUS {%endcomment-%}
+                {% assign xstatus = {{x.Status | downcase}} -%}
+                {% assign ystatus = {{status|downcase}} -%}
+                {% if cx == 1 -%} 
+                    {% if ystatus != "n/a" -%}
+                        {% if xstatus == ystatus -%} 
+                            {% assign cx = 1 -%}
+                        {% else -%}
+                            {% assign cx = 0 -%}
+                        {% endif -%}
+                    {% endif -%}
+                {% endif -%}
 
 
-				{%comment-%} If price option from settings is enabled {%endcomment-%}
-				{% if {{settings.price_not_empty}} == 'true' -%} 
+                {%comment-%} If price option from settings is enabled {%endcomment-%}
+                {% if {{settings.price_not_empty}} == 'true' -%} 
                     {% if cx == 1 -%} 
-						{% if {{x.DriveAwayPrice}} > 0 -%}
-							{% assign priceval = {{x.DriveAwayPrice}} -%}
-						{% else %}
-							{% assign priceval = {{x.Price}} -%}
-						{% endif -%}
+                        {% if {{x.DriveAwayPrice}} > 0 -%}
+                            {% assign priceval = {{x.DriveAwayPrice}} -%}
+                        {% else %}
+                            {% assign priceval = {{x.Price}} -%}
+                        {% endif -%}
 
                         {% if priceval > 0 -%} 
-							{% assign cx = 1 -%}
-						{% else -%}
-							{% assign cx = 0 -%}
-						{% endif -%}
+                            {% assign cx = 1 -%}
+                        {% else -%}
+                            {% assign cx = 0 -%}
+                        {% endif -%}
                     {% endif -%}
-				{% endif -%}
+                {% endif -%}
 
-				{%comment-%} If photo option from settings is enabled {%endcomment-%}
-				{% if {{settings.photo_not_empty}} == 'true' -%}
+                {%comment-%} If photo option from settings is enabled {%endcomment-%}
+                {% if {{settings.photo_not_empty}} == 'true' -%}
                     {% if cx == 1 -%} 
-						{% if {{x.Photos}} != '' -%} 
-							{% assign cx = 1 -%}
-						{% else -%}
-							{% assign cx = 0 -%}
-						{% endif -%}
+                        {% if {{x.Photos}} != '' -%} 
+                            {% assign cx = 1 -%}
+                        {% else -%}
+                            {% assign cx = 0 -%}
+                        {% endif -%}
                     {% endif -%}
-				{% endif -%}
+                {% endif -%}
 
-				
-				{% comment -%} STOCK NUMBER {% endcomment -%}
-				{% assign xstocknumber = {{x.StockNumber|downcase}} -%}
-				{% assign ystocknumber = {{stocknumber|downcase}} -%}
-				{% assign strstocknumber = {{xstocknumber|convert:"string"|json}} -%}
-				{% if cx == 1 -%}
-					{% if ystocknumber != "n/a" -%}
-						{% if stocknumber contains xstocknumber -%}
-							{% assign cx = 1 -%}  
-						{% else -%} 
-							{% assign cx = 0 -%}
-						{% endif -%}
-					{% endif -%}
-				{% endif -%}
-				
-				{% if cx > 0 -%}{%include "/_System/Includes/vse-v2/vse-body-layout.tpl"%}{% endif -%}
-			{% endfor -%}
+                
+                {% comment -%} STOCK NUMBER {% endcomment -%}
+                {% assign xstocknumber = {{x.StockNumber|downcase}} -%}
+                {% assign ystocknumber = {{stocknumber|downcase}} -%}
+                {% assign strstocknumber = {{xstocknumber|convert:"string"|json}} -%}
+                {% if cx == 1 -%}
+                    {% if ystocknumber != "n/a" -%}
+                        {% if stocknumber contains xstocknumber -%}
+                            {% assign cx = 1 -%}  
+                        {% else -%} 
+                            {% assign cx = 0 -%}
+                        {% endif -%}
+                    {% endif -%}
+                {% endif -%}
+                
+                {% if cx > 0 -%}{%include "/_System/Includes/vse-v2/vse-body-layout.tpl"%}{% endif -%}
+            {% endfor -%}
 {% if {{settings.enable_pagination}} == 'true' %}
 <script type="text/javascript" src="/_System/Includes/vse-v2/js/jPages.min.js"></script>
 {% endif %}
@@ -172,7 +172,7 @@
         initSequencialReading();
         initOtherStuff();
         {% if {{settings.enable_pagination}} == 'true' %}initPagination();{% endif %}
-    	setSearchParamCookie();
+        setSearchParamCookie();
     });
     
     function initSequencialReading() {
@@ -262,9 +262,12 @@
                         });
                         break;
                 }
+                var cnt = $('.vse-item').length;
+                var newPerpage = $('select[name=vehicles_per_page]').val() == '-1' ? cnt : $('select[name=vehicles_per_page]').val();
+                
                 $("div.holder").jPages("destroy").jPages({
                     containerID: "vehicles",
-                    perPage: 24,
+                    perPage: newPerpage,
                     previous: "",
                     next: "",
                     minHeight: false
@@ -299,7 +302,7 @@
                     previous: "",
                     next: "",
                     minHeight: false
-                });console.log('test');
+                });
             }else{
                 $("div.holder").jPages("destroy").jPages({
                     containerID: "vehicles",
@@ -325,7 +328,7 @@
             $('.grid-icon i').addClass('active');
             $('.list-icon i').removeClass('active');            
             $('.vse-item').addClass('grid');
-            $('.vse-item .vse-button-container').toggleClass('medium-6 medium-12').removeClass('column right');            
+            $('.vse-item .vse-button-container').addClass('medium-12').removeClass('medium-6 column right');            
         });
     }    
     list_grid_view();    
