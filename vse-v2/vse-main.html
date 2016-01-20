@@ -261,17 +261,17 @@
                             $(container).parent().append(container);
                         });
                         break;
-                }
+                }                              
+                {% if {{settings.enable_pagination}} == 'true' %}
                 var cnt = $('.vse-item').length;
-                var newPerpage = $('select[name=vehicles_per_page]').val() == '-1' ? cnt : $('select[name=vehicles_per_page]').val();
-                
+                var newPerpage = $('select[name=vehicles_per_page]').val() == '-1' ? cnt : $('select[name=vehicles_per_page]').val();  
                 $("div.holder").jPages("destroy").jPages({
                     containerID: "vehicles",
                     perPage: newPerpage,
                     previous: "",
                     next: "",
                     minHeight: false
-                });
+                });{% endif %}
             });
             endOfTaskCallback();
         }
