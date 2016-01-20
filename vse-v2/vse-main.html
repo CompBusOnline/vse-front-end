@@ -277,7 +277,7 @@
         }
     }
     
-    /* pagination */
+    {% if {{settings.enable_pagination}} == 'true' %}/* pagination */
     function initPagination() {
         //console.log("Initialising pagination...");
         $("div.holder").jPages({
@@ -287,7 +287,8 @@
             next: "",
             minHeight: false
         });
-    }    
+    }{% endif %}
+    {% if {{settings.enable_vehicles_per_page}} == 'true' %}
     $(function() {
         $("select.vehicles_per_page").change(function() {
             /* get new nº of items per page */
@@ -313,8 +314,8 @@
                 });
             }
         });
-    });
-    
+    });{% endif %}
+    {% if {{settings.enable_view_list_grid}} == 'true' %}
     //LIST AND GRID VIEW
     function list_grid_view() {
         $('.list-icon').click(function() {
@@ -332,7 +333,7 @@
         });
     }    
     list_grid_view();    
-    //LIST AND GRID VIEW END
+    //LIST AND GRID VIEW END{% endif %}
     
     function TaskList(tasks, endOfTasksCallback) {
         this.doTasks = function() {
@@ -347,9 +348,7 @@
                 tasks[i](singleTaskCallback);
             }
         }
-    }
-    /****** custom scripts below ***********/
-    
+    }    
 </script>
 
 {% include "/_System/Includes/vse-v2/others/get-weekly-price.html" -%}
