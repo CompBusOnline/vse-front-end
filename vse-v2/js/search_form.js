@@ -30,7 +30,7 @@ $('input[type="checkbox"][name="category[]"]').on('change', function() {
     }).toArray();
     if (!getArrVal.length) {
         $(this).prop("checked", true);
-        sweetAlert("Oops..", "You must tick at least one value", "warning");
+        sweetAlert("Whoops!", "You must tick at least one value", "warning");
         return false;
     };    
 });
@@ -239,20 +239,14 @@ function filterCriteriaByMake(json,make) {
 	
 	if($.trim(make) != "") {
 		//console.log("filter makecode: " + make);
-		var model_result="<option value=\"\" " + sel + ">Select all</option>"; 
-		var colour_result="<option value=\"\" " + sel + ">Select all</option>"; 
-		var year_result= "<option value=\"\" " + sel + ">Select all</option>";
-		var transmission_result="<option value=\"\" " + sel + ">Select all</option>";
-		var fuel_result="<option value=\"\" " + sel + ">Select all</option>";
-		var body_result="<option value=\"\" " + sel + ">Select all</option>";
-		var stocknum_result="<option value=\"\" " + sel + ">Select all</option>";
-		var model=[];
-		var colour = [];
-		var year = [];
-		var transmission = [];
-		var fuel = [];
-		var body = [];
-		var stocknum = [];
+		var model_result="<option value=\"\" " + sel + ">Select all</option>",
+			colour_result="<option value=\"\" " + sel + ">Select all</option>",
+			year_result= "<option value=\"\" " + sel + ">Select all</option>",
+			transmission_result="<option value=\"\" " + sel + ">Select all</option>",
+			fuel_result="<option value=\"\" " + sel + ">Select all</option>",
+			body_result="<option value=\"\" " + sel + ">Select all</option>",
+			stocknum_result="<option value=\"\" " + sel + ">Select all</option>",
+			model=[],colour = [],year = [],transmission = [],fuel = [],body = [],stocknum = [];
 		
         for(a=0;a<json.items.length;a++) {
             if(json.items[a].makecode == make) {
@@ -266,13 +260,13 @@ function filterCriteriaByMake(json,make) {
                 //console.log(json.items[a].model);
             }
 		}
-		var model_final = $.distinct(model);
-		var colour_final = $.distinct(colour);
-		var year_final = $.distinct(year);
-		var transmission_final = $.distinct(transmission);
-		var fuel_final = $.distinct(fuel);
-		var body_final = $.distinct(body);
-		var stocknum_final = $.distinct(stocknum);
+		var model_final = $.distinct(model),
+			colour_final = $.distinct(colour),
+			year_final = $.distinct(year),
+			transmission_final = $.distinct(transmission),
+			fuel_final = $.distinct(fuel),
+			body_final = $.distinct(body),
+			stocknum_final = $.distinct(stocknum);
 		
 		model_final.sort();
 		colour_final.sort();
@@ -461,7 +455,7 @@ function scrollTo(selector) {
     }, 'slow');
 }    
 
-$(document).ready(function(){    
+$(document).ready(function(){   
     initMakeCodeChange();
     getAvailableMakes(global_vehicles, "#makecode", sel);
     getAvailableModels(global_vehicles, "#Model", sel);
@@ -494,5 +488,4 @@ $(document).ready(function(){
     $('input[name="category[]"]').each(function() {
         if (cat == '') $(this).attr('checked', true);
     });
-                  
 });

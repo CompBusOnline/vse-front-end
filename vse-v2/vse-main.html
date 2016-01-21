@@ -1,12 +1,10 @@
 {%comment%}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}{%endcomment%}
 {module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}
         {% assign status = "1" -%}
-        {% if globals.get.category == "demo,used" -%}
+        {% if globals.get.category == "demo,used,commercial" or globals.get.category == null or globals.get.category == "" -%}
             {% assign category = ""  -%}
-        {% elsif globals.get.category == "used" %}
-            {% assign category = "used"  -%}
-        {% elsif globals.get.category == "demo" %}
-            {% assign category = "demo"  -%}
+        {% else %}
+            {% assign category = {{globals.get.category | convert: "string" | json}}  -%}
         {% endif -%}
 
         {% assign makecode = {{globals.get.makecode | convert: "string" | json}} -%}
@@ -96,7 +94,7 @@
                 {% assign xcategory = {{x.Category | downcase}} -%}
                 {% assign ycategory = {{category|downcase}} -%}
                 {% if ycategory != "n/a" -%}
-                    {% if xcategory == ycategory -%} 
+                    {% if ycategory contains xcategory -%} 
                         {% assign cx = 1 -%}
                     {% else -%}
                         {% assign cx = 0 -%}
