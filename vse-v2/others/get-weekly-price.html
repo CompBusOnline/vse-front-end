@@ -3,12 +3,19 @@
 <script type="text/javascript">
     $(document).ready(function(){
        //get weekly price
+        {% if this.globals.get.id == '/vehicles.html'%}
         $('#vehicles .vse-item').each(function(){
             var price = $(this).find('.vse-price').text().replace(/\$|,/g,'');
             price = parseInt(price);
             var selector = $(this).find('.vse-weekly-price');
-            calculatePayment(price, selector)
+            calculatePayment(price, selector);
         }); 
+        {% else %}
+            var price = $('.vse-dprice').text().replace(/\$|,/g,'');
+                price = parseInt(price);
+                var selector = $('.vse-weekly-price');
+            calculatePayment(price, selector);
+        {% endif %}
     });
     
     function calculatePayment(price, selector) {
