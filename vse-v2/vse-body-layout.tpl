@@ -29,7 +29,7 @@
                     <div class="large-7 medium-7 small-6 columns vse-datalabel vse-bold">Fuel:</div>
                     <div class="large-5 medium-5 small-6 columns vse-datavalue">{{x.FuelType|downcase|capitalize}}</div>
                     </div>{% endif- %}
-                    {% if x.Kilometres != ''%}<div class="row">
+                    {% if x.Kilometres != '' and x.Kilometres != '0'%}<div class="row">
                     <div class="large-7 medium-7 small-6 columns vse-datalabel vse-bold">Odometer:</div>
                     <div class="large-5 medium-5 small-6 columns vse-datavalue comma">{{x.Kilometres}} km</div>
                     </div>{% endif- %}
