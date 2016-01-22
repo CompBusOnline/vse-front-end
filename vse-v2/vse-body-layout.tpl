@@ -17,17 +17,17 @@
             <div class="clearfix"></div><hr/>        
             <div class="small-12 columns no-padding vse-details2-container text-right {% if {{settings.enable_weeklypayment}} == 'true' and {{DataPrice}} != '0' %} wp-enable{%endif-%}">
                 <h4 class="vse-price">{% if {{DataPrice}} != '0' %}${{DataPrice}}{% else %}POA{% endif %}</h4>
-                {% if {{settings.enable_weeklypayment}} == 'true' and {{DataPrice}} != '0' %}<div><span>Weekly Payments of </span><h5 class="vse-weekly-price">0</h5></div>{% endif %}
+                {% if {{settings.enable_weeklypayment}} == 'true' and {{DataPrice}} != '0' %}<div><span>weekly payments of </span><h5 class="vse-weekly-price">0</h5></div>{% endif %}
                 {% if {{x.Highlight}} != ''%}<div class="vse-highlight"><i class="fa fa-star yellow"></i> {{x.Highlight}}</div>{% endif %}
 
                 <div class="vse-other-details">
                     {% if x.Transmission != ''%}<div class="row">
                     <div class="large-7 medium-7 small-6 columns vse-datalabel vse-bold">Transmission:</div>
-                    <div class="large-5 medium-5 small-6 columns vse-datavalue">{{x.Transmission}}</div>
+                    <div class="large-5 medium-5 small-6 columns vse-datavalue">{{x.Transmission|downcase|capitalize}}</div>
                     </div>{% endif- %}
                     {% if x.FuelType != ''%}<div class="row">
                     <div class="large-7 medium-7 small-6 columns vse-datalabel vse-bold">Fuel:</div>
-                    <div class="large-5 medium-5 small-6 columns vse-datavalue">{{x.FuelType}}</div>
+                    <div class="large-5 medium-5 small-6 columns vse-datavalue">{{x.FuelType|downcase|capitalize}}</div>
                     </div>{% endif- %}
                     {% if x.Kilometres != ''%}<div class="row">
                     <div class="large-7 medium-7 small-6 columns vse-datalabel vse-bold">Odometer:</div>
@@ -35,7 +35,7 @@
                     </div>{% endif- %}
                     {% if x.StockNumber != ''%}<div class="row">
                     <div class="large-7 medium-7 small-6 columns vse-datalabel vse-bold">Stock Number:</div>
-                    <div class="large-5 medium-5 small-6 columns vse-datavalue ucase">{{x.StockNumber}}</div>
+                    <div class="large-5 medium-5 small-6 columns vse-datavalue ucase">{{x.StockNumber|upcase}}</div>
                     </div>{% endif- %}
                 </div>        
             </div>
