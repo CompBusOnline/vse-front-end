@@ -2,16 +2,18 @@
 <html>
     
     <head>
-        <title>{{this.globals.get.category | capitalize}} Vehicles</title>
-        <meta name="description" content="" />
+        <title>{{this.globals.get.category | capitalize}} Vehicles | {{this.globals.site.name}}</title>   
+        <meta name="description" content="{{this.globals.site.name}} Vehicles" />
+        <meta name="keywords" content="{{this.globals.get.category | capitalize}} Vehicles" />
+        <link rel="stylesheet" property="stylesheet" type="text/css" href="/_System/Includes/vse-v2/css/custom-vse.css" />
     </head>
     
     <body>        
-        {module_webapps id="30409" filter="all" template="" collection="vehicles"}   
+        {% assign webapp_id = "30409" -%}
+        {module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}   
         {module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
         {% assign vpp = settings.enable_vehicles_per_page %}
         {% assign vlg = settings.enable_view_list_grid %}
-        {% assign webapp_id = "30409" -%}
         <section class="row">
             <h2 class="hide">Vehicle Listing</h2>
             <!-- ========================== -->
@@ -28,82 +30,7 @@
                 <!-- ========================== -->
                 <!-- Start Sorting Section -->
                 <!-- ========================== -->
-                {% if vlg == 'true' %}
-                    {% assign resultscol = 'large-3'%}
-                    {% assign sortby = 'large-3 medium-5'%}
-                {%else%}
-                    {%assign resultscol = 'large-6'%}
-                    {% assign sortby = 'large-3 medium-6'%}
-                {%endif%}
-                <div class="row hide-for-small-only">
-                    <div class="large-12 medium-12 small-12">
-                        <div class="{{resultscol}} {% if vpp == 'true' %}medium-12{%else%}medium-6{%endif%} small-12 columns margintop20-small vse-num-results">
-                            <b class="result-show">Showing All Results</b>
-                        </div>
-                        <div class="{{sortby}} small-12 columns margintop20-small">
-                            <label>Sort by:
-                            <select name="sortingdata" class="sortingdata" data-control-type="sort-select" data-control-name="sort" data-control-action="sort">
-                                <option value="" class="defaultset">- Select -</option>
-                                <option value="pricelh">Price (low to high)</option>
-                                <option value="pricehl">Price (high to low)</option>
-                                <option value="yrl">Year (low to high)</option>
-                                <option value="yrh">Year (high to low)</option>
-                            </select> </label>
-                        </div>
-                        {% if vpp == 'true' %}
-                        <div class="large-3 medium-4 small-12 columns margintop20-small vse-vpp">
-                            <label>Vehicles per page: 
-                            <select name="vehicles_per_page" class="vehicles_per_page">
-                                <option value="24">24</option>
-                                <option value="36">36</option>
-                                <option value="-1">All</option>
-                            </select></label>
-                        </div>
-                        {% endif %}
-                        {% if vlg == 'true' %}
-                        <div class="large-2 medium-3 small-12 columns margintop20-small vse-view-container text-right">
-                            <label>View as: </label>
-                            <a href="javascript:void(0);" class="list-icon view-control"><i class="fa fa-list-ul"></i></a>
-                            <a href="javascript:void(0);" class="grid-icon view-control"><i class="fa fa-th active"></i></a>
-                        </div>
-                        {% endif %}
-                    </div>
-                </div>
-                
-                <!-- ============= sorting for mobile only =================== -->
-                
-                <div class="show-for-small-only">
-                    <h3 class="result-show semibold">Showing All Results</h3>
-                    <form>
-                        <div class="row">
-                            <div class="small-6 columns text-right">
-                                <label class="inline">Sort by: </label>
-                            </div>
-                            <div class="small-6 columns">
-                                <select name="sortingdata" class="sortingdata" data-control-type="sort-select" data-control-name="sort" data-control-action="sort">
-                                    <option value="" class="defaultset">- Select -</option>
-                                    <option value="pricelh">Price (low to high)</option>
-                                    <option value="pricehl">Price (high to low)</option>
-                                    <option value="yrl">Year (low to high)</option>
-                                    <option value="yrh">Year (high to low)</option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                    {% if vpp == 'true' %}
-                    <div class="row">
-                        <div class="small-6 columns text-right">
-                            <label class="inline">Vehicles per page: </label>
-                        </div>
-                        <div class="small-6 columns">
-                            <select name="vehicles_per_page" class="vehicles_per_page">
-                                <option value="24">24</option>
-                                <option value="36">36</option>
-                                <option value="-1">All</option>
-                            </select>
-                        </div>
-                    </div>{% endif %}<br>
-                </div>                
+                {% include "/_System/Includes/vse-v2/vse-sorting-options.html" -%}          
                 
                 <!-- ========================== -->
                 <!-- End Sorting Section -->
