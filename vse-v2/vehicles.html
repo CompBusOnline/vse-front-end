@@ -11,9 +11,6 @@
     <body>        
         {% assign webapp_id = "30409" -%}
         {module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}   
-        {module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
-        {% assign vpp = settings.enable_vehicles_per_page %}
-        {% assign vlg = settings.enable_view_list_grid %}
         <section class="row">
             <h2 class="hide">Vehicle Listing</h2>
             <!-- ========================== -->
