@@ -2,7 +2,6 @@
 {% elsif globals.visitor.deviceClass == "phone" -%}{% assign thumbnail = "?Action=thumbnail&Width=300" -%}
 {% elsif globals.visitor.deviceClass == "desktop" -%}{% assign thumbnail = "?Action=thumbnail&Width=449&Height=303&algorithm=fill_proportional" -%}
 {% else -%}{% assign thumbnail = "" -%}{% endif -%}{module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
-<script>var dimensions = {platform:'website', category:'{{x.Category}}', action:'impression', stocknumber:'{{x.StockNumber}}'};</script>
 {% assign DataPrice = 0 -%}{% if x.DriveAwayPrice != 0 -%}{% assign DataPrice = x.DriveAwayPrice -%}{% else -%}{% assign DataPrice = x.Price -%}{% endif -%}
 <div class="columns vse-item grid" id="vehicle_{{x.StockNumber}}" data-stocknumber="{{x.StockNumber}}" data-name="{{x.VehicleName|downcase}}" data-category="{{x.Category|downcase}}" data-status="{{x.Status|downcase}}" data-makecode="{{x.MakeCode|downcase}}" data-model="{{x.Model|downcase}}" data-colour="{{x.Colour|downcase}}" data-transmission="{{x.Transmission|downcase}}" data-fueltype="{{x.FuelType|downcase}}" data-body="{{x.Body|downcase}}" data-price="{{DataPrice}}" data-year="{{x.Year}}">
     <div class="vse-full-border row">  
