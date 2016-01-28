@@ -1,4 +1,3 @@
-<link rel="stylesheet" property="stylesheet" type="text/css" href="/_System/Includes/vse-v2/css/custom-vse.css" />
 {% assign devi = "" %}{% if globals.visitor.deviceClass == "desktop" -%}{% assign devi = "chosenselect" -%} {% endif -%}
 <form name="search_form" id="search_form" class="vse-search-form">
     <div id="vse-search-wrapper">
@@ -136,8 +135,10 @@
 <script type="text/javascript" src="/_System/Includes/vse-v2/js/search_form.js"></script>
 <script type="text/javascript" src="/_System/Includes/vse-v2/js/chosen.jquery.min.js"></script>
 <script type="text/javascript">
-    {%comment%}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}{%endcomment%}
-    {module_webapps collection="vehicles" template="" id="{{webapp_id}}" filter="all" sortType="date"}
+    {module_webappscount id="{{webapp_id}}" collection="counter" template=""}
+    {% assign total_items = {{this.counter.count}} %}
+    {% if total_items > 500 %}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}
+    {%else%}{module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}{%endif%}
     {% assign thispage = this.globals.get.ID -%}
     var global_thispage = "{{this.globals.get.ID}}",
         global_loc = '',

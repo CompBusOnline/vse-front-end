@@ -1,5 +1,7 @@
-{%comment%}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}{%endcomment%}
-{module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}
+{module_webappscount id="{{webapp_id}}" collection="counter" template=""}
+{% assign total_items = {{this.counter.count}} %}
+{% if total_items > 500 %}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}
+{%else%}{module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}{%endif%}
         {% assign status = "1" -%}
         {% if globals.get.category == "demo,used,commercial" or globals.get.category == null or globals.get.category == "" -%}
             {% assign category = ""  -%}
