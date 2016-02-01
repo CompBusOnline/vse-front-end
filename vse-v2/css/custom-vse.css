@@ -120,7 +120,7 @@ input[type="checkbox"]+label, input[type="radio"]+label, .chosen-container {
 .vse-item.grid .vse-full-border{border: 1px solid #eee;}
 .vse-item.grid .vse-image{margin-bottom:15px;}
 .vse-item.grid .vse-details2-container.wp-enable{min-height: 265px;}
-.vse-item.grid .vse-details1-container{min-height:97px;padding:0 0.9375em;}
+.vse-item.grid .vse-details1-container{padding:0 0.9375em;}
 
 .vse-item .no-padding-right{padding-right:0;}
 .vse-divider{margin: 2rem 0;}
@@ -170,25 +170,34 @@ a.jp-current {
 *********/
 .vse-view-container .list-icon i, .vse-view-container .grid-icon i{color:#ECECEC;font-size:24px;vertical-align:middle;}
 .vse-view-container .list-icon i.active, .vse-view-container .grid-icon i.active{color:#2ba6cb!important;}
+.v1 .vse-num-results{margin-bottom:15px;}
 
 /********
 ** Custom Media Queries
 ********/
-@media only screen and (max-width:64em){
+@media only screen and (min-width:64.063em){
+    .vse-item.grid .vse-details1-container{min-height:97px;}   
+}
+@media only screen and (min-width:48.063em){
     .vse-item.grid .vse-details1-container{
         min-height:82px;
-    }   
+    }    
+}
+@media only screen and (min-width:40.063em){
+    .vse-item.grid .vse-details1-container{
+        min-height:105px;
+    }       
+}
+@media only screen and (max-width:64em){
     .vse-num-results{margin-bottom:15px;}
     .vse-item.grid{width:50%;}
     .vse-item .no-padding-right{padding:0;}
 }
 @media only screen and (max-width:48em){
-    .vse-item.grid .vse-details1-container{
-        min-height:100px;
-    }   
+    
 }
 @media only screen and (max-width:40em){
-    .vse-item.grid .vse-details1-container, .vse-item.grid .vse-details2-container.wp-enable{
+    .vse-item.grid .vse-details2-container.wp-enable{
         min-height:initial;
     }   
     .vse-item.grid{width:100%;}
