@@ -2,6 +2,7 @@
 {% assign total_items = {{this.counter.count}} %}
 {% if total_items > 500 %}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}
 {%else%}{module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}{%endif%}
+
         {% assign status = "1" -%}
         {% if globals.get.category == "demo,used,commercial" or globals.get.category == null or globals.get.category == "" -%}
             {% assign category = ""  -%}
@@ -315,25 +316,6 @@
             }
         });
     });{% endif %}
-    {% if {{settings.enable_view_list_grid}} == 'true' %}
-    //LIST AND GRID VIEW
-    function list_grid_view() {
-        $('.list-icon').click(function() {
-            $('.list-icon i').addClass('active');
-            $('.grid-icon i').removeClass('active');            
-            $('.vse-item').removeClass('grid');
-            $('.vse-item .vse-button-container').toggleClass('medium-12 medium-6 column right');
-        });        
-        var grid = $('.vse-item');        
-        $('.grid-icon').click(function() {
-            $('.grid-icon i').addClass('active');
-            $('.list-icon i').removeClass('active');            
-            $('.vse-item').addClass('grid');
-            $('.vse-item .vse-button-container').addClass('medium-12').removeClass('medium-6 column right');            
-        });
-    }    
-    list_grid_view();    
-    //LIST AND GRID VIEW END{% endif %}
     
     function TaskList(tasks, endOfTasksCallback) {
         this.doTasks = function() {
@@ -349,6 +331,40 @@
             }
         }
     }    
+    
+    //*** Custom Scripts ***//
+    {% if {{settings.enable_view_list_grid}} == 'true' %}
+    //LIST AND GRID VIEW
+    function list_grid_view() {
+        $('.list-icon').click(function() {
+            $('.list-icon i').addClass('active');
+            $('.grid-icon i').removeClass('active');
+            
+            $('.current-stock-item').removeClass('grid');
+            $('.current-stock-item').addClass('no-padding');
+            $('.current-stock-item .post-detail, .current-stock-item .specs').addClass('no-padding-right');
+            $('.current-stock-item .post-detail, .current-stock-item .specs').removeClass('no-padding');
+            
+            $('.current-stock-item, .current-stock-item .title, .current-stock-item .title h4, .current-stock-item .description, .current-stock-item .car-specs').css('height', 'auto');
+        });
+        
+        var grid = $('.current-stock-item');
+        
+        $('.grid-icon').click(function() {
+            $('.grid-icon i').addClass('active');
+            $('.list-icon i').removeClass('active');
+            
+            $('.current-stock-item').addClass('grid');
+            $('.current-stock-item').removeClass('no-padding');
+            $('.current-stock-item .post-detail, .current-stock-item .specs').removeClass('no-padding-right');
+            $('.current-stock-item .post-detail, .current-stock-item .title, .current-stock-item .specs').addClass('no-padding');
+        });
+    }
+    
+    list_grid_view();
+ 
+    //LIST AND GRID VIEW END    
+    {% endif %}
 </script>
 
 {% include "/_System/Includes/vse-v2/others/get-weekly-price.html" -%}
