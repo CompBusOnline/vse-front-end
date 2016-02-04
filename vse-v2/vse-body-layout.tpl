@@ -5,7 +5,7 @@
 <div class="columns vse-item grid" id="vehicle_{{x.StockNumber}}" data-stocknumber="{{x.StockNumber}}" data-name="{{x.VehicleName|downcase}}" data-category="{{x.Category|downcase}}" data-status="{{x.Status|downcase}}" data-makecode="{{x.MakeCode|downcase}}" data-model="{{x.Model|downcase}}" data-colour="{{x.Colour|downcase}}" data-transmission="{{x.Transmission|downcase}}" data-fueltype="{{x.FuelType|downcase}}" data-body="{{x.Body|downcase}}" data-price="{{DataPrice}}" data-year="{{x.Year}}">
     <div class="vse-full-border row">  
         <div class="large-6 column no-padding vse-image-container">
-            <a href="{{parent_url}}{{x.Url}}"><img alt="{{x.Year}} {{x.VehicleName}}" title="{{x.Year}} {{x.VehicleName}}" data-original="/files/photos/{{x.StockNumber}}-1.jpg?Action=thumbnail&Width=449&Height=303&algorithm=fill_proportional&time={{globals.site.dateNow | date:'ffff'}}" class="lazy vse-image" src="/_System/Includes/vse-v2/images/vse-placeholder.jpg{{thumbnail}}" /></a>
+            <a href="{{parent_url}}{{x.Url}}"><img alt="{{x.Year}} {{x.VehicleName}}" title="{{x.Year}} {{x.VehicleName}}" data-original="/files/photos/{{x.StockNumber}}-1.jpg?Action=thumbnail&Width=449&Height=303&algorithm=fill_proportional&time={{globals.site.dateNow | date:'ffff'}}" class="lazy vse-image" src="/_System/Includes/vse-v2/images/vse-placeholder.jpg" /></a>
         </div>        
         <div class="large-6 column vse-main-details no-padding-right">
             <div class="small-12 columns no-padding vse-details1-container text-right">
