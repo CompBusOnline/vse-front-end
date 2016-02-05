@@ -1,0 +1,47 @@
+{% if globals.visitor.deviceClass == "desktop" or globals.visitor.deviceClass == "tablet"%}
+    <div id="sorter-wrapper" class="bg-darkgrey header-title hide-for-small-only">
+        {module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
+        {% assign vpp = settings.enable_vehicles_per_page %}
+        {% assign vlg = settings.enable_view_list_grid %}
+        
+        {% if vlg == 'true' and vpp == 'true' %}
+            {% assign container_class = 'v1'%}
+        {% elsif vlg == 'true' and vpp != 'true' %}
+            {% assign container_class = 'v2'%}
+        {% elsif vpp == 'true' and vlg != 'true' %}
+            {% assign container_class = 'v3'%}
+        {%else%}
+            {% assign container_class = 'v4'%}
+        {%endif%}
+        <div class="row sort-control {{container_class}} hide-for-small-only">
+            <div class="large-3 medium-3 columns no-padding">
+                <h3 class="uppercase result-show">Showing All Results</h3>
+            </div>
+            <div class="large-9 medium-9 columns no-padding text-right">
+                <span>Sort by: </span>
+                <select class="sortingdata sorter" name="sortingdata" id="sortingdata" data-control-type="sort-select" data-control-name="sort" data-control-action="sort">
+                    <option value="" id="defaultset">- Select -</option>
+                    <option value="pricelh">Price (low to high)</option>
+                    <option value="pricehl">Price (high to low)</option>
+                    <option value="yrl">Year (low to high)</option>
+                    <option value="yrh">Year (high to low)</option>
+                </select>
+                {% if vpp == 'true' %}
+                <div class="clearfix show-for-small-only"></div>
+                <span>Vehicles per page: </span>
+                <select name="vehicles_per_page" class="vehicles_per_page result-per-page">
+                    <option value="24">24</option>
+                    <option value="36">36</option>
+                    <option value="-1">All</option>
+                </select>
+                <div class="clearfix show-for-small-only"></div>
+                {%endif%}
+                {% if vlg == 'true' %}
+                <span class="view-control">View as: </span>
+                <a href="javascript:void(0);" class="list-icon view-control"><i class="fa fa-list-ul"></i></a>
+                <a href="javascript:void(0);" class="grid-icon view-control"><i class="fa fa-th active"></i></a>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+{%endif%}
