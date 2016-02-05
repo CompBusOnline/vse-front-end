@@ -11,7 +11,8 @@ function filterSearch(_items) {
                 iftype = $(this).attr('data-fueltype'),
                 ibody = $(this).attr('data-body'),
                 iprice = parseInt($(this).attr('data-price')),
-                iyear = parseInt($(this).attr('data-year'));
+                iyear = parseInt($(this).attr('data-year')),
+                idealer = parseInt($(this).attr('data-dealership'));
             
             if (iscategory) {
 				var st_cat = global_category.toLowerCase().split(",");
@@ -22,6 +23,17 @@ function filterSearch(_items) {
 					if(icategory == st_cat[i1]) { ctr_category++;}
 				}
 				if(ctr_category > 0) { cx=1; } else { cx=0; }
+			}
+            
+            if (isdealership) {
+				var st_dealer = global_dealership;                
+				$('select#dealership').val(st_dealer);
+                
+				var ctr_dealer = 0;
+				for(var i1 = 0;i1 < st_dealer.length; i1++) { 
+					if(idealer == st_dealer[i1]) { ctr_dealer++;}
+				}
+				if(ctr_dealer > 0) { cx=1; } else { cx=0; }
 			}
 			
 			if (ismakecode) {
@@ -180,7 +192,14 @@ function filterSearch(_items) {
     }
 	
 	isAdvanceSearch();
-	if(ismakecode) { $('#makecode').trigger('change'); }
+    if ( $('select#dealership').length ){
+        if(isdealership){$('#dealership').trigger('change');}
+        if(ismakecode) { reinitialiseMake() }
+    }        
+    else{
+        if(isdealership){reinitialiseDealershipID()}
+        if(ismakecode) { $('#makecode').trigger('change'); }
+    }	
     if(iscategory) { reinitialiseCategory(); }	
 	if(ismodel) { reinitialiseModel(); }
 	if(iscolour) { reinitialiseColour(); }

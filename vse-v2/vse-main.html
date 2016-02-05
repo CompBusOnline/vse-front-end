@@ -2,14 +2,10 @@
 {% assign total_items = {{this.counter.count}} %}
 {% if total_items > 500 %}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}
 {%else%}{module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}{%endif%}
-
         {% assign status = "1" -%}
-        {% if globals.get.category == "demo,used,commercial" or globals.get.category == null or globals.get.category == "" -%}
-            {% assign category = ""  -%}
-        {% else %}
-            {% assign category = {{globals.get.category | convert: "string" | json}}  -%}
-        {% endif -%}
-
+        {% if globals.get.category == "demo,used,commercial" or globals.get.category == null or globals.get.category == "" -%}{% assign category = ""  -%}
+        {% else %}{% assign category = {{globals.get.category | convert: "string" | json}}  -%}{% endif -%}
+        
         {% assign makecode = {{globals.get.makecode | convert: "string" | json}} -%}
         {% assign model = {{globals.get.model | convert: "string" | json}} -%}
         {% assign colour = {{globals.get.colour | convert: "string" | json}} -%}
@@ -21,6 +17,8 @@
         {% assign stocknumber = {{globals.get.stocknumber | convert: "string" | json}} -%}
         {% assign sortby = {{globals.get.sortby | convert: "string" | json}} -%}
         {% assign year = {{globals.get.year | convert: "string" | json}} -%}
+        {% assign dealership = {{globals.get.dealership | convert: "string" | json}} -%}
+        {% assign dealershipID = {{globals.get.dealershipID | convert: "string" | json}} -%}
         
         {% if category == "null" or category == "" -%} {% assign category = "n/a" -%} {% endif -%}
         {% if status == "null" or status == "" -%} {% assign status = "n/a" -%} {% endif -%}
@@ -35,6 +33,8 @@
         {% if stocknumber == "null" or stocknumber == "" -%} {% assign stocknumber = "n/a" -%} {% endif -%}
         {% if sortby == "null" or sortby == "" -%} {% assign sortby = "n/a" -%} {% endif -%}
         {% if year == "null" or year == "" -%} {% assign year = "n/a" -%} {% endif -%}
+        {% if dealership == "null" or dealership == "" -%} {% assign dealership = "n/a" -%} {% endif -%}
+        {% if dealershipID == "null" or dealershipID == "" -%} {% assign dealershipID = "n/a" -%} {% endif -%}
         
         {% assign xprice = {{x.Price}} -%}
         {% assign numfromprice = -1 -%}
@@ -60,30 +60,33 @@
         {% comment -%} BODY {% endcomment -%}
         
         <script type="text/javascript">
-            var global_category = "{{globals.get.category}}";
-            var global_stocknumber = "{{globals.get.stocknumber}}";
-            var global_makecode = "{{globals.get.makecode}}";
-            var global_model = "{{globals.get.model}}";
-            var global_colour = "{{globals.get.colour}}";
-            var global_transmission = "{{globals.get.transmission}}";
-            var global_fuel = "{{globals.get.fueltype}}";
-            var global_body = "{{globals.get.body}}";
-            var global_fromprice = {{numfromprice}};
-            var global_toprice = {{numtoprice}};
-            var global_year = "{{globals.get.year}}";
-            var global_sortby = "{{globals.get.sortby}}";
+            var global_category = "{{globals.get.category}}",
+                global_stocknumber = "{{globals.get.stocknumber}}",
+                global_makecode = "{{globals.get.makecode}}",
+                global_model = "{{globals.get.model}}",
+                global_colour = "{{globals.get.colour}}",
+                global_transmission = "{{globals.get.transmission}}",
+                global_fuel = "{{globals.get.fueltype}}",
+                global_body = "{{globals.get.body}}",
+                global_fromprice = {{numfromprice}},
+                global_toprice = {{numtoprice}},
+                global_year = "{{globals.get.year}}",
+                global_sortby = "{{globals.get.sortby}}",
+                global_dealership = "{{globals.get.dealership}}",
+                global_dealershipID = "{{globals.get.dealershipID}}";
             
-            var iscategory = $.trim(global_category)==""?false:true;
-            var ismakecode = $.trim(global_makecode)==""?false:true;
-            var ismodel = $.trim(global_model)==""?false:true;
-            var iscolour = $.trim(global_colour) ==""?false:true;
-            var istransmission = $.trim(global_transmission)==""?false:true;
-            var isfueltype = $.trim(global_fuel)==""?false:true;
-            var isbody = $.trim(global_body)==""?false:true;
-            var issortby = $.trim(global_sortby)==""?false:true; 
-            var isstocknumber = $.trim(global_stocknumber)==""?false:true; 
-            var isyear = $.trim(global_year)==""?false:true;
-            var issortby = $.trim(global_sortby)==""?false:true; 
+            var iscategory = $.trim(global_category)==""?false:true,
+                ismakecode = $.trim(global_makecode)==""?false:true,
+                ismodel = $.trim(global_model)==""?false:true,
+                iscolour = $.trim(global_colour) ==""?false:true,
+                istransmission = $.trim(global_transmission)==""?false:true,
+                isfueltype = $.trim(global_fuel)==""?false:true,
+                isbody = $.trim(global_body)==""?false:true,
+                issortby = $.trim(global_sortby)==""?false:true,
+                isstocknumber = $.trim(global_stocknumber)==""?false:true,
+                isyear = $.trim(global_year)==""?false:true,
+                isdealership = $.trim(global_dealership)==""?false:true,
+                isdealershipID = $.trim(global_dealershipID)==""?false:true;
         </script>
 
     {module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
@@ -141,6 +144,19 @@
                         {% if {{x.Photos}} != '' -%} 
                             {% assign cx = 1 -%}
                         {% else -%}
+                            {% assign cx = 0 -%}
+                        {% endif -%}
+                    {% endif -%}
+                {% endif -%}
+
+                {% comment -%} dealership {% endcomment -%}
+                {% assign xdealership = {{x.DealerCode|downcase}} -%}
+                {% assign ydealership = {{dealership|downcase}} -%}
+                {% if cx == 1 -%}
+                    {% if ydealership != "n/a" -%}
+                        {% if dealership contains xdealership -%}
+                            {% assign cx = 1 -%}  
+                        {% else -%} 
                             {% assign cx = 0 -%}
                         {% endif -%}
                     {% endif -%}

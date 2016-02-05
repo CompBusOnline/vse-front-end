@@ -1,6 +1,12 @@
 function initMakeCodeChange() {
     $('#makecode').change(function() {
         filterCriteriaByMake(global_vehicles, $(this).val().toLowerCase());
+       	if (is_nottablet){$(".chosenselect").trigger("chosen:updated");}
+    });
+}
+function initDealershipChange() {
+    $('#dealership').change(function() {
+        filterCriteriaByDealership(global_vehicles, $(this).val());
         if (is_nottablet){$(".chosenselect").trigger("chosen:updated");}
     });
 }
@@ -83,7 +89,9 @@ function initSearchButton(page_url) {
             transmission = $.trim($('#Transmission').val()),
             fuel = $.trim($('#fuel').val()),
             body = $.trim($('#body').val()),
-            stocknumber = $.trim($('#stocknumber').val());
+            stocknumber = $.trim($('#stocknumber').val()),
+            dealership = $.trim($('#dealership option:selected').val()),
+            dealershipID = $.trim($('#dealership option:selected').attr('id'));
 	
 		var x = page_url; 
 	 
@@ -92,6 +100,8 @@ function initSearchButton(page_url) {
 			if(stocknumber.length != 0) { x += "stocknumber=" + stocknumber + "&" }
 		} else {
             if(category.length > 0) { x += "category=" + category + "&"; }
+            if(dealership.length > 0) { x += "dealership=" + dealership + "&"; }
+            if(dealershipID.length > 0) { x += "dealershipID=" + dealershipID + "&"; }
 			if(makecode.length != 0) { x += "makecode=" + makecode + "&"; }
 			if(model.length != 0) { x += "model=" + model + "&"; }
 			if(colour.length != 0) { x += "colour=" + colour + "&"; }
@@ -235,6 +245,82 @@ function getAvailableStockNumbers(json,model_elem,sel) {
 	$(model_elem).html(result);
 }
 
+function filterCriteriaByDealership(json,dealership) {	
+	if($.trim(dealership) != "") {
+		//console.log("filter dealership: " + dealership);
+		var make_result="<option value=\"\" " + sel + ">Select all</option>",
+            model_result="<option value=\"\" " + sel + ">Select all</option>",
+            colour_result="<option value=\"\" " + sel + ">Select all</option>",
+			year_result= "<option value=\"\" " + sel + ">Select all</option>",
+			transmission_result="<option value=\"\" " + sel + ">Select all</option>",
+			fuel_result="<option value=\"\" " + sel + ">Select all</option>",
+			body_result="<option value=\"\" " + sel + ">Select all</option>",
+			stocknum_result="<option value=\"\" " + sel + ">Select all</option>",
+			make=[],model=[],colour = [],year = [],transmission = [],fuel = [],body = [],stocknum = [],
+            arr_selected= dealership.split(", ");
+		               
+        		
+        
+        for(a=0;a<json.items.length;a++) {
+            if ($.inArray(json.items[a].dealershipid.toString(), arr_selected) != -1){
+                make.push(json.items[a].makecode); 
+                model.push(json.items[a].model);
+                colour.push(json.items[a].colour);
+                year.push(json.items[a].year);
+                transmission.push(json.items[a].transmission);
+                fuel.push(json.items[a].fuel);
+                body.push(json.items[a].body);
+                stocknum.push(json.items[a].stocknumber);
+            }
+		}
+		var make_final = $.distinct(make),
+            model_final = $.distinct(model),
+            colour_final = $.distinct(colour),
+			year_final = $.distinct(year),
+			transmission_final = $.distinct(transmission),
+			fuel_final = $.distinct(fuel),
+			body_final = $.distinct(body),
+			stocknum_final = $.distinct(stocknum);
+		
+		make_final.sort();
+        model_final.sort();
+        colour_final.sort();
+		year_final.sort();
+		transmission_final.sort();
+		fuel_final.sort();
+		body_final.sort();
+		stocknum_final.sort();
+        
+		for(b=0;b<make_final.length;b++) { make_result+="<option value=\"" + make_final[b] + "\">" + make_final[b] + "</option>"; }
+        for(b=0;b<model_final.length;b++) { model_result+="<option value=\"" + model_final[b] + "\">" + model_final[b] + "</option>"; }
+        for(b=0;b<colour_final.length;b++) { colour_result+="<option value=\"" + colour_final[b] + "\">" + colour_final[b] + "</option>"; }
+		for(b=0;b<year_final.length;b++) { year_result+="<option value=\"" + year_final[b] + "\">" + year_final[b] + "</option>"; }
+		for(b=0;b<transmission_final.length;b++) { transmission_result+="<option value=\"" + transmission_final[b] + "\">" + transmission_final[b] + "</option>"; }
+		for(b=0;b<fuel_final.length;b++) { fuel_result+="<option value=\"" + fuel_final[b] + "\">" + fuel_final[b] + "</option>"; }
+		for(b=0;b<body_final.length;b++) { body_result+="<option value=\"" + body_final[b] + "\">" + body_final[b] + "</option>"; }
+		for(b=0;b<stocknum_final.length;b++) { stocknum_result+="<option value=\"" + stocknum_final[b] + "\">" + stocknum_final[b] + "</option>"; }
+		
+		$("#makecode").html(make_result);
+        $("#Model").html(model_result);
+        $("#Colour").html(colour_result);
+		$("#Transmission").html(transmission_result);
+		$("#fuel").html(fuel_result);
+		$("#stocknumber").html(stocknum_result);
+		$("#body").html(body_result);
+		$("#Year").html(year_result);
+        
+	} else {
+		getAvailableMakes(global_vehicles,"#makecode");
+        getAvailableModels(global_vehicles, "#Model");
+        getAvailableColours(global_vehicles, "#Colour");
+		getAvailableTransmission(global_vehicles, "#Transmission");
+		getAvailableFuels(global_vehicles, "#fuel");
+		getAvailableBodies(global_vehicles,"#body");
+		getAvailableStockNumbers(global_vehicles,"#stocknumber");
+		getYears(global_vehicles,"#Year");
+	} 
+}
+
 function filterCriteriaByMake(json,make) {
 	
 	if($.trim(make) != "") {
@@ -257,7 +343,6 @@ function filterCriteriaByMake(json,make) {
                 fuel.push(json.items[a].fuel);
                 body.push(json.items[a].body);
                 stocknum.push(json.items[a].stocknumber);
-                //console.log(json.items[a].model);
             }
 		}
 		var model_final = $.distinct(model),
@@ -330,6 +415,32 @@ function reinitialiseCategory() {
 	  });	  
 }
 
+function reinitialiseDealershipID() {
+	  //console.log("Reinitialising dealerships...");	
+	  $('#dealership option').each(function() {
+		var a = $.trim($(this).attr('id'));
+		var b = global_dealershipID.toLowerCase().split(",");
+		for(c=0;c<b.length;c++) {
+			if($.trim(b[c].toLowerCase()) == a.toLowerCase()) {
+				$(this).attr('selected','');
+			}
+		}
+	  });	  
+    
+}
+
+function reinitialiseMake() {
+	  //console.log("Reinitialising models...");	
+	  $('#makecode option').each(function() {
+		var a = $.trim($(this).attr('value'));
+		var b = global_makecode.toLowerCase().split(",");
+		for(c=0;c<b.length;c++) {
+			if($.trim(b[c].toLowerCase()) == a.toLowerCase()) {
+				$(this).attr('selected','');
+			}
+		}
+	  });	  
+}
 
 function reinitialiseModel() {
 	  //console.log("Reinitialising models...");	
@@ -456,7 +567,10 @@ function scrollTo(selector) {
 }    
 
 $(document).ready(function(){   
-    initMakeCodeChange();
+    if ( $('select#dealership').length )
+        initDealershipChange();
+    else
+        initMakeCodeChange();
     getAvailableMakes(global_vehicles, "#makecode", sel);
     getAvailableModels(global_vehicles, "#Model", sel);
     getAvailableColours(global_vehicles, "#Colour", sel);
