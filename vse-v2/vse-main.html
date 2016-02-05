@@ -187,9 +187,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         initSequencialReading();
-        initOtherStuff();
         {% if {{settings.enable_pagination}} == 'true' %}initPagination();{% endif %}
-        setSearchParamCookie();
     });
     
     function initSequencialReading() {
@@ -198,6 +196,9 @@
         tasks.push(initFilterSearch('.vse-item'));
         tasks.push(initSorting());
         tasks.push(initLazyLoad());
+        tasks.push(initOtherStuff());
+        tasks.push(setSearchParamCookie());
+        {% if {{settings.enable_view_list_grid}} == 'true' %}tasks.push(list_grid_view());{% endif %}
         new TaskList(tasks, function() {
             //console.log("Sequencial reading complete!");
             $('.vse-loader').hide();
@@ -231,18 +232,24 @@
     function initOtherStuff() {
         //console.log("Initialising other stuff...");
         // add comma
-        $.fn.digits = function() {
-            return this.each(function() {
-                $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-            });
-        }
-        $.fn.digits();
-        $(".comma, .vse-price").digits();
+        return function(endOfTaskCallback) {
+            $.fn.digits = function() {
+                return this.each(function() {
+                    $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                });
+            }
+            $.fn.digits();
+            $(".comma, .vse-price").digits();
+            endOfTaskCallback();
+        }        
     }
     
     function setSearchParamCookie(){
-        var url = window.location.search;
-        if(url != ''){localStorage.setItem('search_param', url);}else{localStorage.setItem('search_param', '');}         
+        return function(endOfTaskCallback) {
+            var url = window.location.search;
+            if(url != ''){localStorage.setItem('search_param', url);}else{localStorage.setItem('search_param', '');}  
+            endOfTaskCallback();
+        }       
     }
     
     function initSorting() {
@@ -352,33 +359,25 @@
     {% if {{settings.enable_view_list_grid}} == 'true' %}
     //LIST AND GRID VIEW
     function list_grid_view() {
-        $('.list-icon').click(function() {
-            $('.list-icon i').addClass('active');
-            $('.grid-icon i').removeClass('active');
-            
-            $('.vse-item').removeClass('grid');
-            $('.vse-item').addClass('no-padding');
-            $('.vse-item .post-detail, .vse-item .specs').addClass('no-padding-right');
-            $('.vse-item .post-detail, .vse-item .specs').removeClass('no-padding');
-            
-            $('.vse-item, .vse-item .title, .vse-item .title h4, .vse-item .description, .vse-item .car-specs').css('height', 'auto');
-        });
-        
-        var grid = $('.vse-item');
-        
-        $('.grid-icon').click(function() {
-            $('.grid-icon i').addClass('active');
-            $('.list-icon i').removeClass('active');
-            
-            $('.vse-item').addClass('grid');
-            $('.vse-item').removeClass('no-padding');
-            $('.vse-item .post-detail, .vse-item .specs').removeClass('no-padding-right');
-            $('.vse-item .post-detail, .vse-item .title, .vse-item .specs').addClass('no-padding');
-        });
-    }
-    
-    list_grid_view();
- 
+        return function(endOfTaskCallback) {
+            $('.list-icon').click(function() {
+                $('.list-icon i').addClass('active');
+                $('.grid-icon i').removeClass('active');            
+                $('.vse-item').removeClass('grid');
+                $('.vse-item .vse-button-container').toggleClass('medium-12 medium-6 column right');
+                $('.details1, .details2').addClass('no-paddingright');
+            });        
+            var grid = $('.vse-item');        
+            $('.grid-icon').click(function() {
+                $('.grid-icon i').addClass('active');
+                $('.list-icon i').removeClass('active');            
+                $('.vse-item').addClass('grid');
+                $('.vse-item .vse-button-container').addClass('medium-12').removeClass('medium-6 column right');   
+                $('.details1, .details2').removeClass('no-paddingright');         
+            });
+            endOfTaskCallback();
+        }  
+    }  
     //LIST AND GRID VIEW END    
     {% endif %}
 </script>
