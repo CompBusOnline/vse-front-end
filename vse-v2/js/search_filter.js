@@ -12,7 +12,7 @@ function filterSearch(_items) {
                 ibody = $(this).attr('data-body'),
                 iprice = parseInt($(this).attr('data-price')),
                 iyear = parseInt($(this).attr('data-year')),
-                idealer = parseInt($(this).attr('data-dealership'));
+                idealer = $(this).attr('data-dealership');
             
             if (iscategory) {
 				var st_cat = global_category.toLowerCase().split(",");
