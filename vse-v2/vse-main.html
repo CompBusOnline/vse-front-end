@@ -149,7 +149,7 @@
                     {% endif -%}
                 {% endif -%}
 
-                {% comment -%} dealership {% endcomment -%}
+                {% comment -%} dealership 
                 {% assign xdealership = {{x.DealerCode|downcase}} -%}
                 {% assign ydealership = {{dealership|downcase}} -%}
                 {% if cx == 1 -%}
@@ -160,7 +160,7 @@
                             {% assign cx = 0 -%}
                         {% endif -%}
                     {% endif -%}
-                {% endif -%}
+                {% endif -%}{% endcomment -%}
 
                 
                 {% comment -%} STOCK NUMBER {% endcomment -%}
