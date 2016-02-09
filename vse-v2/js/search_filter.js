@@ -137,7 +137,7 @@ function filterSearch(_items) {
 		} else {
 			icount++;
 		}
-		
+		if(icount == 0) $(".result-show").html("Showing 0 Result(s)");
 		$(".result-show").html("Showing " + icount + " Result(s)");
 	});
     
