@@ -60,33 +60,16 @@
         {% comment -%} BODY {% endcomment -%}
         
         <script type="text/javascript">
-            var global_category = "{{globals.get.category}}",
-                global_stocknumber = "{{globals.get.stocknumber}}",
-                global_makecode = "{{globals.get.makecode}}",
-                global_model = "{{globals.get.model}}",
-                global_colour = "{{globals.get.colour}}",
-                global_transmission = "{{globals.get.transmission}}",
-                global_fuel = "{{globals.get.fueltype}}",
-                global_body = "{{globals.get.body}}",
-                global_fromprice = {{numfromprice}},
-                global_toprice = {{numtoprice}},
-                global_year = "{{globals.get.year}}",
-                global_sortby = "{{globals.get.sortby}}",
-                global_dealership = "{{globals.get.dealership}}",
-                global_dealershipID = "{{globals.get.dealershipID}}";
+            var gcat = "{{globals.get.category}}",gstock = "{{globals.get.stocknumber}}",gmke = "{{globals.get.makecode}}",
+                gmod = "{{globals.get.model}}",gcol = "{{globals.get.colour}}",gtrans = "{{globals.get.transmission}}",
+                gfue = "{{globals.get.fueltype}}",gbod = "{{globals.get.body}}",gfpri = {{numfromprice}},
+                gtpri = {{numtoprice}},gyr = "{{globals.get.year}}",gsort = "{{globals.get.sortby}}",gdea = "{{globals.get.dealership}}",
+                gdeaID = "{{globals.get.dealershipID}}";
             
-            var iscategory = $.trim(global_category)==""?false:true,
-                ismakecode = $.trim(global_makecode)==""?false:true,
-                ismodel = $.trim(global_model)==""?false:true,
-                iscolour = $.trim(global_colour) ==""?false:true,
-                istransmission = $.trim(global_transmission)==""?false:true,
-                isfueltype = $.trim(global_fuel)==""?false:true,
-                isbody = $.trim(global_body)==""?false:true,
-                issortby = $.trim(global_sortby)==""?false:true,
-                isstocknumber = $.trim(global_stocknumber)==""?false:true,
-                isyear = $.trim(global_year)==""?false:true,
-                isdealership = $.trim(global_dealership)==""?false:true,
-                isdealershipID = $.trim(global_dealershipID)==""?false:true;
+            var iscat = $.trim(gcat)==""?false:true,ismke = $.trim(gmke)==""?false:true,ismod = $.trim(gmod)==""?false:true,
+                iscol = $.trim(gcol) ==""?false:true,istra = $.trim(gtrans)==""?false:true,isfu = $.trim(gfue)==""?false:true,
+                isbod = $.trim(gbod)==""?false:true,issort = $.trim(gsort)==""?false:true,isstock = $.trim(gstock)==""?false:true,
+                isyr = $.trim(gyr)==""?false:true,isdea = $.trim(gdea)==""?false:true;
         </script>
 
     {module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
@@ -149,7 +132,7 @@
                     {% endif -%}
                 {% endif -%}
 
-                {% comment -%} dealership 
+                {% comment -%} dealership {% endcomment -%}
                 {% assign xdealership = {{x.DealerCode|downcase}} -%}
                 {% assign ydealership = {{dealership|downcase}} -%}
                 {% if cx == 1 -%}
@@ -160,7 +143,7 @@
                             {% assign cx = 0 -%}
                         {% endif -%}
                     {% endif -%}
-                {% endif -%}{% endcomment -%}
+                {% endif -%}
 
                 
                 {% comment -%} STOCK NUMBER {% endcomment -%}
@@ -247,7 +230,7 @@
     function setSearchParamCookie(){
         return function(endOfTaskCallback) {
             var url = window.location.search;
-            if(url != ''){localStorage.setItem('search_param', url);}else{localStorage.setItem('search_param', '');}  
+            (url != '')?localStorage.setItem('search_param', url):localStorage.setItem('search_param', '');
             endOfTaskCallback();
         }       
     }
@@ -353,8 +336,7 @@
                 tasks[i](singleTaskCallback);
             }
         }
-    }    
-    
+    }  
     //*** Custom Scripts ***//
     {% if {{settings.enable_view_list_grid}} == 'true' %}
     //LIST AND GRID VIEW
@@ -381,5 +363,4 @@
     //LIST AND GRID VIEW END    
     {% endif %}
 </script>
-
 {% include "/_System/Includes/vse-v2/others/get-weekly-price.html" -%}
