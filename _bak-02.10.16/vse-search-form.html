@@ -1,0 +1,164 @@
+{% assign devi = "" %}{% if globals.visitor.deviceClass == "desktop" -%}{% assign devi = "chosenselect" -%} {% endif -%}
+<form name="search_form" id="search_form" class="vse-search-form">
+    <div id="vse-search-wrapper">
+        <h2 class="semibold vse-header">Refine Your Search</h2>
+        <div class="row">
+            <div class="large-12 columns">
+                <label>Vehicle Category</label>
+                <input type="checkbox" name="category[]" id="demo" value="demo" />
+                <label for="demo">Demo</label>
+                <input type="checkbox" name="category[]" id="used" value="used" />
+                <label for="used">Used</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="makecode">Make</label>
+                <select name="MakeCode[]" id="makecode" data-placeholder="- Select -" class="cat_dropdown vse-make" tabindex="1">
+                    <option value="">Select all</option>
+                </select>
+            </div>            
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="Model">Model</label>
+                <select name="Model[]" id="Model" data-placeholder="- Select -" multiple="" class="{{devi}} vse-model" tabindex="2">
+                    <option value="">Select all</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="Colour">Colour</label>
+                <select name="Colour[]" id="Colour" data-placeholder="- Select -" multiple="" class="{{devi}} vse-colour" tabindex="3">
+                    <option value="">Select all</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-12 columns">
+                <label for="FromPrice">Price Range</label>
+            </div>
+            <div class="large-6 medium-6 small-12 columns">
+                <select name="FromPrice" id="FromPrice" class="vse-fromprice">
+                    <option value="" selected>Min</option>
+                    <option value="5000">$5,000</option>
+                    <option value="10000">$10,000</option>
+                    <option value="15000">$15,000</option>
+                    <option value="20000">$20,000</option>
+                    <option value="30000">$30,000</option>
+                    <option value="40000">$40,000</option>
+                    <option value="50000">$50,000</option>
+                    <option value="60000">$60,000</option>
+                    <option value="70000">$70,000</option>
+                    <option value="80000">$80,000</option>
+                    <option value="90000">$90,000</option>
+                    <option value="100000">$100,000</option>
+                </select>
+            </div>
+            <div class="large-6 medium-6 small-12 columns">
+                <select name="ToPrice" id="ToPrice" class="vse-toprice">
+                    <option value="5000">$5,000</option>
+                    <option value="10000">$10,000</option>
+                    <option value="15000">$15,000</option>
+                    <option value="20000">$20,000</option>
+                    <option value="30000">$30,000</option>
+                    <option value="40000">$40,000</option>
+                    <option value="50000">$50,000</option>
+                    <option value="60000">$60,000</option>
+                    <option value="70000">$70,000</option>
+                    <option value="80000">$80,000</option>
+                    <option value="90000">$90,000</option>
+                    <option value="100000">$100,000</option>
+                    <option value="" selected>Max</option>
+                </select>
+            </div>
+        </div>
+        <div class="vse-advanced-search hide">
+            <div class="row">
+                <div class="large-12 columns vse-wrap-year">
+                    <label for="Year">Year</label>
+                    <select name="Year[]" id="Year" data-placeholder="- Select -" multiple="" class="cat_dropdown vse-year {{devi}}" tabindex="4">
+                        <option value="">Select all</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-12 columns vse-wrap-transmission">
+                    <label for="Transmission">Transmission</label>
+                    <select name="Transmission[]" id="Transmission" data-placeholder="- Select -" multiple="" class="{{devi}} vse-transmission" tabindex="16">
+                        <option value="">Select all</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-12 columns vse-wrap-fuel">
+                    <label for="fuel">Fuel</label>
+                    <select name="fuel[]" id="fuel" data-placeholder="- Select -" multiple="" class="{{devi}} vse-fuel" tabindex="16">
+                        <option value="">Select all</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-12 columns vse-wrap-body">
+                    <label for="body">Body Type</label>
+                    <select name="body[]" id="body" data-placeholder="- Select -" multiple="" class="{{devi}} vse-bodytype" tabindex="16">
+                        <option value="">Select all</option>
+                    </select>
+                </div>
+            </div>
+            <label class="small-12 columns text-center">Or search by:</label>
+            <div class="row">
+                <div class="large-12 columns">
+                    <label>Stock Number</label>
+                    <select name="stocknumber[]" id="stocknumber" data-placeholder="- Select -" multiple="" class="{{devi}} vse-stocknumber" tabindex="16">
+                        <option value="">Select all</option>
+                    </select>
+                </div>
+            </div>
+            <input name="sortingdata" type="hidden" value="" />
+        </div>
+        <div class="row">
+            <div class="small-12 columns text-center vse-controls">
+                <a href="#" class="vse-show-more">Advanced Search</a>
+                <span class="pipe">|</span> <a href="#" id="reset">Reset</a>
+            </div>
+        </div>
+    </div>
+    <div class="row vse-button-wrapper">
+        <div class="large-12 columns">
+            <button id="vse-search-btn" type="button" class="button radius expand-btn text-center">Search Now</button>
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript" src="/_System/Includes/vse-v2/js/search_form.js"></script>
+<script type="text/javascript" src="/_System/Includes/vse-v2/js/chosen.jquery.min.js"></script>
+<script type="text/javascript">
+    {module_webappscount id="{{webapp_id}}" collection="counter" template=""}
+    {% assign total_items = {{this.counter.count}} %}
+    {% if total_items > 500 %}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}
+    {%else%}{module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}{%endif%}
+    {% assign thispage = this.globals.get.ID -%}
+    var global_thispage = "{{this.globals.get.ID}}",
+        global_loc = '',
+        is_nottablet = "{{globals.visitor.deviceClass}}" == "desktop" ? true : false;
+    
+     var global_vehicles = {
+         "items": [{% for x in vehicles.items -%}{% if x.Status == '1' -%}  {
+                   "stocknumber": "{{x.StockNumber|downcase}}",
+                   "vehiclename": "{{x.VehicleName|downcase}}",
+                   "makecode": "{{x.MakeCode|downcase}}",
+                   "model": "{{x.Model|downcase}}",
+                   "colour": "{{x.Colour|downcase}}",
+                   "price": "{{x.Price}}",
+                   "year": "{{x.Year}}",
+                   "body": "{{x.Body|downcase}}",
+                   "transmission": "{{x.Transmission|downcase}}",
+                   "fuel": "{{x.FuelType|downcase}}",
+                   "category": "{{x.Category|downcase}}"
+                   },  {% endif -%}{% endfor -%}]
+     };  
+    
+    var sel = {% if globals.visitor.deviceClass == "phone" %}"selected"{% else -%}""{% endif -%}; 
+</script>

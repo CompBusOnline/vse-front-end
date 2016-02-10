@@ -1,0 +1,46 @@
+{module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
+{% if {{settings.enable_weeklypayment}} == 'true'-%}
+<script type="text/javascript">
+    $(document).ready(function(){
+       //get weekly price
+        {% if this.globals.get.id == '/vehicles.html'%}
+        $('#vehicles .vse-item').each(function(){
+            var price = $(this).find('.vse-price').text().replace(/\$|,/g,'');
+            price = parseInt(price);
+            var selector = $(this).find('.vse-weekly-price');
+            calculatePayment(price, selector);
+        }); 
+        {% else %}
+            var price = $('.vse-dprice').text().replace(/\$|,/g,'');
+                price = parseInt(price);
+                var selector = $('.vse-weekly-price');
+            calculatePayment(price, selector);
+        {% endif %}
+        $(".vse-weekly-price").digits();
+    });
+    
+    function calculatePayment(price, selector) {
+        var princ = price - (price/{{settings.deposit}}) + 0 - 0;
+        var intRate = {{settings.interestrate}}/1200;
+        var months = {{settings.loanterms}};
+        var residual = {{settings.residualpayment}};
+        var fv = -(princ*residual/100);
+        fv = parseFloat(fv);
+        princ = parseFloat(princ);
+        
+        x = Math.pow(1 + intRate,(1*months));
+        var pmttemp = (Math.floor(((intRate * (fv + x * princ))/(-1 + x))*100)/100);
+        pmttemp = pmttemp/4;
+                        
+        $(selector).html('$' + pmttemp.toFixed(2) + '*'); 
+        
+    }                        
+        // add comma
+        $.fn.digits = function() {
+            return this.each(function() {
+                $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            });
+        }
+        $.fn.digits();        
+</script>
+{%endif-%}

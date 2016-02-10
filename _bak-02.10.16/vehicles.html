@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <title>{{this.globals.get.category | capitalize}} Vehicles | {{this.globals.site.name}}</title>   
+        <meta name="description" content="{{this.globals.site.name}} Vehicles" />
+        <meta name="keywords" content="{{this.globals.get.category | capitalize}} Vehicles" />
+        <link rel="stylesheet" property="stylesheet" type="text/css" href="/_System/Includes/vse-v2/css/custom-vse.css" />
+    </head>
+    
+    <body>        
+        {% assign webapp_id = "30409" -%}
+        {module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}   
+        <section class="row">
+            <h2 class="hide">Vehicle Listing</h2>
+            <!-- ========================== -->
+            <!-- Start Search Form Section -->
+            <!-- ========================== -->
+            <div class="large-3 medium-4 small-12 columns search-wrapper">
+                {% include "/_System/Includes/vse-v2/vse-search-form.html" -%}
+            </div>
+            <!-- ========================== -->
+            <!-- End Search Form Section -->
+            <!-- ========================== -->
+            
+            <div class="large-9 medium-8 small-12 columns">
+                <!-- ========================== -->
+                <!-- Start Sorting Section -->
+                <!-- ========================== -->
+                {% include "/_System/Includes/vse-v2/vse-sorting-options.html" -%}          
+                
+                <!-- ========================== -->
+                <!-- End Sorting Section -->
+                <!-- ========================== -->
+                
+                <div class="text-center vse-loader">
+                    <div><img src="/_System/Includes/vse-v2/images/vse-loader.gif" alt="loader" width="50"></div>                    
+                </div>
+                
+                <!-- ============================= -->
+                <!-- Start Vehicle Listing Section -->
+                <!-- ============================= -->
+                <div id="vehicles" class="row" style="display:none;">
+                    {% assign category = "" -%}
+                    {%include "/_System/Includes/vse-v2/vse-main.html"-%}
+                </div>
+                <!-- ============================= -->
+                <!-- End Vehicle Listing Section -->
+                <!-- ============================= -->
+                
+                <!-- pagination -->
+                <div class="holder text-center hide"></div>
+            </div>
+            
+        </section>          
+    </body>
+</html>

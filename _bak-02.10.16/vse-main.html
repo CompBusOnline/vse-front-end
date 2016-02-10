@@ -1,0 +1,385 @@
+{module_webappscount id="{{webapp_id}}" collection="counter" template=""}
+{% assign total_items = {{this.counter.count}} %}
+{% if total_items > 500 %}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}
+{%else%}{module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}{%endif%}
+        {% assign status = "1" -%}
+        {% if globals.get.category == "demo,used,commercial" or globals.get.category == null or globals.get.category == "" -%}{% assign category = ""  -%}
+        {% else %}{% assign category = {{globals.get.category | convert: "string" | json}}  -%}{% endif -%}
+        
+        {% assign makecode = {{globals.get.makecode | convert: "string" | json}} -%}
+        {% assign model = {{globals.get.model | convert: "string" | json}} -%}
+        {% assign colour = {{globals.get.colour | convert: "string" | json}} -%}
+        {% assign fromprice = {{globals.get.fromprice | convert: "string" | json}} -%}
+        {% assign toprice = {{globals.get.toprice | convert: "string" | json}} -%}
+        {% assign transmission = {{globals.get.transmission | convert: "string" | json}} -%}
+        {% assign fueltype = {{globals.get.fueltype | convert: "string" | json}} -%}
+        {% assign body = {{globals.get.body | convert: "string" | json}} -%}
+        {% assign stocknumber = {{globals.get.stocknumber | convert: "string" | json}} -%}
+        {% assign sortby = {{globals.get.sortby | convert: "string" | json}} -%}
+        {% assign year = {{globals.get.year | convert: "string" | json}} -%}
+        {% assign dealership = {{globals.get.dealership | convert: "string" | json}} -%}
+        {% assign dealershipID = {{globals.get.dealershipID | convert: "string" | json}} -%}
+        
+        {% if category == "null" or category == "" -%} {% assign category = "n/a" -%} {% endif -%}
+        {% if status == "null" or status == "" -%} {% assign status = "n/a" -%} {% endif -%}
+        {% if makecode == "null" or makecode == "" -%} {% assign makecode = "n/a" -%} {% endif -%}
+        {% if model == "null" or model == "" -%} {% assign model = "n/a" -%} {% endif -%}
+        {% if colour == "null" or colour == "" -%} {% assign colour = "n/a" -%} {% endif -%}
+        {% if fromprice == "null" or fromprice == "" -%} {% assign fromprice = "n/a" -%} {% endif -%}
+        {% if toprice == "null" or toprice == "" -%} {% assign toprice = "n/a" -%} {% endif -%}
+        {% if transmission == "null" or transmission == "" -%} {% assign transmission = "n/a" -%} {% endif -%}
+        {% if fueltype == "null" or fueltype == "" -%} {% assign fueltype = "n/a" -%} {% endif -%}
+        {% if body == "null" or body == "" -%} {% assign body = "n/a" -%} {% endif -%}
+        {% if stocknumber == "null" or stocknumber == "" -%} {% assign stocknumber = "n/a" -%} {% endif -%}
+        {% if sortby == "null" or sortby == "" -%} {% assign sortby = "n/a" -%} {% endif -%}
+        {% if year == "null" or year == "" -%} {% assign year = "n/a" -%} {% endif -%}
+        {% if dealership == "null" or dealership == "" -%} {% assign dealership = "n/a" -%} {% endif -%}
+        {% if dealershipID == "null" or dealershipID == "" -%} {% assign dealershipID = "n/a" -%} {% endif -%}
+        
+        {% assign xprice = {{x.Price}} -%}
+        {% assign numfromprice = -1 -%}
+        {% assign numtoprice = -1 -%}
+        
+        {% if fromprice == "n/a" -%} 
+            {% assign numfromprice = 0 -%}
+        {% else -%}
+            {% assign numfromprice = {{globals.get.fromprice | convert: "number" | json}} -%}
+        {% endif -%}
+        
+        {% if toprice == "n/a" -%}
+            {% assign numtoprice = 9999999 -%}
+        {% else -%} 
+            {% assign numtoprice = {{globals.get.toprice | convert: "number" | json}} -%}
+        {% endif -%}
+        
+        {%comment-%} MAKECODE {%endcomment-%}
+        {%comment-%} MODEL {%endcomment-%}
+        {%comment-%} COLOUR {%endcomment-%}
+        {%comment-%} TRANSMISSION {%endcomment-%}   
+        {% comment -%} FUEL {% endcomment -%}
+        {% comment -%} BODY {% endcomment -%}
+        
+        <script type="text/javascript">
+            var global_category = "{{globals.get.category}}",
+                global_stocknumber = "{{globals.get.stocknumber}}",
+                global_makecode = "{{globals.get.makecode}}",
+                global_model = "{{globals.get.model}}",
+                global_colour = "{{globals.get.colour}}",
+                global_transmission = "{{globals.get.transmission}}",
+                global_fuel = "{{globals.get.fueltype}}",
+                global_body = "{{globals.get.body}}",
+                global_fromprice = {{numfromprice}},
+                global_toprice = {{numtoprice}},
+                global_year = "{{globals.get.year}}",
+                global_sortby = "{{globals.get.sortby}}",
+                global_dealership = "{{globals.get.dealership}}",
+                global_dealershipID = "{{globals.get.dealershipID}}";
+            
+            var iscategory = $.trim(global_category)==""?false:true,
+                ismakecode = $.trim(global_makecode)==""?false:true,
+                ismodel = $.trim(global_model)==""?false:true,
+                iscolour = $.trim(global_colour) ==""?false:true,
+                istransmission = $.trim(global_transmission)==""?false:true,
+                isfueltype = $.trim(global_fuel)==""?false:true,
+                isbody = $.trim(global_body)==""?false:true,
+                issortby = $.trim(global_sortby)==""?false:true,
+                isstocknumber = $.trim(global_stocknumber)==""?false:true,
+                isyear = $.trim(global_year)==""?false:true,
+                isdealership = $.trim(global_dealership)==""?false:true,
+                isdealershipID = $.trim(global_dealershipID)==""?false:true;
+        </script>
+
+    {module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
+        
+        {% assign ctr = 0 -%}
+            
+            {% for x in vehicles.items -%}
+                {% assign cx = 1 -%}
+                
+                {% comment -%} CATEGORY {% endcomment -%}
+                {% assign xcategory = {{x.Category | downcase}} -%}
+                {% assign ycategory = {{category|downcase}} -%}
+                {% if ycategory != "n/a" -%}
+                    {% if ycategory contains xcategory -%} 
+                        {% assign cx = 1 -%}
+                    {% else -%}
+                        {% assign cx = 0 -%}
+                    {% endif -%}
+                {% endif -%}
+                
+                {%comment-%} STATUS {%endcomment-%}
+                {% assign xstatus = {{x.Status | downcase}} -%}
+                {% assign ystatus = {{status|downcase}} -%}
+                {% if cx == 1 -%} 
+                    {% if ystatus != "n/a" -%}
+                        {% if xstatus == ystatus -%} 
+                            {% assign cx = 1 -%}
+                        {% else -%}
+                            {% assign cx = 0 -%}
+                        {% endif -%}
+                    {% endif -%}
+                {% endif -%}
+
+
+                {%comment-%} If price option from settings is enabled {%endcomment-%}
+                {% if {{settings.price_not_empty}} == 'true' -%} 
+                    {% if cx == 1 -%} 
+                        {% if {{x.DriveAwayPrice}} > 0 -%}
+                            {% assign priceval = {{x.DriveAwayPrice}} -%}
+                        {% else %}
+                            {% assign priceval = {{x.Price}} -%}
+                        {% endif -%}
+
+                        {% if priceval > 0 -%} 
+                            {% assign cx = 1 -%}
+                        {% else -%}
+                            {% assign cx = 0 -%}
+                        {% endif -%}
+                    {% endif -%}
+                {% endif -%}
+
+                {%comment-%} If photo option from settings is enabled {%endcomment-%}
+                {% if {{settings.photo_not_empty}} == 'true' -%}
+                    {% if cx == 1 -%} 
+                        {% if {{x.Photos}} != '' -%} 
+                            {% assign cx = 1 -%}
+                        {% else -%}
+                            {% assign cx = 0 -%}
+                        {% endif -%}
+                    {% endif -%}
+                {% endif -%}
+
+                {% comment -%} dealership 
+                {% assign xdealership = {{x.DealerCode|downcase}} -%}
+                {% assign ydealership = {{dealership|downcase}} -%}
+                {% if cx == 1 -%}
+                    {% if ydealership != "n/a" -%}
+                        {% if dealership contains xdealership -%}
+                            {% assign cx = 1 -%}  
+                        {% else -%} 
+                            {% assign cx = 0 -%}
+                        {% endif -%}
+                    {% endif -%}
+                {% endif -%}{% endcomment -%}
+
+                
+                {% comment -%} STOCK NUMBER {% endcomment -%}
+                {% assign xstocknumber = {{x.StockNumber|downcase}} -%}
+                {% assign ystocknumber = {{stocknumber|downcase}} -%}
+                {% assign strstocknumber = {{xstocknumber|convert:"string"|json}} -%}
+                {% if cx == 1 -%}
+                    {% if ystocknumber != "n/a" -%}
+                        {% if stocknumber contains xstocknumber -%}
+                            {% assign cx = 1 -%}  
+                        {% else -%} 
+                            {% assign cx = 0 -%}
+                        {% endif -%}
+                    {% endif -%}
+                {% endif -%}
+                
+                {% if cx > 0 -%}{%include "/_System/Includes/vse-v2/vse-body-layout.tpl"%}{% endif -%}
+            {% endfor -%}
+{% if {{settings.enable_pagination}} == 'true' %}
+<script type="text/javascript" src="/_System/Includes/vse-v2/js/jPages.min.js"></script>
+{% endif %}
+<script type="text/javascript" src="/_System/Includes/vse-v2/js/jquery.lazyload.min.js"></script>
+<script type="text/javascript" src="/_System/Includes/vse-v2/js/search_filter.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        initSequencialReading();
+        {% if {{settings.enable_pagination}} == 'true' %}initPagination();{% endif %}
+    });
+    
+    function initSequencialReading() {
+        //console.log('initSequencialReading...');
+        var tasks = [];
+        tasks.push(initFilterSearch('.vse-item'));
+        tasks.push(initSorting());
+        tasks.push(initLazyLoad());
+        tasks.push(initOtherStuff());
+        tasks.push(setSearchParamCookie());
+        {% if {{settings.enable_view_list_grid}} == 'true' %}tasks.push(list_grid_view());{% endif %}
+        new TaskList(tasks, function() {
+            //console.log("Sequencial reading complete!");
+            $('.vse-loader').hide();
+            $('#vehicles').fadeIn("slow");
+        }).doTasks();
+    }
+    
+    window.addEventListener("orientationchange", function() {
+        location.reload();
+    }, false);
+    
+    function initFilterSearch(_listitem) {
+        //console.log("Initialising filters...");
+        return function(endOfTaskCallback) {
+            filterSearch(_listitem);
+            endOfTaskCallback();
+        }
+    }
+    
+    function initLazyLoad() {
+        //console.log("Initialising lazy load...");
+        return function(endOfTaskCallback) {
+            $(".vse-image").lazyload({
+                effect: "fadeIn",
+                skip_invisible: false
+            });
+            endOfTaskCallback();
+        }
+    }
+    
+    function initOtherStuff() {
+        //console.log("Initialising other stuff...");
+        // add comma
+        return function(endOfTaskCallback) {
+            $.fn.digits = function() {
+                return this.each(function() {
+                    $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+                });
+            }
+            $.fn.digits();
+            $(".comma, .vse-price").digits();
+            endOfTaskCallback();
+        }        
+    }
+    
+    function setSearchParamCookie(){
+        return function(endOfTaskCallback) {
+            var url = window.location.search;
+            if(url != ''){localStorage.setItem('search_param', url);}else{localStorage.setItem('search_param', '');}  
+            endOfTaskCallback();
+        }       
+    }
+    
+    function initSorting() {
+        return function(endOfTaskCallback) {
+            $('select[name="sortingdata"]').on('change', function() {
+                var selected = $(this).find('option:selected').val();
+                switch (selected) {
+                    case 'pricelh':
+                        $('.vse-item').sort(function(a, b) {
+                            return $(a).data('price') - $(b).data('price');
+                        }).each(function(_, container) {
+                            $(container).parent().append(container);
+                        });
+                        break;
+                    case 'pricehl':
+                        $('.vse-item').sort(function(a, b) {
+                            return $(b).data('price') - $(a).data('price');
+                        }).each(function(_, container) {
+                            $(container).parent().append(container);
+                        });
+                        break;
+                    case 'yrl':
+                        $('.vse-item').sort(function(a, b) {
+                            return $(a).data('year') - $(b).data('year');
+                        }).each(function(_, container) {
+                            $(container).parent().append(container);
+                        });
+                        break;
+                    case 'yrh':
+                        $('.vse-item').sort(function(a, b) {
+                            return $(b).data('year') - $(a).data('year');
+                        }).each(function(_, container) {
+                            $(container).parent().append(container);
+                        });
+                        break;
+                }                              
+                {% if {{settings.enable_pagination}} == 'true' %}
+                var cnt = $('.vse-item').length;
+                var newPerpage = $('select[name=vehicles_per_page]').val() == '-1' ? cnt : $('select[name=vehicles_per_page]').val();  
+                $("div.holder").jPages("destroy").jPages({
+                    containerID: "vehicles",
+                    perPage: newPerpage,
+                    previous: "",
+                    next: "",
+                    minHeight: false
+                });{% endif %}
+            });
+            endOfTaskCallback();
+        }
+    }
+    
+    {% if {{settings.enable_pagination}} == 'true' %}/* pagination */
+    function initPagination() {
+        //console.log("Initialising pagination...");
+        $("div.holder").jPages({
+            containerID: "vehicles",
+            perPage: 24,
+            previous: "",
+            next: "",
+            minHeight: false
+        });
+    }{% endif %}
+    {% if {{settings.enable_vehicles_per_page}} == 'true' %}
+    $(function() {
+        $("select.vehicles_per_page").change(function() {
+            /* get new nº of items per page */
+            var newPerPage = parseInt($(this).val());
+            var cnt = $('.vse-item').length;
+            /* destroy jPages and initiate plugin again */
+            
+            if (newPerPage == -1){
+                $("div.holder").jPages("destroy").jPages({
+                    containerID: "vehicles",
+                    perPage: cnt,
+                    previous: "",
+                    next: "",
+                    minHeight: false
+                });
+            }else{
+                $("div.holder").jPages("destroy").jPages({
+                    containerID: "vehicles",
+                    perPage: newPerPage,
+                    previous: "",
+                    next: "",
+                    minHeight: false
+                });
+            }
+        });
+    });{% endif %}
+    
+    function TaskList(tasks, endOfTasksCallback) {
+        this.doTasks = function() {
+            var numTasks = tasks.length;
+            
+            function singleTaskCallback() {
+                if (--numTasks == 0) {
+                    endOfTasksCallback();
+                }
+            }
+            for (var i = 0; i < tasks.length; i++) {
+                tasks[i](singleTaskCallback);
+            }
+        }
+    }    
+    
+    //*** Custom Scripts ***//
+    {% if {{settings.enable_view_list_grid}} == 'true' %}
+    //LIST AND GRID VIEW
+    function list_grid_view() {
+        return function(endOfTaskCallback) {
+            $('.list-icon').click(function() {
+                $('.list-icon i').addClass('active');
+                $('.grid-icon i').removeClass('active');            
+                $('.vse-item').removeClass('grid');
+                $('.vse-item .vse-button-container').toggleClass('medium-12 medium-6 column right');
+                $('.details1, .details2').addClass('no-paddingright');
+            });        
+            var grid = $('.vse-item');        
+            $('.grid-icon').click(function() {
+                $('.grid-icon i').addClass('active');
+                $('.list-icon i').removeClass('active');            
+                $('.vse-item').addClass('grid');
+                $('.vse-item .vse-button-container').addClass('medium-12').removeClass('medium-6 column right');   
+                $('.details1, .details2').removeClass('no-paddingright');         
+            });
+            endOfTaskCallback();
+        }  
+    }  
+    //LIST AND GRID VIEW END    
+    {% endif %}
+</script>
+
+{% include "/_System/Includes/vse-v2/others/get-weekly-price.html" -%}
