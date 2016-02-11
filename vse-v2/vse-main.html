@@ -187,6 +187,12 @@
             $('.vse-loader').hide();
             $('#vehicles').fadeIn("slow");
         }).doTasks();
+
+        setEqualHeight('vehicle-name');
+        setEqualHeight('sale-price');
+        setEqualHeight('transmission');
+        setEqualHeight('fuel');
+        setEqualHeight('specs');
     }
     
     window.addEventListener("orientationchange", function() {
@@ -224,6 +230,18 @@
             $.fn.digits();
             $(".comma, .vse-price").digits();
             endOfTaskCallback();
+        }        
+    }
+
+    function setEqualHeight(selector_class){
+        if (!navigator.userAgent.match(/iPhone/)) {
+            var maxHeight = 0;            
+            $('#vehicles .vse-item.grid').each(function() {
+                if ($(this).find('.'+selector_class).height() > maxHeight) {
+                    maxHeight = $(this).find('.'+selector_class).height();
+                }
+            });
+            $('#vehicles').find('.'+selector_class).height(maxHeight);
         }        
     }
     
