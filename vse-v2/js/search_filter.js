@@ -123,13 +123,13 @@ function setChosenVal(global_var,selector_id,data_var){
 	var st = global_var.toLowerCase().split(",");
         if(is_nottablet) {$('#'+selector_id).val(st).trigger("chosen:updated");} else {$('#'+selector_id).val(st); }
 		var c = 0;
-		for(j = 0; j < st.length;j++) if(data_var == st[j]) { c++; console.log(data_var + '==' + st[j]);}
+		for(j = 0; j < st.length;j++) if(data_var == st[j]) { c++;}
 		return a=(c>0)?1:0;		
 }
 function setMenuVal(global_var,selector_id,data_var){
 	var st = global_var.toLowerCase().split(",");                
 		$('select#'+selector_id).val(st);        
 		var c= 0;
-		for(var j = 0;j < st.length; j++) if(data_var == st[j]) {c++;console.log(data_var + '==' + st[j]);}
+		for(var j = 0;j < st.length; j++) if(data_var == st[j]) {c++;}
 		return a=(c>0)?1:0;
 }
