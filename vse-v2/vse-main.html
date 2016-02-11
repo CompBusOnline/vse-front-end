@@ -170,6 +170,8 @@
 <script type="text/javascript">
     $(document).ready(function() {
         initSequencialReading();
+        initOtherStuff();
+        setSearchParamCookie();
         {% if {{settings.enable_pagination}} == 'true' %}initPagination();{% endif %}
     });
     
@@ -179,8 +181,6 @@
         tasks.push(initFilterSearch('.vse-item'));
         tasks.push(initSorting());
         tasks.push(initLazyLoad());
-        tasks.push(initOtherStuff());
-        tasks.push(setSearchParamCookie());
         {% if {{settings.enable_view_list_grid}} == 'true' %}tasks.push(list_grid_view());{% endif %}
         new TaskList(tasks, function() {
             //console.log("Sequencial reading complete!");
