@@ -221,16 +221,13 @@
     function initOtherStuff() {
         //console.log("Initialising other stuff...");
         // add comma
-        return function(endOfTaskCallback) {
-            $.fn.digits = function() {
-                return this.each(function() {
-                    $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
-                });
-            }
-            $.fn.digits();
-            $(".comma, .vse-price").digits();
-            endOfTaskCallback();
-        }        
+        $.fn.digits = function() {
+            return this.each(function() {
+                $(this).text($(this).text().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
+            });
+        }
+        $.fn.digits();
+        $(".comma, .vse-price").digits();   
     }
 
     function setEqualHeight(selector_class){
@@ -246,11 +243,8 @@
     }
     
     function setSearchParamCookie(){
-        return function(endOfTaskCallback) {
-            var url = window.location.search;
-            (url != '')?localStorage.setItem('search_param', url):localStorage.setItem('search_param', '');
-            endOfTaskCallback();
-        }       
+        var url = window.location.search;
+        (url != '')?localStorage.setItem('search_param', url):localStorage.setItem('search_param', ''); 
     }
     
     function initSorting() {
