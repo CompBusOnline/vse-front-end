@@ -357,7 +357,7 @@
             $('.list-icon').click(function() {
                 $('.list-icon i').addClass('active');
                 $('.grid-icon i').removeClass('active');            
-                $('.vse-item').toggleClass('list grid');
+                $('.vse-item').removeClass('grid').addClass('list');
                 $('.vse-item .vse-button-container').toggleClass('medium-12 medium-6 column right');
                 $('.details1, .details2').addClass('no-paddingright');
             });        
@@ -365,7 +365,7 @@
             $('.grid-icon').click(function() {
                 $('.grid-icon i').addClass('active');
                 $('.list-icon i').removeClass('active');            
-                $('.vse-item').toggleClass('list grid');
+                $('.vse-item').removeClass('list').addClass('grid');
                 $('.vse-item .vse-button-container').addClass('medium-12').removeClass('medium-6 column right');   
                 $('.details1, .details2').removeClass('no-paddingright');         
             });
