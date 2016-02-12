@@ -40,7 +40,7 @@
                 <label for="FromPrice">Price Range</label>
             </div>
             <div class="large-6 medium-6 small-12 columns">
-                <select name="FromPrice" id="FromPrice" class="vse-fromprice">
+                <select name="FromPrice" id="FromPrice" class="vse-fromprice" tabindex="4">
                     <option value="" selected>Min</option>
                     <option value="5000">$5,000</option>
                     <option value="10000">$10,000</option>
@@ -57,7 +57,7 @@
                 </select>
             </div>
             <div class="large-6 medium-6 small-12 columns">
-                <select name="ToPrice" id="ToPrice" class="vse-toprice">
+                <select name="ToPrice" id="ToPrice" class="vse-toprice" tabindex="5">
                     <option value="5000">$5,000</option>
                     <option value="10000">$10,000</option>
                     <option value="15000">$15,000</option>
@@ -78,7 +78,7 @@
             <div class="row">
                 <div class="large-12 columns vse-wrap-year">
                     <label for="Year">Year</label>
-                    <select name="Year[]" id="Year" data-placeholder="- Select -" multiple="" class="cat_dropdown vse-year {{devi}}" tabindex="4">
+                    <select name="Year[]" id="Year" data-placeholder="- Select -" multiple="" class="cat_dropdown vse-year {{devi}}" tabindex="6">
                         <option value="">Select all</option>
                     </select>
                 </div>
@@ -86,7 +86,7 @@
             <div class="row">
                 <div class="large-12 columns vse-wrap-transmission">
                     <label for="Transmission">Transmission</label>
-                    <select name="Transmission[]" id="Transmission" data-placeholder="- Select -" multiple="" class="{{devi}} vse-transmission" tabindex="16">
+                    <select name="Transmission[]" id="Transmission" data-placeholder="- Select -" multiple="" class="{{devi}} vse-transmission" tabindex="7">
                         <option value="">Select all</option>
                     </select>
                 </div>
@@ -94,7 +94,7 @@
             <div class="row">
                 <div class="large-12 columns vse-wrap-fuel">
                     <label for="fuel">Fuel</label>
-                    <select name="fuel[]" id="fuel" data-placeholder="- Select -" multiple="" class="{{devi}} vse-fuel" tabindex="16">
+                    <select name="fuel[]" id="fuel" data-placeholder="- Select -" multiple="" class="{{devi}} vse-fuel" tabindex="8">
                         <option value="">Select all</option>
                     </select>
                 </div>
@@ -102,7 +102,7 @@
             <div class="row">
                 <div class="large-12 columns vse-wrap-body">
                     <label for="body">Body Type</label>
-                    <select name="body[]" id="body" data-placeholder="- Select -" multiple="" class="{{devi}} vse-bodytype" tabindex="16">
+                    <select name="body[]" id="body" data-placeholder="- Select -" multiple="" class="{{devi}} vse-bodytype" tabindex="9">
                         <option value="">Select all</option>
                     </select>
                 </div>
@@ -111,7 +111,7 @@
             <div class="row">
                 <div class="large-12 columns">
                     <label>Stock Number</label>
-                    <select name="stocknumber[]" id="stocknumber" data-placeholder="- Select -" multiple="" class="{{devi}} vse-stocknumber" tabindex="16">
+                    <select name="stocknumber[]" id="stocknumber" data-placeholder="- Select -" multiple="" class="{{devi}} vse-stocknumber" tabindex="10">
                         <option value="">Select all</option>
                     </select>
                 </div>
@@ -120,8 +120,8 @@
         </div>
         <div class="row">
             <div class="small-12 columns text-center vse-controls">
-                <a href="#" class="vse-show-more">Advanced Search</a>
-                <span class="pipe">|</span> <a href="#" id="reset">Reset</a>
+                <a href="javascript:void(0)" class="vse-show-more">Advanced Search</a>
+                <span class="pipe">|</span> <a href="javascript:void(0)" id="reset">Reset</a>
             </div>
         </div>
     </div>
