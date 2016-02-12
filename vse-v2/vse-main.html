@@ -3,7 +3,7 @@
 {% if total_items > 500 %}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}
 {%else%}{module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}{%endif%}
         {% assign status = "1" -%}
-        {% if globals.get.category == "demo,used,commercial" or globals.get.category == null or globals.get.category == "" -%}{% assign category = ""  -%}
+        {% if globals.get.category == "demo,used" or globals.get.category == null or globals.get.category == "" -%}{% assign category = ""  -%}
         {% else %}{% assign category = {{globals.get.category | convert: "string" | json}}  -%}{% endif -%}
         
         {% assign makecode = {{globals.get.makecode | convert: "string" | json}} -%}
@@ -167,13 +167,14 @@
 {% endif %}
 <script type="text/javascript" src="/_System/Includes/vse-v2/js/jquery.lazyload.min.js"></script>
 <script type="text/javascript" src="/_System/Includes/vse-v2/js/search_filter.js"></script>
+{% include "/_System/Includes/vse-v2/others/get-weekly-price.html" -%}
 <script type="text/javascript">
     $(document).ready(function() {
         initSequencialReading();
         initOtherStuff();
         setSearchParamCookie();
         {% if {{settings.enable_pagination}} == 'true' %}initPagination();{% endif %}
-    });
+    }); 
     
     function initSequencialReading() {
         //console.log('initSequencialReading...');
@@ -181,18 +182,17 @@
         tasks.push(initFilterSearch('.vse-item'));
         tasks.push(initSorting());
         tasks.push(initLazyLoad());
+        {% if {{settings.enable_weeklypayment}} == 'true'-%}tasks.push(calculatePayment());{% endif %}
         {% if {{settings.enable_view_list_grid}} == 'true' %}tasks.push(list_grid_view());{% endif %}
+        
         new TaskList(tasks, function() {
             //console.log("Sequencial reading complete!");
             $('.vse-loader').hide();
             $('#vehicles').fadeIn("slow");
         }).doTasks();
         //custom scripts
-        setEqualHeight('vehicle-name');
-        setEqualHeight('sale-price');
-        setEqualHeight('transmission');
-        setEqualHeight('fuel');
-        setEqualHeight('specs');
+        setEqualHeight('vse-details1-container');
+        setEqualHeight('vse-details2-container');
     }
     
     window.addEventListener("orientationchange", function() {
@@ -375,4 +375,3 @@
     //LIST AND GRID VIEW END    
     {% endif %}
 </script>
-{% include "/_System/Includes/vse-v2/others/get-weekly-price.html" -%}
