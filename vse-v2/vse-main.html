@@ -243,8 +243,12 @@
     }
     
     function setSearchParamCookie(){
-        var url = window.location.search;
-        (url != '')?localStorage.setItem('search_param', url):localStorage.setItem('search_param', ''); 
+        try {
+            localStorage.setItem('search_param', window.location.search);
+        } catch (e) {
+            sweetAlert('','Your web browser does not support storing settings locally. In Safari, the most common cause of this is using "Private Browsing Mode". Some features may not work properly for you.', 'warning');
+            // handle exception e, provide fallback, ..
+        }
     }
     
     function initSorting() {
