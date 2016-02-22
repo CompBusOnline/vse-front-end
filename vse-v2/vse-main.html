@@ -258,7 +258,7 @@
                 switch (selected) {
                     case 'pricelh':
                         $('.vse-item').sort(function(a, b) {
-                            return $(a).data('price') - $(b).data('price');
+                            return $(a).data('pricesort') - $(b).data('pricesort');
                         }).each(function(_, container) {
                             $(container).parent().append(container);
                         });

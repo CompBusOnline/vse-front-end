@@ -60,7 +60,7 @@ function filterSearch(_i) {
 		switch (gsort) {
 			case 'pricelh': {
 				$('.vse-item').sort(function(a, b) {
-					return $(a).data('price') - $(b).data('price');
+					return $(a).data('pricesort') - $(b).data('pricesort');
 				}).each(function(_, container) {
 					$(container).parent().append(container);
 				});
@@ -121,9 +121,14 @@ function filterSearch(_i) {
 /*end filter search*/
 function setChosenVal(global_var,selector_id,data_var){
 	var st = global_var.toLowerCase().split(",");
-        if(is_nottablet) {$('#'+selector_id).val(st).trigger("chosen:updated");} else {$('#'+selector_id).val(st); }
+    if(is_nottablet) {
+        if (st.length > 1 && st[0].length == 0 ) st.shift();
+        $('#'+selector_id).val(st).trigger("chosen:updated");
+    } else {
+        $('#'+selector_id).val(st); 
+    }
 		var c = 0;
-		for(j = 0; j < st.length;j++) if(data_var == st[j]) { c++;}
+		for(j = 0; j < st.length;j++) if(data_var == st[j]) { c++; }
 		return a=(c>0)?1:0;		
 }
 function setMenuVal(global_var,selector_id,data_var){

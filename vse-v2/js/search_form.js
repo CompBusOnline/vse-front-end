@@ -359,15 +359,16 @@ function reinitialiseMake() {
 }
 
 function reinitialiseModel() {
-	  //console.log("Reinitialising models...");	
-	  $('#Model option').each(function() {
-		var a = $.trim($(this).attr('value'));
-		var b = gmod.toLowerCase().split(",");
-		for(c=0;c<b.length;c++) {
-			if($.trim(b[c].toLowerCase()) == a.toLowerCase()) $(this).attr('selected','');
-		}
-	  });	  
-	  if(is_nottablet) {$('#Model').trigger("chosen:updated");}
+    //console.log("Reinitialising models...");	
+    $('#Model option').each(function() {
+        var a = $.trim($(this).attr('value'));
+        var b = gmod.toLowerCase().split(",");
+        if ( b.length > 1 && b[0].length == 0 ) b.shift();
+        for(c=0;c<b.length;c++) {
+            if($.trim(b[c].toLowerCase()) == a.toLowerCase()) $(this).attr('selected','');
+        }
+    });	  
+    if(is_nottablet) {$('#Model').trigger("chosen:updated");}
 }
 
 function reinitialiseTransmission() {
@@ -375,6 +376,7 @@ function reinitialiseTransmission() {
 	$('#Transmission option').each(function() {
 		var a = $.trim($(this).attr('value'));
 		var b = gtrans.toLowerCase().split(",");
+        if ( b.length > 1 && b[0].length == 0 ) b.shift();
 		for(c=0;c<b.length;c++) {
 			if($.trim(b[c].toLowerCase()) == a.toLowerCase()) $(this).attr('selected','');
 		}
@@ -387,6 +389,7 @@ function reinitialiseColour() {
 	$('#Colour option').each(function() {
 		var a = $.trim($(this).attr('value'));
 		var b = gcol.toLowerCase().split(",");
+        if ( b.length > 1 && b[0].length == 0 ) b.shift();
 		for(c=0;c<b.length;c++) {
 			if($.trim(b[c].toLowerCase()) == a.toLowerCase()) $(this).attr('selected','');
 		}
@@ -399,6 +402,7 @@ function reinitialiseYear() {
 	$('#Year option').each(function(){
 		var a = $.trim($(this).attr('value'));
 		var b = gyr.toLowerCase().split(",");
+        if ( b.length > 1 && b[0].length == 0 ) b.shift();
 		for(c=0;c<b.length;c++) {
 			if($.trim(b[c].toLowerCase()) == a.toLowerCase()) $(this).attr('selected','');
 		}
@@ -411,6 +415,7 @@ function reinitialiseFuel() {
 	$('#fuel option').each(function(){
 		var a = $.trim($(this).attr('value'));
 		var b = gfue.toLowerCase().split(",");
+        if ( b.length > 1 && b[0].length == 0 ) b.shift();
 		for(c=0;c<b.length;c++) {
 			if($.trim(b[c].toLowerCase()) == a.toLowerCase()) $(this).attr('selected','');
 		}
@@ -423,6 +428,7 @@ function reinitialiseBody() {
 	$('#body option').each(function(){
 		var a = $.trim($(this).attr('value'));
 		var b = gbod.toLowerCase().split(",");
+        if ( b.length > 1 && b[0].length == 0 ) b.shift();
 		for(c=0;c<b.length;c++) {
 			if($.trim(b[c].toLowerCase()) == a.toLowerCase()) $(this).attr('selected','');
 		}
@@ -435,6 +441,7 @@ function reinitialiseStockNumbers() {
 	$('#stocknumber option').each(function(){
 		var a = $.trim($(this).attr('value'));
 		var b = gstock.toLowerCase().split(",");
+        if ( b.length > 1 && b[0].length == 0 ) b.shift();
 		for(c=0;c<b.length;c++) {
 			if($.trim(b[c].toLowerCase()) == a.toLowerCase()) {
 				
