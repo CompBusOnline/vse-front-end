@@ -197,6 +197,7 @@ a.jp-current {
     -moz-border-radius:3px;
     -webkit-border-radius:3px;
     color:#FFF;
+    z-index: 999;
 }
 .cd-top.cd-is-visible, .cd-top.cd-fade-out, .no-touch .cd-top:hover {
     -webkit-transition: opacity .3s 0s, visibility 0s 0s;
@@ -212,7 +213,7 @@ a.jp-current {
     /* if the user keeps scrolling down, the button is out of focus and becomes less visible */
     opacity: .5;
 }
-.no-touch .cd-top:hover, .cd-top.cd-fade-out:focus {
+.no-touch .cd-top:hover, .cd-top.cd-fade-out:focus, .cd-top:hover {
     background-color: #2285a2;
     opacity: 1;
 }
@@ -220,13 +221,13 @@ a.jp-current {
 /********
 ** Custom Media Queries
 ********/
-@media only screen and (min-width:64.063em){
-    /*.vse-item.grid .vse-details1-container{min-height:97px;} */  
-    .cd-top {right: 30px;bottom: 30px;}
-}
 @media only screen and (min-width:48.063em){
     /*.vse-item.grid .vse-details1-container{min-height:82px;}*/
     .cd-top {right: 20px;bottom: 20px;}
+}
+@media only screen and (min-width:64.063em){
+    /*.vse-item.grid .vse-details1-container{min-height:97px;} */  
+    .cd-top {right: 30px;bottom: 30px;}
 }
 @media only screen and (min-width:40.063em) and (max-width:64em){
     /*.vse-item.grid .vse-details1-container{min-height:105px;} */  

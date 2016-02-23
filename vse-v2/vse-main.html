@@ -218,6 +218,13 @@
             endOfTaskCallback();
         }
     }
+
+    function initLazyLoadNoFallback() {
+        $(".vse-image").lazyload({
+            effect: "fadeIn",
+            skip_invisible: false
+        });
+    }
     
     function initOtherStuff() {
         //console.log("Initialising other stuff...");
@@ -285,7 +292,8 @@
                             $(container).parent().append(container);
                         });
                         break;
-                }                              
+                }       
+                initLazyLoadNoFallback();                       
                 {% if {{settings.enable_pagination}} == 'true' %}
                 var cnt = $('.vse-item').length;
                 var newPerpage = $('select[name=vehicles_per_page]').val() == '-1' ? cnt : $('select[name=vehicles_per_page]').val();  
@@ -353,7 +361,7 @@
                 tasks[i](singleTaskCallback);
             }
         }
-    }  
+    }    
     
     function backtoTop(){
         // browser window scroll (in pixels) after which the "back to top" link is shown
