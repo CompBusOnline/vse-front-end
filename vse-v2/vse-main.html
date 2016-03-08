@@ -302,7 +302,12 @@
                     perPage: newPerpage,
                     previous: "",
                     next: "",
-                    minHeight: false
+                    minHeight: false,
+                    callback: function( pages, items ) {
+                        $('html, body').animate({
+                            scrollTop: $('html,body').offset().top
+                        }, 'slow');
+                    }
                 });{% endif %}
             });
             endOfTaskCallback();
@@ -317,7 +322,12 @@
             perPage: 24,
             previous: "",
             next: "",
-            minHeight: false
+            minHeight: false,
+            callback: function( pages, items ) {
+                $('html, body').animate({
+                    scrollTop: $('html,body').offset().top
+                }, 'slow');
+            }
         });
     }{% endif %}
     {% if {{settings.enable_vehicles_per_page}} == 'true' %}
@@ -334,7 +344,12 @@
                     perPage: cnt,
                     previous: "",
                     next: "",
-                    minHeight: false
+                    minHeight: false,
+                    callback: function( pages, items ) {
+                        $('html, body').animate({
+                            scrollTop: $('html,body').offset().top
+                        }, 'slow');
+                    }
                 });
             }else{
                 $("div.holder").jPages("destroy").jPages({
@@ -342,7 +357,12 @@
                     perPage: newPerPage,
                     previous: "",
                     next: "",
-                    minHeight: false
+                    minHeight: false,
+                    callback: function( pages, items ) {
+                        $('html, body').animate({
+                            scrollTop: $('html,body').offset().top
+                        }, 'slow');
+                    }
                 });
             }
         });

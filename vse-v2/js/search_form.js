@@ -490,8 +490,6 @@ $(document).ready(function(){
     initPrices();
     initSearchButton(global_thispage+"?");
     initSortData();
-        
-    $('.holder').on('click', function() { scrollTo('body'); });
     
     if (is_nottablet) {
         $(".chosenselect").chosen({
