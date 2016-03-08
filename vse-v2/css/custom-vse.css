@@ -166,6 +166,19 @@ a.jp-current {
     color:#FFF;
     background: #2ba6cb;
 }
+.jp-previous, .jp-next{
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding-bottom:7px!important;
+}
+.jp-next:before {content: "\f054";}
+.jp-previous:before {content: "\f053";}
+.holder a.jp-disabled, a.jp-disabled:hover{cursor:default;}
+.jp-disabled{color:#aaa!important;}
 
 /********
 ** Sorting options
