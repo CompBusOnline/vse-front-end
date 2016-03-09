@@ -187,11 +187,12 @@ a.jp-current {
 /********
 ** Sorting options
 *********/
-.vse-view-container .list-icon i, .vse-view-container .grid-icon i{color:#ECECEC;font-size:24px;vertical-align:middle;margin-right:4px;}
+.vse-view-container .list-icon i, .vse-view-container .grid-icon i{color:#ECECEC;font-size:24px;vertical-align:middle;}
 .vse-view-container .list-icon i.active, .vse-view-container .grid-icon i.active{color:#2ba6cb!important;}
 .v1 .vse-num-results{margin-bottom:15px;}
-.vse-view-container .columns:last-child{margin-top:5px;}
-.vse-sorting label.inline{margin-bottom:0;}
+.vse-view-container .columns:last-child{margin-top:5px;padding-left:0;}
+.vse-sorting label.inline, .vse-sorting label.middle{margin-bottom:0;}
+.vse-view-container .list-icon i{margin-right:4px;}
 
 /********
 ** Back to top button
@@ -236,6 +237,7 @@ a.jp-current {
     background-color: #2285a2;
     opacity: 1;
 }
+#no-results-found{padding:6rem 0 1rem;}
 
 /********
 ** Custom Media Queries
@@ -270,4 +272,5 @@ a.jp-current {
     }   
     .vse-item.grid{width:100%;}
     .vse-item.grid .vse-image-container{height:195px;overflow-y:hidden;}
+    #no-results-found{padding:2rem;}
 }
