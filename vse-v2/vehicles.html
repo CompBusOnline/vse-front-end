@@ -5,6 +5,8 @@
         <title>{{this.globals.get.category | capitalize}} Vehicles | {{this.globals.site.name}}</title>   
         <meta name="description" content="{{this.globals.site.name}} Vehicles" />
         <meta name="keywords" content="{{this.globals.get.category | capitalize}} Vehicles" />
+        <link rel="stylesheet" property="stylesheet" type="text/css" href="/StyleSheets/sweetalert.css" />
+
         <link rel="stylesheet" property="stylesheet" type="text/css" href="/_System/Includes/vse-v2/css/custom-vse.css" />
     </head>
     
@@ -43,6 +45,13 @@
                 <div id="vehicles" class="row hide">
                     {% assign category = "" -%}
                     {%include "/_System/Includes/vse-v2/vse-main.html"-%}
+                </div>
+                <div id="no-results-found" class="row hide" style="padding:6rem 0 1rem;">
+                    <div class="large-4 medium-6 small-12 column text-center small-centered">
+                        <img src="/_System/Includes/vse-v2/images/car.svg" alt="No vehicles found" style="margin-bottom:15px;" />
+                        <p>We currently have no vehicles matching your search.</p>
+                        <small>Please try again</small>                     
+                    </div>
                 </div>
                 <!-- ============================= -->
                 <!-- End Vehicle Listing Section -->

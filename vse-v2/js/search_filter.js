@@ -52,6 +52,7 @@ function filterSearch(_i) {
 	});
     
     cnt<=24?$(".holder").hide():$(".holder").show();
+    cnt==0?$("#no-results-found").fadeIn():$("#no-results-found").fadeOut();
 	
 	if(issort) {
 		$(".sortingdata option[value='" + gsort + "']").attr('selected', 'selected');
