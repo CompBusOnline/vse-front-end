@@ -64,9 +64,11 @@ function initPrices() {
 			$('select[name="ToPrice"]').append('<option value="' + item_val + '">' + item2 + '</option>');
 		}
 		
-		sel == last_opt2 && $('select[name="ToPrice"]').append('<option value="' + last_opt2 + '">' + last_opt2_txt + '</option>');
+		sel == last_opt2 && $('select[name="ToPrice"]').append('<option value="' + last_opt2 + '">' + last_opt2_txt + '</option>');        
 		
 		$('select[name="ToPrice"]').append('<option value="">Max</option>');
+        (sel == "") && $('select[name="ToPrice"]').val("");
+        
 	}); 
 }
  
@@ -125,7 +127,7 @@ function getAvailableMakes(json,model_elem,sel) {
 	var c = $.distinct(a);
 	c.sort();
 	for(d=0;d<c.length;d++) {
-		result+="<option value=\"" + c[d] + "\">" + c[d] + "</option>";
+		result+= (c[d] != '') ? "<option value=\"" + c[d] + "\">" + c[d].toLowerCase().capitalize() + "</option>" : "";
 	}
 	$(model_elem).html(result);
 }
@@ -139,7 +141,7 @@ function getAvailableModels(json,model_elem,sel) {
 	var c = $.distinct(a);
 	c.sort();
 	for(d=0;d<c.length;d++) {
-		result+="<option value=\"" + c[d] + "\">" + c[d] + "</option>";
+		result+= (c[d] != '') ? "<option value=\"" + c[d] + "\">" + c[d].toLowerCase().capitalize() + "</option>" : "";
 	}
 	$(model_elem).html(result);
 }
@@ -156,7 +158,7 @@ function getModelsByMake(json,makecode,model_elem) {
 		var c = $.distinct(a);
 		c.sort();
 		for(d=0;d<c.length;d++) {
-			result+="<option value=\"" + c[d] + "\">" + c[d] + "</option>";
+			result+= (c[d] != '') ? "<option value=\"" + c[d] + "\">" + c[d].toLowerCase().capitalize() + "</option>" : "";
 		}
 		$(model_elem).html(result);	
 	} else {
@@ -173,7 +175,7 @@ function getAvailableColours(json,model_elem,sel) {
 	var c = $.distinct(a);
 	c.sort();
 	for(d=0;d<c.length;d++) {
-		result+="<option value=\"" + c[d] + "\">" + c[d] + "</option>";
+        result+= (c[d] != '') ? "<option value=\"" + c[d] + "\">" + c[d].toLowerCase().capitalize() + "</option>" : "";
 	}
 	$(model_elem).html(result);
 }
@@ -187,7 +189,7 @@ function getAvailableTransmission(json,model_elem,sel) {
 	var c = $.distinct(a);
 	c.sort();
 	for(d=0;d<c.length;d++) {
-		result+="<option value=\"" + c[d] + "\">" + c[d] + "</option>";
+		result+= (c[d] != '') ? "<option value=\"" + c[d] + "\">" + c[d].toLowerCase().capitalize() + "</option>" : "";
 	}
 	$(model_elem).html(result);
 }
@@ -201,7 +203,7 @@ function getAvailableFuels(json,model_elem,sel) {
 	var c = $.distinct(a);
 	c.sort();
 	for(d=0;d<c.length;d++) {
-		result+="<option value=\"" + c[d] + "\">" + c[d] + "</option>";
+		result+= (c[d] != '') ? "<option value=\"" + c[d] + "\">" + c[d].toLowerCase().capitalize() + "</option>" : "";
 	}
 	$(model_elem).html(result);
 }
@@ -215,7 +217,7 @@ function getAvailableBodies(json,model_elem,sel) {
 	var c = $.distinct(a);
 	c.sort();
 	for(d=0;d<c.length;d++) {
-		result+="<option value=\"" + c[d] + "\">" + c[d] + "</option>";
+		result+= (c[d] != '') ? "<option value=\"" + c[d] + "\">" + c[d].toLowerCase().capitalize() + "</option>" : "";
 	}
 	$(model_elem).html(result);
 }
@@ -229,7 +231,7 @@ function getAvailableStockNumbers(json,model_elem,sel) {
 	var c = $.distinct(a);
 	c.sort();
 	for(d=0;d<c.length;d++) {
-		result+="<option value=\"" + c[d] + "\">" + c[d] + "</option>";
+		result+= (c[d] != '') ? "<option value=\"" + c[d] + "\">" + c[d].toUpperCase() + "</option>" : "";
 	}
 	$(model_elem).html(result);
 }
@@ -391,7 +393,7 @@ function reinitialiseColour() {
 		var b = gcol.toLowerCase().split(",");
         if ( b.length > 1 && b[0].length == 0 ) b.shift();
 		for(c=0;c<b.length;c++) {
-			if($.trim(b[c].toLowerCase()) == a.toLowerCase()) $(this).attr('selected','');
+            if($.trim(b[c].toLowerCase()) == a.toLowerCase()) $(this).attr('selected','');
 		}
 	});
     if(is_nottablet) {$('#Colour').trigger("chosen:updated");}
@@ -475,7 +477,11 @@ function scrollTo(selector) {
     $('html, body').animate({
         scrollTop: $(selector).offset().top
     }, 'slow');
-}    
+}
+
+String.prototype.capitalize = function(){
+    return this.replace( /(^|\s)([a-z])/g , function(m,p1,p2){ return p1+p2.toUpperCase(); } );
+};
 
 $(document).ready(function(){   
     if ( $('select#dealership').length )initDealershipChange();else initMakeCodeChange();
