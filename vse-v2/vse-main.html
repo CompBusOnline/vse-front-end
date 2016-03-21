@@ -91,8 +91,8 @@
                 {% endif -%}
                 
                 {%comment-%} STATUS {%endcomment-%}
-                {% assign xstatus = {{x.Status | downcase}} -%}
-                {% assign ystatus = {{status|downcase}} -%}
+                {% assign xstatus = {{x.Status | round}} -%}
+                {% assign ystatus = {{status|round}} -%}
                 {% if cx == 1 -%} 
                     {% if ystatus != "n/a" -%}
                         {% if xstatus == ystatus -%} 

@@ -2,7 +2,7 @@
 <html>
     
     <head>
-        <title>{{this.globals.get.category | capitalize}} Vehicles | {{this.globals.site.name}}</title>   
+        <title>{{this.globals.get.category | capitalize| replace: ",", ", "}} Vehicles | {{this.globals.site.name}}</title>   
         <meta name="description" content="{{this.globals.site.name}} Vehicles" />
         <meta name="keywords" content="{{this.globals.get.category | capitalize}} Vehicles" />
         <link rel="stylesheet" property="stylesheet" type="text/css" href="/StyleSheets/sweetalert.css" />
