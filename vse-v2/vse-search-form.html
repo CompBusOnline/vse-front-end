@@ -145,14 +145,14 @@
         is_nottablet = "{{globals.visitor.deviceClass}}" == "desktop" ? true : false;
     
      var global_vehicles = {
-         "items": [{% for x in vehicles.items -%}{% if x.Status == '1' -%}  {
+         "items": [{% for x in vehicles.items -%}{% if x.Status|round == '1' -%}  {
                    "stocknumber": "{{x.StockNumber|downcase}}",
                    "vehiclename": "{{x.VehicleName|downcase}}",
                    "makecode": "{{x.MakeCode|downcase}}",
                    "model": "{{x.Model|downcase}}",
                    "colour": "{{x.Colour|downcase}}",
                    "price": "{{x.Price}}",
-                   "year": "{{x.Year}}",
+                   "year": "{{x.Year|round}}",
                    "body": "{{x.Body|downcase}}",
                    "transmission": "{{x.Transmission|downcase}}",
                    "fuel": "{{x.FuelType|downcase}}",
