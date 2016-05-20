@@ -1,20 +1,38 @@
 function initMakeCodeChange() {
+	// filter all search options values depending on selected make code
     $('#makecode').change(function() {
-        filterCriteriaByMake(global_vehicles, $(this).val().toLowerCase());
+        var val = ($(this).val() != null) ? $(this).val().toLowerCase() : '';
+        filterCriteriaByMake(global_vehicles, val);
        	if (is_nottablet){$(".chosenselect").trigger("chosen:updated");}
     });
 }
+
 function initDealershipChange() {
+	// filter all search options values depending on selected dealership. this is supposed to be for ahgsale.
     $('#dealership').change(function() {
         filterCriteriaByDealership(global_vehicles, $(this).val());
         if (is_nottablet){$(".chosenselect").trigger("chosen:updated");}
     });
 }
+function initCategoryChange() {
+	// filter all search options values depending on selected category
+    $('input[name="category[]"]').change(function() {        
+        var checkedCat = $('input[name="category[]"]:checked').map(function() {
+            return this.value.toLowerCase();
+        }).get();
+        
+        filterCriteriaByCategory(global_vehicles, checkedCat);
+        if (is_nottablet){$(".chosenselect").trigger("chosen:updated");}
+    });
+}
 $('#reset').click(function() {
-    location.replace(location.pathname);
+	// this will reload the page with category param only
+    var param = (gcat != null && gcat != '') ? '?category='+gcat : '';
+    location.replace(location.pathname + param);
 });
 
 $('.vse-show-more').on('click', function(e) {
+	// hide and show search fields
     var txt = $(this).text();
     if (txt == 'Advanced Search') {
         $('.vse-advanced-search').slideDown('slow');
@@ -31,6 +49,7 @@ $('.vse-show-more').on('click', function(e) {
 });
 
 $('input[type="checkbox"][name="category[]"]').on('change', function() {
+	// this is to NOT allow the user to untick all categories.
     var getArrVal = $('input[type="checkbox"][name="category[]"]:checked').map(function() {
         return this.value;
     }).toArray();
@@ -42,6 +61,7 @@ $('input[type="checkbox"][name="category[]"]').on('change', function() {
 });
 
 function initPrices() {
+	// this is to populate the larger values than the selected min value to the max field.
 	var price = new Array();
 	     
 	$('select[name="FromPrice"] option').each(function() {
@@ -73,6 +93,7 @@ function initPrices() {
 }
  
 function initSearchButton(page_url) {
+	// adding the search queries to the URL address
 	$("#vse-search-btn").on("click", function(e) {
 	    e.preventDefault();
         var category = [];
@@ -111,7 +132,7 @@ function initSearchButton(page_url) {
 	});
 }
 
-function initSortData() {    
+function initSortData() {
     $('select[name="sortingdata"]').on('change', function(){
         var sel = $(this).find('option:selected').val();
         $('input[name="sortingdata"]').val(sel);
@@ -119,10 +140,15 @@ function initSortData() {
 }
 
 function getAvailableMakes(json,model_elem,sel) {	
+	// get available make codes depending on the selected category
 	var result = "<option value=\"\" " + sel + ">Select all</option>";
-	var a = [];
+	var a = [], arr_cat = gcat.split(",");
 	for(b=0;b<json.items.length-1;b++) {
-		a.push(json.items[b].makecode);
+        if ($.inArray(json.items[b].category.toString(), arr_cat) != -1){
+            a.push(json.items[b].makecode);
+        }else if (gcat == gallcat || gcat == ''){
+            a.push(json.items[b].makecode);
+        }
 	}
 	var c = $.distinct(a);
 	c.sort();
@@ -132,11 +158,16 @@ function getAvailableMakes(json,model_elem,sel) {
 	$(model_elem).html(result);
 }
 
-function getAvailableModels(json,model_elem,sel) {
+function getAvailableModels(json,model_elem,sel) {    
+	// get available models depending on the selected category
 	var result="<option value=\"\" " + sel + ">Select all</option>";
-	var a=[];
-    for(b=0;b<json.items.length;b++) {
-        a.push(json.items[b].model);
+	var a=[], arr_cat = gcat.split(",");
+    for(b=0;b<json.items.length;b++) {        
+        if ($.inArray(json.items[b].category.toString(), arr_cat) != -1){
+            a.push(json.items[b].model);
+        }else if (gcat == gallcat || gcat == ''){
+            a.push(json.items[b].model);
+        }
 	}
 	var c = $.distinct(a);
 	c.sort();
@@ -147,6 +178,7 @@ function getAvailableModels(json,model_elem,sel) {
 }
  
 function getModelsByMake(json,makecode,model_elem) {
+	// get available models depending on the selected make
 	if($.trim(makecode) != "") {
 		var result="<option value=\"\" " + sel + ">Select all</option>";
 		var a=[];
@@ -223,10 +255,15 @@ function getAvailableBodies(json,model_elem,sel) {
 }
 
 function getAvailableStockNumbers(json,model_elem,sel) {
+	// get available stock numbers depending on the selected category
 	var result="<option value=\"\" " + sel + ">Select all</option>";
-	var a=[];
+	var a=[], arr_cat = gcat.split(",");
 	for(b=0;b<json.items.length;b++) {
-		a.push(json.items[b].stocknumber);
+        if ($.inArray(json.items[b].category.toString(), arr_cat) != -1){
+            a.push(json.items[b].stocknumber);
+        }else if (gcat == gallcat || gcat == ''){
+            a.push(json.items[b].stocknumber);
+        }
 	}
 	var c = $.distinct(a);
 	c.sort();
@@ -279,18 +316,26 @@ function filterCriteriaByDealership(json,dealership) {
 
 function filterCriteriaByMake(json,make) {	
 	if($.trim(make) != "") {
+        var checkedCat = $('input[name="category[]"]:checked').map(function() {
+            return this.value.toLowerCase();
+        }).get();
+        
 		//console.log("filter makecode: " + make);
 		var model_result="<option value=\"\" " + sel + ">Select all</option>",colour_result="<option value=\"\" " + sel + ">Select all</option>",
 			year_result= "<option value=\"\" " + sel + ">Select all</option>",transmission_result="<option value=\"\" " + sel + ">Select all</option>",
 			fuel_result="<option value=\"\" " + sel + ">Select all</option>",body_result="<option value=\"\" " + sel + ">Select all</option>",
 			stocknum_result="<option value=\"\" " + sel + ">Select all</option>",
 			model=[],colour = [],year = [],transmission = [],fuel = [],body = [],stocknum = [];
-		
+        
+        var arr_selected = (checkedCat != '') ? checkedCat.toString().split(",") : gcat.toString().split(",");
+        
         for(a=0;a<json.items.length;a++) {
-            if(json.items[a].makecode == make) {
-                model.push(json.items[a].model),colour.push(json.items[a].colour),year.push(json.items[a].year),
-                transmission.push(json.items[a].transmission),fuel.push(json.items[a].fuel),body.push(json.items[a].body),
-                stocknum.push(json.items[a].stocknumber);
+            if(json.items[a].makecode == make ) {
+                if ($.inArray(json.items[a].category.toString(), arr_selected) != -1){                    
+                    model.push(json.items[a].model),colour.push(json.items[a].colour),year.push(json.items[a].year),
+                    transmission.push(json.items[a].transmission),fuel.push(json.items[a].fuel),body.push(json.items[a].body),
+                    stocknum.push(json.items[a].stocknumber);                
+                }
             }
 		}
 		var model_final = $.distinct(model),colour_final = $.distinct(colour),year_final = $.distinct(year),transmission_final = $.distinct(transmission),
@@ -313,6 +358,48 @@ function filterCriteriaByMake(json,make) {
 		getAvailableColours(global_vehicles,"#Colour"),getAvailableTransmission(global_vehicles,"#Transmission"),
 		getAvailableFuels(global_vehicles,"#fuel"),getAvailableBodies(global_vehicles,"#body"),getAvailableStockNumbers(global_vehicles,"#stocknumber"),
 		getYears(global_vehicles,"#Year");
+	} 
+}
+
+function filterCriteriaByCategory(json,cat){
+    if($.trim(cat) != "") {
+        //console.log('filter cat: ' +cat.toString().split(","));
+        
+        var make_result="<option value=\"\" " + sel + ">Select all</option>",model_result="<option value=\"\" " + sel + ">Select all</option>",
+            colour_result="<option value=\"\" " + sel + ">Select all</option>",year_result= "<option value=\"\" " + sel + ">Select all</option>",
+			transmission_result="<option value=\"\" " + sel + ">Select all</option>",fuel_result="<option value=\"\" " + sel + ">Select all</option>",
+			body_result="<option value=\"\" " + sel + ">Select all</option>",stocknum_result="<option value=\"\" " + sel + ">Select all</option>",
+			make=[],model=[],colour = [],year = [],transmission = [],fuel = [],body = [],stocknum = [],arr_selected = cat.toString().split(",");
+		               
+        for(a=0;a<json.items.length;a++) {
+            if ($.inArray(json.items[a].category.toString(), arr_selected) != -1){
+                make.push(json.items[a].makecode),model.push(json.items[a].model),colour.push(json.items[a].colour);
+                year.push(json.items[a].year),transmission.push(json.items[a].transmission),fuel.push(json.items[a].fuel);
+                body.push(json.items[a].body),stocknum.push(json.items[a].stocknumber);
+            }
+		}
+		var make_final = $.distinct(make),model_final = $.distinct(model),colour_final = $.distinct(colour),year_final = $.distinct(year),
+			transmission_final = $.distinct(transmission),fuel_final = $.distinct(fuel),body_final = $.distinct(body),stocknum_final = $.distinct(stocknum);
+		
+		make_final.sort(),model_final.sort(),colour_final.sort(),year_final.sort(),transmission_final.sort(),fuel_final.sort(),body_final.sort(),stocknum_final.sort();
+        
+		for(b=0;b<make_final.length;b++)make_result+="<option value=\"" + make_final[b] + "\">" + make_final[b] + "</option>";
+        for(b=0;b<model_final.length;b++)model_result+="<option value=\"" + model_final[b] + "\">" + model_final[b] + "</option>";
+        for(b=0;b<colour_final.length;b++)colour_result+="<option value=\"" + colour_final[b] + "\">" + colour_final[b] + "</option>";
+		for(b=0;b<year_final.length;b++)year_result+="<option value=\"" + year_final[b] + "\">" + year_final[b] + "</option>";
+		for(b=0;b<transmission_final.length;b++)transmission_result+="<option value=\"" + transmission_final[b] + "\">" + transmission_final[b] + "</option>";
+		for(b=0;b<fuel_final.length;b++)fuel_result+="<option value=\"" + fuel_final[b] + "\">" + fuel_final[b] + "</option>";
+		for(b=0;b<body_final.length;b++)body_result+="<option value=\"" + body_final[b] + "\">" + body_final[b] + "</option>";
+		for(b=0;b<stocknum_final.length;b++)stocknum_result+="<option value=\"" + stocknum_final[b] + "\">" + stocknum_final[b] + "</option>";
+		
+		$("#makecode").html(make_result),$("#Model").html(model_result),$("#Colour").html(colour_result),$("#Transmission").html(transmission_result),
+		$("#fuel").html(fuel_result),$("#stocknumber").html(stocknum_result),$("#body").html(body_result),$("#Year").html(year_result);
+        
+	} else {
+		getAvailableMakes(global_vehicles,"#makecode"),getAvailableModels(global_vehicles,"#Model"),
+		getAvailableColours(global_vehicles,"#Colour"),getAvailableTransmission(global_vehicles,"#Transmission"),
+		getAvailableFuels(global_vehicles,"#fuel"),getAvailableBodies(global_vehicles,"#body"),
+		getAvailableStockNumbers(global_vehicles,"#stocknumber"),getYears(global_vehicles,"#Year");
 	} 
 }
 
@@ -463,6 +550,7 @@ function isAdvanceSearch() {
 	return ans;
 }
 
+// this function is to get the distinct or same values
 $.extend({
     distinct : function(anArray) {
        var result = [];
@@ -496,6 +584,7 @@ $(document).ready(function(){
     initPrices();
     initSearchButton(global_thispage+"?");
     initSortData();
+    initCategoryChange()
     
     if (is_nottablet) {
         $(".chosenselect").chosen({
