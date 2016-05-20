@@ -1,15 +1,10 @@
-{% if globals.visitor.deviceClass == "tablet" -%}{% assign thumbnail = "?Action=thumbnail&Width=650" -%}
-{% elsif globals.visitor.deviceClass == "phone" -%}{% assign thumbnail = "?Action=thumbnail&Width=320" -%}
-{% elsif globals.visitor.deviceClass == "desktop" -%}{% assign thumbnail = "?Action=thumbnail&Width=435&Height=294&algorithm=fill_proportional" -%}
-{% else -%}{% assign thumbnail = "" -%}{% endif -%}
+{% include "/_System/Includes/vse-v2/others/globals.tpl" -%}
 {module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
-{module_webappscount id="{{webapp_id}}" collection="counter" template=""}{% assign total_items = {{this.counter.count}} %}
-{% if total_items > 500 %}{%assign parent_url = '/vehicles/'%}{%else%}{%assign parent_url = ''%}{%endif%}
 {% assign DataPrice = 0 -%}{% if x.DriveAwayPrice != 0 -%}{% assign DataPrice = x.DriveAwayPrice|round -%}{% else -%}{% assign DataPrice = x.Price|round -%}{% endif -%}
 <div class="columns vse-item grid" id="vehicle_{{x.StockNumber}}" data-dealership="{{x.DealerCode}}" data-stocknumber="{{x.StockNumber}}" data-name="{{x.VehicleName|downcase}}" data-category="{{x.Category|downcase}}" data-status="{{x.Status|round}}" data-makecode="{{x.MakeCode|downcase}}" data-model="{{x.Model|downcase}}" data-colour="{{x.Colour|downcase}}" data-transmission="{{x.Transmission|downcase}}" data-fueltype="{{x.FuelType|downcase}}" data-body="{{x.Body|downcase}}" data-price="{{DataPrice}}" data-year="{{x.Year|round}}" data-pricesort="{% if {{DataPrice}} != 0%}{{DataPrice}}{%else%}9999999{%endif%}">
     <div class="vse-full-border row">  
         <div class="large-6 column no-padding vse-image-container">
-            <a href="{{parent_url}}{{x.Url}}"><img alt="{{x.Year}} {{x.VehicleName}}" title="{{x.Year|round}} {{x.VehicleName}}" data-original="/files/photos/{{x.StockNumber}}-1.jpg{{thumbnail}}&time={{globals.site.dateNow | date:'ffff'}}" class="lazy vse-image" src="/_System/Includes/vse-v2/images/vse-placeholder.jpg{{thumbnail}}" /></a>
+            <a href="{{details_url}}{{x.Url}}"><img alt="{{x.Year}} {{x.VehicleName}}" title="{{x.Year|round}} {{x.VehicleName}}" data-original="{{photo_dir}}{{x.StockNumber}}-1.jpg{{thumbnail}}&time={{globals.site.dateNow | date:'ffff'}}" class="lazy vse-image" src="/_System/Includes/vse-v2/images/vse-placeholder.jpg{{thumbnail}}" /></a>
         </div>        
         <div class="large-6 column vse-main-details no-padding-right">
             <div class="small-12 columns no-padding vse-details1-container text-right">
@@ -43,7 +38,7 @@
             </div>
             <div class="clearfix"></div><hr class="vse-list-divider"/>               
             <div class="medium-12 vse-button-container text-center no-padding">
-                <a class="vse-button1" href="{{parent_url}}{{x.Url}}">See Vehicle Details <b><span class="fa fa-angle-right bold" style="color:inherit"></span></b></a>
+                <a class="vse-button1" href="{{details_url}}{{x.Url}}">See Vehicle Details <b><span class="fa fa-angle-right bold" style="color:inherit"></span></b></a>
             </div>
         </div>
         <div class="clearfix"></div>               

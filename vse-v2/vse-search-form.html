@@ -135,17 +135,14 @@
 <script type="text/javascript" src="/_System/Includes/vse-v2/js/search_form.js"></script>
 <script type="text/javascript" src="/_System/Includes/vse-v2/js/chosen.jquery.min.js"></script>
 <script type="text/javascript">
-    {module_webappscount id="{{webapp_id}}" collection="counter" template=""}
-    {% assign total_items = {{this.counter.count}} %}
-    {% if total_items > 500 %}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}
-    {%else%}{module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}{%endif%}
+    {module_json, json="/vehicles/data/vehicles.json" template="" collection="vehicles"}
     {% assign thispage = this.globals.get.ID -%}
     var global_thispage = "{{this.globals.get.ID}}",
         global_loc = '',
         is_nottablet = "{{globals.visitor.deviceClass}}" == "desktop" ? true : false;
     
      var global_vehicles = {
-         "items": [{% for x in vehicles.items -%}{% if x.Status|round == '1' -%}  {
+         "items": [{% for x in vehicles.items -%}{% assign stat = x.Status|round -%}{% if stat == 1 -%}  {
                    "stocknumber": "{{x.StockNumber|downcase}}",
                    "vehiclename": "{{x.VehicleName|downcase}}",
                    "makecode": "{{x.MakeCode|downcase}}",

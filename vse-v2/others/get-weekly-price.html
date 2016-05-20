@@ -1,8 +1,7 @@
 {module_json,json="/_System/apps/cbo-vehicle-search-engine/_config/vse.json" collection="settings"}
-{% if {{settings.enable_weeklypayment}} == 'true'-%}
 <script type="text/javascript">
     //get weekly price
-        {% if this.globals.get.id == '/vehicles.html'%}
+        {% if this.globals.get.id == '/vehicles.html' or this.globals.get.id == '/app/vehicles.htm' %}
             function calculatePayment() {     
                 return function(endOfTaskCallback) {
                 $('#vehicles .vse-item').each(function(){
@@ -53,4 +52,3 @@
         }
         $.fn.digits(); 
 </script>
-{% endif %}

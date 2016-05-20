@@ -1,8 +1,6 @@
-{module_webappscount id="{{webapp_id}}" collection="counter" template=""}
-{% assign total_items = {{this.counter.count}} %}
-{% if total_items > 500 %}{module_json, json="/json/vehicles.json" template="" collection="vehicles"}
-{%else%}{module_webapps id="{{webapp_id}}" filter="all" template="" collection="vehicles"}{%endif%}
+{module_json, json="/vehicles/data/vehicles.json" template="" collection="vehicles"}
         {% assign status = "1" -%}
+        {% assign g_allcat = 'demo,used,commercial' %}
         {% if globals.get.category == "demo,used" or globals.get.category == null or globals.get.category == "" -%}{% assign category = ""  -%}
         {% else %}{% assign category = {{globals.get.category | convert: "string" | json}}  -%}{% endif -%}
         
@@ -64,7 +62,7 @@
                 gmod = "{{globals.get.model}}",gcol = "{{globals.get.colour}}",gtrans = "{{globals.get.transmission}}",
                 gfue = "{{globals.get.fueltype}}",gbod = "{{globals.get.body}}",gfpri = {{numfromprice}},
                 gtpri = {{numtoprice}},gyr = "{{globals.get.year}}",gsort = "{{globals.get.sortby}}",gdea = "{{globals.get.dealership}}",
-                gdeaID = "{{globals.get.dealershipID}}";
+                gdeaID = "{{globals.get.dealershipID}}", gallcat = "{{g_allcat}}";
             
             var iscat = $.trim(gcat)==""?false:true,ismke = $.trim(gmke)==""?false:true,ismod = $.trim(gmod)==""?false:true,
                 iscol = $.trim(gcol) ==""?false:true,istra = $.trim(gtrans)==""?false:true,isfu = $.trim(gfue)==""?false:true,
@@ -192,8 +190,7 @@
             $('#vehicles').fadeIn("slow");
         }).doTasks();
         //custom scripts
-        setEqualHeight('vse-details1-container');
-        setEqualHeight('vse-details2-container');
+        setEqualHeight('details1');
     }
     
     window.addEventListener("orientationchange", function() {
@@ -218,7 +215,7 @@
             endOfTaskCallback();
         }
     }
-
+    
     function initLazyLoadNoFallback() {
         $(".vse-image").lazyload({
             effect: "fadeIn",
@@ -292,8 +289,8 @@
                             $(container).parent().append(container);
                         });
                         break;
-                }       
-                initLazyLoadNoFallback();                       
+                }              
+                initLazyLoadNoFallback();                
                 {% if {{settings.enable_pagination}} == 'true' %}
                 var cnt = $('.vse-item').length;
                 var newPerpage = $('select[name=vehicles_per_page]').val() == '-1' ? cnt : $('select[name=vehicles_per_page]').val();  
@@ -381,7 +378,7 @@
                 tasks[i](singleTaskCallback);
             }
         }
-    }    
+    }  
     
     function backtoTop(){
         // browser window scroll (in pixels) after which the "back to top" link is shown
@@ -407,7 +404,7 @@
                 scrollTop: 0 ,
             }, scroll_top_duration);
         });
-    }    
+    } 
     
     //*** Custom Scripts ***//
     {% if {{settings.enable_view_list_grid}} == 'true' %}
